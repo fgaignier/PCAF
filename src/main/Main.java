@@ -27,7 +27,7 @@ public class Main {
 		
 		HardestRootCompletionGenerator hrcg = new HardestRootCompletionGenerator(caf);
 		WeightedArgumentFramework waf = hrcg.getHardestRootCompletionWRT(tp);
-		System.out.println("printout of the hardest af to control");
+		System.out.println("printout of the hardest af to control wrt " + tp.getName());
 		System.out.println(waf.toString());
 		
 		CSP_ControlConfiguration_Solver csp = new CSP_ControlConfiguration_Solver(caf, waf);

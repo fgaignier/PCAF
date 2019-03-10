@@ -175,19 +175,24 @@ public class ArgumentFramework {
 	 * returns all the attacks from the Argument Framework
 	 */
 	public Set<Attack> getAllAttacks() {
+		System.out.println("af.getAllAttacks");
 		Set<Attack> attacks = new HashSet<Attack>();
 		Set<Argument> arguments = this.getAllArguments();
 		Iterator<Argument> iter = arguments.iterator();
 		while(iter.hasNext()) {
 			Argument current = iter.next();
+			System.out.println("argument studied = " + current.getName());
 			Set<Argument> neighbours = this.getAttackedArguments(current);
 			Iterator<Argument> neighboursIter = neighbours.iterator();
 			while(neighboursIter.hasNext()) {
 				Argument other = neighboursIter.next();
+				System.out.println("is attacking = " + other.getName());
 				Attack att = new Attack(current, other);
 				attacks.add(att);
+				System.out.println("adding attack " + att.toString());
 			}
 		}
+		System.out.println("returning " + attacks.size() + " attacks");
 		return attacks;
 	}
 	
