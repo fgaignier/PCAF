@@ -43,11 +43,11 @@ public class WeightedArgumentFramework extends ArgumentFramework {
 		WeightedArgumentFramework result = new WeightedArgumentFramework();
 		Set<Argument> args = this.getAllArguments();
 		Iterator<Argument> iter = args.iterator();
-		System.out.println("begin cloning");
+		//System.out.println("begin cloning");
 		while(iter.hasNext()) {
 			Argument current = iter.next();
 			Double weight = this.getWeight(current);
-			System.out.println("adding argument " + current.getName() + " with weight " + weight.toString());
+		//	System.out.println("adding argument " + current.getName() + " with weight " + weight.toString());
 			result.addArgument(current, weight);
 		}
 		result.addAllAttacks(super.getAllAttacks());

@@ -22,6 +22,19 @@ public class Main {
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
+		
+		
+		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
+		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
+		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
+		
+		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		printSolutions(credulous);
+		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		printSolutions(skeptical);
+		
+		
+		/*
 		Set<CArgument> toProtect = caf.getArgumentsToProtect();
 		CArgument tp = toProtect.iterator().next();
 		
@@ -41,6 +54,7 @@ public class Main {
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		skeptical = csp.getSkepticalControlConfigurations();
 		printSolutions(skeptical);
+		*/
 		
 		System.out.println("Duration = " + (System.currentTimeMillis() - startTime) + "ms");
 		

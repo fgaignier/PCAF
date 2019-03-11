@@ -41,24 +41,17 @@ public class HardestRootCompletionGenerator {
 	 */
 	public WeightedArgumentFramework getHardestRootCompletionWRT(Argument target) {
 		WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getRandomMaxRootCompletion());
-		System.out.println("will print max root completion");
-		System.out.println(waf.toString());
 		// test the change of direction of undirected attacks
 		waf = this.setUndirectedAttacks(waf, target);
-		System.out.println("will print max root completion with directed attacks");
-		System.out.println(waf.toString());
 		// test the removal of uncertain attacks
 		waf = this.setUncertainAttacks(waf, target);
-		System.out.println("will print max root completion with uncertain attacks");
-		System.out.println(waf.toString());
 		// test the removal of uncertain arguments (if not linked to uncertain attacks)
 		Set<Argument> freeU = getFreeUncertainArguments(waf);
-		System.out.println("will print max root completion before fixing uncertain args");
-		System.out.println(waf.toString());
+		/*
 		Iterator<Argument> iter = freeU.iterator();
 		while(iter.hasNext()) {
 			System.out.println(iter.next().getName());
-		}
+		} */
 		waf = this.setUncertainArguments(waf, target, freeU);
 		return waf;
 	}
@@ -134,20 +127,11 @@ public class HardestRootCompletionGenerator {
 	private WeightedArgumentFramework setUncertainArguments(WeightedArgumentFramework waf, Argument target, Set<Argument> freeU) {
 		Iterator<Argument> iter = freeU.iterator();
 		WeightedArgumentFramework clone = null;
-		System.out.println("bordel de merde");
-		System.out.println(waf.toString());
 		while(iter.hasNext()) {
 			Argument current = iter.next();
-			System.out.println("argument to be studied " + current.getName());
 			Map<Argument, Double> strength = waf.h_categorizer();
 			double impact = 0;
-			System.out.println("will print waf before cloning");
-			System.out.println(waf.toString());
 			clone = waf.clone();
-			System.out.println("will print waf after cloning");
-			System.out.println(waf.toString());
-			System.out.println("will print clone before removing argument");
-			System.out.println(clone.toString());
 			clone.removeArgument(current);
 			impact = this.evaluateMinimalChangeImpactWRT(target, strength, clone);
 			if(impact <0) {

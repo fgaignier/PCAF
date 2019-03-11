@@ -20,12 +20,12 @@ import org.chocosolver.solver.constraints.*;
 /*
  * Class to find a control configuration via a solver
  */
-public class CSP_ControlConfiguration_Solver {
+public class CSP_Completion_Solver {
 
 	protected ControlAF CAF;
 	protected ArgumentFramework completion;
 	
-	public CSP_ControlConfiguration_Solver(ControlAF CAF, ArgumentFramework completion) {
+	public CSP_Completion_Solver(ControlAF CAF, ArgumentFramework completion) {
 		this.CAF = CAF;
 		this.completion = completion;
 	}
