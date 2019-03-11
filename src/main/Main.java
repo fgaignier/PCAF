@@ -4,6 +4,7 @@ import parser.*;
 import model.*;
 import solvers.*;
 import generators.*;
+import util.Timer;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -14,16 +15,14 @@ import java.util.Map;
 public class Main {
 	
 	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
+		//long startTime = System.currentTimeMillis();
 		if (args.length == 0) {
 			printHelp();
 			System.exit(1);
 		}
+		
+		Timer timer = new Timer();
 		/*
-		System.out.println(args[0]);
-		CAFParser parser = new CAFParser(args[0]);
-		ControlAF caf = parser.parse();
-		*/
 		System.out.println(args[1]);
 		AFParser af_parser = new AFParser(args[1]);
 		
@@ -32,16 +31,23 @@ public class Main {
 		CSP_AF_Solver af_solver = new CSP_AF_Solver(af);
 		Set<StableSet> stables = af_solver.getStableSets();
 		printStableSets(stables);
-		/*
+		*/
+		
+		System.out.println(args[0]);
+		CAFParser parser = new CAFParser(args[0]);
+		ControlAF caf = parser.parse();
+		
+		timer.start();
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
 		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
+		System.out.println("Duration = " + timer.stop() + "ms");
 		
 		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 		printSolutions(credulous);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
-		*/
+		
 		
 		/*
 		Set<CArgument> toProtect = caf.getArgumentsToProtect();
@@ -65,7 +71,7 @@ public class Main {
 		printSolutions(skeptical);
 		*/
 		
-		System.out.println("Duration = " + (System.currentTimeMillis() - startTime) + "ms");
+		//System.out.println("Duration = " + (System.currentTimeMillis() - startTime) + "ms");
 		
 		/*
 		RandomRootCompletionGenerator compGen = new RandomRootCompletionGenerator(caf);

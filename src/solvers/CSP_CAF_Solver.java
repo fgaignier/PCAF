@@ -25,8 +25,8 @@ public class CSP_CAF_Solver {
 		while(iter.hasNext()) {
 			CArgument target = iter.next();
 			WeightedArgumentFramework waf = hrcg.getHardestRootCompletionWRT(target);
-			//System.out.println("printout of the hardest af to control wrt " + target.getName());
-			//System.out.println(waf.toString());
+			System.out.println("printout of the hardest af to control wrt " + target.getName());
+			System.out.println(waf.toString());
 		
 			CSP_Completion_Solver csp = new CSP_Completion_Solver(CAF, waf);
 			if(credulous == null) {
