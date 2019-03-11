@@ -73,7 +73,9 @@ public class StableControlConfiguration {
 		Iterator<CArgument> iter = accepted.iterator();
 		while(iter.hasNext()) {
 			CArgument current = iter.next();
-			result = result + "accepted argument " + current.getName();
+			if(current.getType() == CArgument.Type.FIXED || current.getType() == CArgument.Type.CONTROL) {
+				result = result + "accepted argument " + current.getName();
+			}
 			if(current.getType() == CArgument.Type.CONTROL) {
 				result = result + " control argument on";
 			}
