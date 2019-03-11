@@ -147,6 +147,18 @@ public class ArgumentFramework {
 		return this.getAllArguments().size();
 	}
 	
+	public Argument getArgumentByName(String name) {
+		Set<Argument> args = this.getAllArguments();
+		Iterator<Argument> iter = args.iterator();
+		while(iter.hasNext()) {
+			Argument current = iter.next();
+			if(current.getName().equals(name)) {
+				return current;
+			}
+		}
+		return null;
+	}
+	
 	/*
 	 * Sorting the arguments according to the number of attackers or arguments attacked
 	 * In order to deal with arguments with the same value, adding a reminder

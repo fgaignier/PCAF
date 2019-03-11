@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Collection;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
@@ -74,7 +73,7 @@ public class CSP_Completion_Solver {
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
 		
 		// 1. Create the CSP Model
-		Model model = new Model("Stable Solver");
+		Model model = new Model("Credulous CAF Solver");
 		
         // 2. Create variables
 		// one for each argument in the completion (root completion)
@@ -236,7 +235,7 @@ public class CSP_Completion_Solver {
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
 		
 		// 1. Create the CSP Model
-		Model model = new Model("Skeptical Solver");
+		Model model = new Model("Skeptical CAF Solver");
 		
         // 2. Create variables
 		// one for each argument in the completion (root completion)
@@ -440,30 +439,5 @@ public class CSP_Completion_Solver {
 		
 		return scc;
 	}
-	
-	/*
-	 * deprecated. StableControlConfiguration.toString() to be used instead
-	 */
-	protected void printSolution(Map<String, IntVar> accVar, Map<String, IntVar> onVar, int i) {
-		Collection<IntVar> stable = accVar.values();
-		Iterator<IntVar> iterS = stable.iterator();
-		System.out.println("----- solution: " + i + " has been found--------");
-		while(iterS.hasNext()) {
-			IntVar current = iterS.next();
-			if(current.getValue() == 1) {
-				System.out.println("accepted " + current.getName() + "=1");
-			}
-		}
-		Collection<IntVar> cont = onVar.values();
-		Iterator<IntVar> iterCont = cont.iterator();
-		while(iterCont.hasNext()) {
-			IntVar current = iterCont.next();
-			if(current.getValue() == 1) {
-				System.out.println("on control " + current.getName() + "=1");
-			}
-		}
-		System.out.println("----- end solution --------");
-	}
-
 	
 }

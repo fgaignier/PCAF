@@ -1,6 +1,6 @@
 package main;
 
-import parser.CAFParser;
+import parser.*;
 import model.*;
 import solvers.*;
 import generators.*;
@@ -19,11 +19,20 @@ public class Main {
 			printHelp();
 			System.exit(1);
 		}
+		/*
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
+		*/
+		System.out.println(args[1]);
+		AFParser af_parser = new AFParser(args[1]);
 		
-		
+		ArgumentFramework af = af_parser.parse();
+		System.out.println(af.toString());
+		CSP_AF_Solver af_solver = new CSP_AF_Solver(af);
+		Set<StableSet> stables = af_solver.getStableSets();
+		printStableSets(stables);
+		/*
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
 		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
@@ -32,7 +41,7 @@ public class Main {
 		printSolutions(credulous);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
-		
+		*/
 		
 		/*
 		Set<CArgument> toProtect = caf.getArgumentsToProtect();
@@ -122,6 +131,16 @@ public class Main {
 	public static void printSolutions(Set<StableControlConfiguration> solutions) {
 		int i = 1;
 		Iterator<StableControlConfiguration> iter = solutions.iterator();
+		while(iter.hasNext()) {
+			System.out.println("--------- printing solution " + i + "-----------");
+			System.out.println(iter.next().toString());
+			i++;
+		}
+	}
+	
+	public static void printStableSets(Set<StableSet> solutions) {
+		int i = 1;
+		Iterator<StableSet> iter = solutions.iterator();
 		while(iter.hasNext()) {
 			System.out.println("--------- printing solution " + i + "-----------");
 			System.out.println(iter.next().toString());
