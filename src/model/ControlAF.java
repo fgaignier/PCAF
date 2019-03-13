@@ -246,7 +246,7 @@ public class ControlAF {
 		}
 		while(iterCA.hasNext()) {
 			currentA = iterCA.next();
-			result = result + "c_att(" + currentA.getFrom().getName() + "," + currentA.getTo().getName() + ").";
+			result = result + "att(" + currentA.getFrom().getName() + "," + currentA.getTo().getName() + ").";
 			result = String.format(result + "%n");
 		}
 		

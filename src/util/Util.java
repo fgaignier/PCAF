@@ -3,6 +3,8 @@ package util;
 import solvers.StableControlConfiguration;
 
 import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -26,5 +28,11 @@ public class Util {
 			}
 		}
 		return result;
+	}
+	
+	public static void saveToFile(String content, String file) throws FileNotFoundException {
+		PrintWriter out = new PrintWriter(file);
+		out.println(content);
+		out.close();
 	}
 }

@@ -4,7 +4,7 @@ import parser.*;
 import model.*;
 import solvers.*;
 import generators.*;
-import util.Timer;
+import util.*;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -34,6 +34,11 @@ public class Main {
 		CAFGenerator gen = new CAFGenerator(af, 33, 33,33,33);
 		ControlAF caf = gen.generate();
 		System.out.println(caf.toString());
+		try {
+			Util.saveToFile(caf.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\testCAFGEN.caf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		/*
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
