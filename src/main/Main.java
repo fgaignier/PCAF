@@ -22,7 +22,7 @@ public class Main {
 		}
 		
 		Timer timer = new Timer();
-		/*
+		
 		System.out.println(args[1]);
 		AFParser af_parser = new AFParser(args[1]);
 		
@@ -31,12 +31,14 @@ public class Main {
 		CSP_AF_Solver af_solver = new CSP_AF_Solver(af);
 		Set<StableSet> stables = af_solver.getStableSets();
 		printStableSets(stables);
-		*/
-		
+		CAFGenerator gen = new CAFGenerator(af, 33, 33,33,33);
+		ControlAF caf = gen.generate();
+		System.out.println(caf.toString());
+		/*
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
-		
+		//System.out.println(caf.toString());
 		timer.start();
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
@@ -47,7 +49,7 @@ public class Main {
 		printSolutions(credulous);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
-		
+		*/
 		
 		/*
 		Set<CArgument> toProtect = caf.getArgumentsToProtect();

@@ -9,6 +9,7 @@ import model.CArgument;
 import model.CAttack;
 import model.ControlAF;
 import model.UnknownArgumentError;
+import util.RandomGen;
 import util.Util;
 
 public class RandomRootCompletionGenerator {
@@ -19,7 +20,7 @@ public class RandomRootCompletionGenerator {
 	}
 	
 
-	/*
+	/**
 	 * returns an AF containing everything but:
 	 * undirected attacks
 	 * control part
@@ -51,6 +52,7 @@ public class RandomRootCompletionGenerator {
 		Iterator<CAttack> itaf = fixedAtts.iterator();
 		while(itaf.hasNext()) {
 			CAttack attf = itaf.next();
+			//System.out.println("adding attack from " + attf.getFrom().getName() + " to " + attf.getTo().getName());
 			result.addAttack(attf);
 		}
 		// Uncertain Attacks
@@ -66,7 +68,7 @@ public class RandomRootCompletionGenerator {
 		return result;
 	}
 	
-	/*
+	/**
 	 * This method returns a specific completion of the CAF.
 	 * A maximum root completion
 	 * No arguments from the control part
@@ -83,7 +85,7 @@ public class RandomRootCompletionGenerator {
 			CAttack attud = itud.next();
 			CArgument from = (CArgument)attud.getFrom();
 			CArgument to = (CArgument)attud.getTo();
-			if(Util.randomDirectionGenerator() == true) {
+			if(RandomGen.randomBoolean() == true) {
 				result.addAttack(new Attack(from,to));
 			} else {
 				result.addAttack(new Attack(to,from));
@@ -93,7 +95,7 @@ public class RandomRootCompletionGenerator {
 	}
 	
 	
-	/*
+	/**
 	 * This method returns a random completion of the CAF.
 	 * No arguments from the control part
 	 * FIXED and UNCERTAIN arguments are chosen randomly
@@ -115,7 +117,7 @@ public class RandomRootCompletionGenerator {
 		Iterator<CArgument> itu = uncertainArgs.iterator();
 		while(itu.hasNext()) {
 			CArgument a = itu.next();
-			if(Util.randomDirectionGenerator() == true) {
+			if(RandomGen.randomBoolean() == true) {
 				result.addArgument(a);
 			}
 		}
@@ -136,7 +138,7 @@ public class RandomRootCompletionGenerator {
 		Iterator<CAttack> itua = uncertainAtts.iterator();
 		while(itua.hasNext()) {
 			CAttack attu = itua.next();
-			if(Util.randomDirectionGenerator() == true) {
+			if(RandomGen.randomBoolean() == true) {
 				try {
 					result.addAttack(attu);
 				} catch(UnknownArgumentError uae) {
@@ -153,7 +155,7 @@ public class RandomRootCompletionGenerator {
 			CAttack attud = itud.next();
 			CArgument from = (CArgument)attud.getFrom();
 			CArgument to = (CArgument)attud.getTo();
-			if(Util.randomDirectionGenerator() == true) {
+			if(RandomGen.randomBoolean() == true) {
 				try {
 					result.addAttack(new Attack(from,to));
 				} catch(UnknownArgumentError uae) {

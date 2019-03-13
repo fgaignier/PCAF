@@ -13,7 +13,7 @@ att(b,c).
 att(c,d).
 u_att(e,a).
 u_att(f,c).
-c_att(c1,e).
-c_att(c2,f).
-c_att(c3,b).
+att(c1,e).
+att(c2,f).
+att(c3,b).
 target(a).

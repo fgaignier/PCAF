@@ -34,19 +34,19 @@ public class CAFParser {
 			while ((currentLine = br.readLine()) != null) {
 				if (currentLine.startsWith("f_arg")) {
 					String tmp = currentLine.split("\\(")[1];
-					String arg = tmp.split("\\)")[0];
+					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.FIXED);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
 				} else if (currentLine.startsWith("u_arg")) {
 					String tmp = currentLine.split("\\(")[1];
-					String arg = tmp.split("\\)")[0];
+					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.UNCERTAIN);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
 				} else if (currentLine.startsWith("c_arg")) {
 					String tmp = currentLine.split("\\(")[1];
-					String arg = tmp.split("\\)")[0];
+					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.CONTROL);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
@@ -54,18 +54,22 @@ public class CAFParser {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
-					CArgument argFrom = loadedArguments.get(tab[0]);
-					CArgument argTo = loadedArguments.get(tab[1]);
+					CArgument argFrom = loadedArguments.get(tab[0].trim());
+					CArgument argTo = loadedArguments.get(tab[1].trim());
 					if(argFrom == null | argTo == null) {
 						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
 					}
-					instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.CERTAIN));
+					if(argFrom.getType() == CArgument.Type.CONTROL || argTo.getType() == CArgument.Type.CONTROL) {
+						instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.CONTROL));
+					} else {
+						instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.CERTAIN));
+					}
 				} else if (currentLine.startsWith("u_att")) {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
-					CArgument argFrom = loadedArguments.get(tab[0]);
-					CArgument argTo = loadedArguments.get(tab[1]);
+					CArgument argFrom = loadedArguments.get(tab[0].trim());
+					CArgument argTo = loadedArguments.get(tab[1].trim());
 					if(argFrom == null | argTo == null) {
 						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
 					}
@@ -74,26 +78,17 @@ public class CAFParser {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
-					CArgument argFrom = loadedArguments.get(tab[0]);
-					CArgument argTo = loadedArguments.get(tab[1]);
+					CArgument argFrom = loadedArguments.get(tab[0].trim());
+					CArgument argTo = loadedArguments.get(tab[1].trim());
 					if(argFrom == null | argTo == null) {
 						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
 					}
 					instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.UNDIRECTED));
-				} else if (currentLine.startsWith("c_att")) {
-					String tmp = currentLine.split("\\(")[1];
-					String tmp2 = tmp.split("\\)")[0];
-					String[] tab = tmp2.split(",");
-					CArgument argFrom = loadedArguments.get(tab[0]);
-					CArgument argTo = loadedArguments.get(tab[1]);
-					if(argFrom == null | argTo == null) {
-						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
-					}
-					instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.CONTROL));
 				}else if(currentLine.startsWith("target")) {
 					String tmp = currentLine.split("\\(")[1];
-					String arg = tmp.split("\\)")[0];
-					carg = new CArgument(arg, CArgument.Type.FIXED);
+					String arg = tmp.split("\\)")[0].trim();
+					//carg = new CArgument(arg, CArgument.Type.FIXED);
+					carg = loadedArguments.get(arg);
 					instance.addProtectedArgument(carg);
 				}
 			}

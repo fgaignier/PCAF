@@ -5,8 +5,8 @@ c_arg(c1).
 c_arg(c2).
 u_att(a,b).
 u_att(c,b).
-c_att(c1,c2).
-c_att(c2,c1).
-c_att(c1,a).
-c_att(c2,c).
+att(c1,c2).
+att(c2,c1).
+att(c1,a).
+att(c2,c).
 target(b).

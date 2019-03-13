@@ -8,14 +8,6 @@ import java.util.Iterator;
 
 public class Util {
 
-	public static boolean randomDirectionGenerator() {
-		double random = Math.random();
-		if(random <0.5) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	public static Set<StableControlConfiguration> intersect(Set<StableControlConfiguration> set1, Set<StableControlConfiguration> set2) {
 		Iterator<StableControlConfiguration> iter1 = set1.iterator();

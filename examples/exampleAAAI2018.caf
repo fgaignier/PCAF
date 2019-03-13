@@ -13,8 +13,8 @@ att(a4,a2).
 att(a4,a3).
 u_att(a5,a1).
 ud_att(a6,a4).
-c_att(a7,a5).
-c_att(a8,a5).
-c_att(a8,a6).
-c_att(a9,a6).
+att(a7,a5).
+att(a8,a5).
+att(a8,a6).
+att(a9,a6).
 target(a1).
