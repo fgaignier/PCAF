@@ -13,6 +13,16 @@ import model.CAttack;
 import model.UnknownArgumentError;
 
 public class CAFParser {
+	
+	public static String FIXED_ARG = "f_arg";
+	public static String UNCERTAIN_ARG = "u_arg";
+	public static String CONTROL_ARG = "c_arg";
+	public static String FIXED_ATT = "att";
+	public static String UNCERTAIN_ATT = "u_att";
+	public static String UNDIRECTED_ATT = "ud_att";
+	public static String CONTROL_ATT = "att";
+	public static String TARGET = "target";
+	
 	private String filename;
 
 	public CAFParser(String string) {
@@ -32,25 +42,25 @@ public class CAFParser {
 			Map<String, CArgument> loadedArguments = new HashMap<String, CArgument>();
 			
 			while ((currentLine = br.readLine()) != null) {
-				if (currentLine.startsWith("f_arg")) {
+				if (currentLine.startsWith(CAFParser.FIXED_ARG)) {
 					String tmp = currentLine.split("\\(")[1];
 					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.FIXED);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
-				} else if (currentLine.startsWith("u_arg")) {
+				} else if (currentLine.startsWith(CAFParser.UNCERTAIN_ARG)) {
 					String tmp = currentLine.split("\\(")[1];
 					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.UNCERTAIN);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
-				} else if (currentLine.startsWith("c_arg")) {
+				} else if (currentLine.startsWith(CAFParser.CONTROL_ARG)) {
 					String tmp = currentLine.split("\\(")[1];
 					String arg = tmp.split("\\)")[0].trim();
 					carg = new CArgument(arg, CArgument.Type.CONTROL);
 					instance.addArgument(carg);
 					loadedArguments.put(arg, carg);
-				} else if (currentLine.startsWith("att")) {
+				} else if (currentLine.startsWith(CAFParser.FIXED_ATT)) {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
@@ -64,7 +74,7 @@ public class CAFParser {
 					} else {
 						instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.CERTAIN));
 					}
-				} else if (currentLine.startsWith("u_att")) {
+				} else if (currentLine.startsWith(CAFParser.UNCERTAIN_ATT)) {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
@@ -74,7 +84,7 @@ public class CAFParser {
 						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
 					}
 					instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.UNCERTAIN));
-				} else if (currentLine.startsWith("ud_att")) {
+				} else if (currentLine.startsWith(CAFParser.UNDIRECTED_ATT)) {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");
@@ -84,12 +94,12 @@ public class CAFParser {
 						throw new UnknownArgumentError("cannot find argument from or to in this attack: (" + tab[0] + "," + tab[1] + ")");
 					}
 					instance.addAttack(new CAttack(argFrom, argTo, CAttack.Type.UNDIRECTED));
-				}else if(currentLine.startsWith("target")) {
+				}else if(currentLine.startsWith(CAFParser.TARGET)) {
 					String tmp = currentLine.split("\\(")[1];
 					String arg = tmp.split("\\)")[0].trim();
 					//carg = new CArgument(arg, CArgument.Type.FIXED);
 					carg = loadedArguments.get(arg);
-					instance.addProtectedArgument(carg);
+					instance.addTarget(carg);
 				}
 			}
 

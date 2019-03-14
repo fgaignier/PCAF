@@ -12,6 +12,9 @@ import model.ArgumentFramework;
 import model.UnknownArgumentError;
 
 public class AFParser {
+	public static String ARG = "arg";
+	public static String ATT = "att";
+			
 	private String filename;
 
 	public AFParser(String string) {
@@ -31,14 +34,14 @@ public class AFParser {
 			Map<String, Argument> loadedArguments = new HashMap<String, Argument>();
 			
 			while ((currentLine = br.readLine()) != null) {
-				if (currentLine.startsWith("arg")) {
+				if (currentLine.startsWith(AFParser.ARG)) {
 					String tmp = currentLine.split("\\(")[1];
 					String arg_name = tmp.split("\\)")[0];
 					arg_name = arg_name.trim();
 					arg = new Argument(arg_name);
 					instance.addArgument(arg);
 					loadedArguments.put(arg_name, arg);
-				} else if (currentLine.startsWith("att")) {
+				} else if (currentLine.startsWith(AFParser.ATT)) {
 					String tmp = currentLine.split("\\(")[1];
 					String tmp2 = tmp.split("\\)")[0];
 					String[] tab = tmp2.split(",");

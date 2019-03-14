@@ -17,7 +17,7 @@ public class CSP_CAF_Solver {
 	}
 	
 	public Set<StableControlConfiguration> getCredulousControlConfigurations() {
-		Set<CArgument> targets = CAF.getArgumentsToProtect();
+		Set<CArgument> targets = CAF.getTarget();
 		Iterator<CArgument> iter = targets.iterator();
 		HardestRootCompletionGenerator hrcg = new HardestRootCompletionGenerator(CAF);
 		Set<StableControlConfiguration> credulous = null;
@@ -40,7 +40,7 @@ public class CSP_CAF_Solver {
 	}
 	
 	public Set<StableControlConfiguration> getSkepticalControlConfigurations() {
-		Set<CArgument> targets = CAF.getArgumentsToProtect();
+		Set<CArgument> targets = CAF.getTarget();
 		Iterator<CArgument> iter = targets.iterator();
 		HardestRootCompletionGenerator hrcg = new HardestRootCompletionGenerator(CAF);
 		Set<StableControlConfiguration> skeptical = null;

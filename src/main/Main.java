@@ -5,6 +5,7 @@ import model.*;
 import solvers.*;
 import generators.*;
 import util.*;
+import generators.StrongCredulousEncoder;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class Main {
 		
 		Timer timer = new Timer();
 		
+		/*
 		System.out.println(args[1]);
 		AFParser af_parser = new AFParser(args[1]);
 		
@@ -39,12 +41,19 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		/*
+		*/
+		
+		
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
+		
+		//timer.start();
+		StrongCredulousEncoder sce = new StrongCredulousEncoder(caf);
+		
+		System.out.println(sce.encode().toString());
 		//System.out.println(caf.toString());
-		timer.start();
+		/*
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
 		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();

@@ -10,7 +10,6 @@ import model.CAttack;
 import model.ControlAF;
 import model.UnknownArgumentError;
 import util.RandomGen;
-import util.Util;
 
 public class RandomRootCompletionGenerator {
 	protected ControlAF CAF;

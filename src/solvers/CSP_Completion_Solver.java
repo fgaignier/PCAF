@@ -108,7 +108,7 @@ public class CSP_Completion_Solver {
 		 * Constraints
 		 */
 		// arguments to be protected are accepted (by definition)
-		Set<CArgument> T = CAF.getArgumentsToProtect();
+		Set<CArgument> T = CAF.getTarget();
 		Iterator<CArgument> toP = T.iterator();
 		while(toP.hasNext()) {
 			CArgument carg = toP.next();
@@ -271,7 +271,7 @@ public class CSP_Completion_Solver {
 		 */
 		// arguments to be protected are not all accepted (i.e. the solution is credulous)
 		// Sum(acc < n) with n number of protected arguments
-		Set<CArgument> T = CAF.getArgumentsToProtect();
+		Set<CArgument> T = CAF.getTarget();
 		Iterator<CArgument> toP = T.iterator();
 		IntVar[] protectedSum = new IntVar[T.size()];
 		int i = 0;

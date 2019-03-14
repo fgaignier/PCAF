@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import parser.CAFParser;
+
 /*
  * Argument Framework Dung style.
  * Simply a graph represented as a HashMap(Argument, attacked)
@@ -306,13 +308,13 @@ public class ArgumentFramework {
 		Iterator<Argument> iter = args.iterator();
 		while(iter.hasNext()) {
 			Argument arg = iter.next();
-			arguments = arguments + "arg(" + arg.getName() + ").";
+			arguments = arguments + CAFParser.FIXED_ARG + "(" + arg.getName() + ").";
 			arguments = String.format(arguments + "%n");
 			Set<Argument> atts = this.getAttackedArguments(arg);
 			Iterator<Argument> iterA = atts.iterator();
 			while(iterA.hasNext()) {
 				Argument to = iterA.next();
-				attacks = attacks + "att(" + arg.getName() + "," + to.getName() + ").";
+				attacks = attacks + CAFParser.FIXED_ATT + "(" + arg.getName() + "," + to.getName() + ").";
 				attacks = String.format(attacks + "%n");
 			}
 		}
