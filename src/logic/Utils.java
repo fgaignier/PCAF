@@ -13,6 +13,7 @@ public class Utils {
 	public static String toVarList(List<Formula> formulas) {
 		if (formulas.isEmpty())
 			throw new UnsupportedOperationException("Cannot transform an empty list.");
+		
 		StringBuilder build = new StringBuilder();
 		int i = 0;
 		for (; i < formulas.size() - 1; i++) {

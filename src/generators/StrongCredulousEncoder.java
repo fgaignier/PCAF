@@ -2,6 +2,7 @@ package generators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import model.ControlAF;
 import model.Argument;
@@ -41,12 +42,18 @@ public class StrongCredulousEncoder extends ControllabilityEncoder {
 		phiStCr.addSubformula(semantics);
 		phiStCr.addSubformula(encodeTarget());
 
+		// this is when undirected attacks are present
+		// in case there are none we will have no use of excludedValues
 		Formula excludedValues = encodeExcludedValues();
-
+		Set<Atom> atoms = excludedValues.getVariables();
+		
 		Disjunction main = new Disjunction("main");
 		main.addSubformula(phiStCr);
-		main.addSubformula(excludedValues);
-
+		// if excludedValues is not empty, we add it
+		// else it is not added
+		if(atoms.size()>0) {
+			main.addSubformula(excludedValues);
+		}
 		return new QBFFormula(quantifiers, main);
 	}
 

@@ -22,6 +22,7 @@ public class Negation extends Formula {
 		return toString();
 	}
 
+	
 	@Override
 	public Set<Atom> getVariables() {
 		return atom.getVariables();

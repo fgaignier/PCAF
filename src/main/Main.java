@@ -6,6 +6,7 @@ import solvers.*;
 import generators.*;
 import util.*;
 import generators.StrongCredulousEncoder;
+import logic.qbf.QBFFormula;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -51,8 +52,17 @@ public class Main {
 		//timer.start();
 		StrongCredulousEncoder sce = new StrongCredulousEncoder(caf);
 		
-		System.out.println(sce.encode().toString());
+		System.out.println(caf.toString());
+		
+		QBFFormula qcir = sce.encode();
+		System.out.println(qcir.toString());
+		try {
+			Util.saveToFile(sce.encode().toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\car.qcir");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//System.out.println(caf.toString());
+		
 		/*
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();

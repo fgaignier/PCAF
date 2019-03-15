@@ -12,4 +12,5 @@ public abstract class Formula {
 	public abstract Set<Atom> getVariables();
 	
 	public abstract String toQCir() ;
+	
 }
