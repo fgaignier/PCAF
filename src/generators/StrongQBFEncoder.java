@@ -22,9 +22,9 @@ import logic.qbf.Free;
 import logic.qbf.QBFFormula;
 import logic.qbf.Quantifier;
 
-public class StrongCredulousEncoder extends ControllabilityEncoder {
+public class StrongQBFEncoder extends ControllabilityEncoder {
 	
-	public StrongCredulousEncoder(ControlAF instance) {
+	public StrongQBFEncoder(ControlAF instance) {
 		this.instance = instance;
 	}
 
@@ -42,13 +42,25 @@ public class StrongCredulousEncoder extends ControllabilityEncoder {
 		phiStCr.addSubformula(semantics);
 		phiStCr.addSubformula(encodeTarget());
 
+		Formula targetThen = encodeTarget();
+		Conjunction phiStIf = new Conjunction("phiStIf");
+		phiStIf.addSubformula(structure);
+		phiStIf.addSubformula(semantics);
+		Implication phiStSk = new Implication("phiStSk", phiStIf, targetThen);
+		
 		// this is when undirected attacks are present
 		// in case there are none we will have no use of excludedValues
 		Formula excludedValues = encodeExcludedValues();
 		Set<Atom> atoms = excludedValues.getVariables();
 		
 		Disjunction main = new Disjunction("main");
-		main.addSubformula(phiStCr);
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			main.addSubformula(phiStCr);
+		}
+		else {
+			main.addSubformula(phiStSk);
+		}
+	
 		// if excludedValues is not empty, we add it
 		// else it is not added
 		if(atoms.size()>0) {

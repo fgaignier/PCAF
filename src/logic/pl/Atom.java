@@ -3,6 +3,8 @@ package logic.pl;
 import java.util.HashSet;
 import java.util.Set;
 
+import generators.QDIMACSBuilder;
+
 public class Atom extends Formula {
 
 	public Atom(String name) {
@@ -26,6 +28,10 @@ public class Atom extends Formula {
 		throw new UnsupportedOperationException("Cannot get QCir of an Atom.");
 	}
 
+	public String toQDIMACS(QDIMACSBuilder build) {
+		return build.getVarCode(this.getName()).toString();
+	}
+	
 	public boolean equals(Object other) {
 		if (other == null) {
 			return false;

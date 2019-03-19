@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import generators.QDIMACSBuilder;
 import logic.Utils;
 
 public class Disjunction extends Formula {
@@ -51,4 +52,50 @@ public class Disjunction extends Formula {
 		build.append(this.toString() + "\n");
 		return build.toString();
 	}
+	
+	public String toQDIMACS(QDIMACSBuilder build) {
+		StringBuilder result = new StringBuilder();
+		build.addVar(this.getName());
+		//build.incClause();
+		for(Formula f : subformulas) {
+			if(!(f instanceof Atom || f instanceof Negation)) {
+				result.append(f.toQDIMACS(build));
+			}
+		}
+		
+		// debug only
+		result.append(this.toString() +"\n");	
+		result.append(this.orQDIMACS(build));
+		result.append("current number of clauses: " + build.getNbClause() + "\n");
+		return result.toString();
+
+	}
+
+	// (f <==> (x1 | x2 | x3)) expands to
+    // (~f | x1 | x2 | x3)   &   (~x1 | f)  &  (~x2 | f)  &  (~x3 | f)
+	public String orQDIMACS(QDIMACSBuilder build) {
+		StringBuilder result = new StringBuilder();
+		StringBuilder individual = new StringBuilder();
+		StringBuilder global = new StringBuilder();
+		Integer encode = build.getVarCode(this.getName());
+		global.append("-" + encode.toString() + " ");
+		for(Formula f: this.subformulas) {
+			Integer subEncode = null;
+			if(f instanceof Negation) {
+				Negation neg = (Negation)f;
+				subEncode = build.getVarCode(neg.getAtomName());
+			} else {
+				subEncode = build.getVarCode(f.getName());
+			}
+			build.incClause();
+			individual.append(encode.toString() + " -" + subEncode.toString() + " 0\n");
+			global.append(subEncode.toString() + " ");
+		}
+		build.incClause();
+		global.append(" 0\n");
+		result.append(individual.toString());
+		result.append(global.toString());
+		return result.toString();
+	}
+	
 }

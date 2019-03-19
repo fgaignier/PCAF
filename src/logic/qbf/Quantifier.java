@@ -10,4 +10,8 @@ public abstract class Quantifier {
 	public void addVariable(Atom at) {
 		variables.add(at);
 	}
+	
+	public Set<Atom> getVariables() {
+		return variables;
+	}
 }

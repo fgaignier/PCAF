@@ -22,9 +22,9 @@ import logic.qbf.Free;
 import logic.qbf.QBFFormula;
 import logic.qbf.Quantifier;
 
-public class StrongCredulousEncoder extends ControllabilityEncoder {
+public class StrongSkepticalEncoder extends ControllabilityEncoder {
 	
-	public StrongCredulousEncoder(ControlAF instance) {
+	public StrongSkepticalEncoder(ControlAF instance) {
 		this.instance = instance;
 	}
 
@@ -37,18 +37,25 @@ public class StrongCredulousEncoder extends ControllabilityEncoder {
 		
 		Formula structure = encodeStructure();
 		
+		/*
 		Conjunction phiStCr = new Conjunction("phiStCr");
 		phiStCr.addSubformula(structure);
 		phiStCr.addSubformula(semantics);
 		phiStCr.addSubformula(encodeTarget());
-
+		 */
+		Formula targetThen = encodeTarget();
+		Conjunction phiStIf = new Conjunction("phiStIf");
+		phiStIf.addSubformula(structure);
+		phiStIf.addSubformula(semantics);
+		Implication phiStSk = new Implication("phiStSk", phiStIf, targetThen);
+		
 		// this is when undirected attacks are present
 		// in case there are none we will have no use of excludedValues
 		Formula excludedValues = encodeExcludedValues();
 		Set<Atom> atoms = excludedValues.getVariables();
 		
 		Disjunction main = new Disjunction("main");
-		main.addSubformula(phiStCr);
+		main.addSubformula(phiStSk);
 		// if excludedValues is not empty, we add it
 		// else it is not added
 		if(atoms.size()>0) {
@@ -206,7 +213,6 @@ public class StrongCredulousEncoder extends ControllabilityEncoder {
 		for (CArgument arg : instance.getArgumentsByType(CArgument.Type.FIXED)) {
 			Conjunction conjImpl = new Conjunction("conjImpl_" + arg.getName());
 			for (CArgument arg2 : instance.getAllArguments()) {
-				// direction acc_y <=> (att_x_y => -acc_x)
 				Implication impl = new Implication("impl_" + arg.getName() + "_" + arg2.getName(),
 						new Atom("att_" + arg2.getName() + "_" + arg.getName()),
 						new Negation(new Atom("acc_" + arg2.getName())));
@@ -234,7 +240,6 @@ public class StrongCredulousEncoder extends ControllabilityEncoder {
 		}
 		semantics.addSubformula(controlArgs);
 		
-		// fix me: if no uncertain arguments not add uncertainArgs to the formula
 		Conjunction uncertainArgs = new Conjunction("uncertain");
 		for (CArgument arg : instance.getArgumentsByType(CArgument.Type.UNCERTAIN)) {
 			Conjunction conjImpl = new Conjunction("conjImpl_" + arg.getName());

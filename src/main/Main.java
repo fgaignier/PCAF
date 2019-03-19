@@ -5,7 +5,7 @@ import model.*;
 import solvers.*;
 import generators.*;
 import util.*;
-import generators.StrongCredulousEncoder;
+import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 
 import java.util.Set;
@@ -49,22 +49,25 @@ public class Main {
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
 		
-		//timer.start();
-		StrongCredulousEncoder sce = new StrongCredulousEncoder(caf);
-		
+		StrongQBFEncoder encoder = new StrongQBFEncoder(caf);
+	
 		System.out.println(caf.toString());
 		
-		QBFFormula qcir = sce.encode();
-		System.out.println(qcir.toString());
+		QBFFormula qcir_cred = encoder.encode(ControllabilityEncoder.CREDULOUS);
+		QDIMACSConverter converter = new QDIMACSConverter(qcir_cred);
+		System.out.println(converter.toQDimacs());
+		QBFFormula qcir_ske = encoder.encode(ControllabilityEncoder.SKEPTICAL);
+		//System.out.println(qcir.toString());
 		try {
-			Util.saveToFile(sce.encode().toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\car.qcir");
+			Util.saveToFile(qcir_cred.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeCRED.qcir");
+			Util.saveToFile(qcir_ske.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeSKE.qcir");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		//System.out.println(caf.toString());
 		
-		/*
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
+		timer.start();
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
 		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
 		System.out.println("Duration = " + timer.stop() + "ms");
@@ -73,7 +76,6 @@ public class Main {
 		printSolutions(credulous);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
-		*/
 		
 		/*
 		Set<CArgument> toProtect = caf.getArgumentsToProtect();

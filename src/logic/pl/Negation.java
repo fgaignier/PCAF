@@ -2,6 +2,8 @@ package logic.pl;
 
 import java.util.Set;
 
+import generators.QDIMACSBuilder;
+
 public class Negation extends Formula {
 	private Atom atom;
 
@@ -22,6 +24,9 @@ public class Negation extends Formula {
 		return toString();
 	}
 
+	public String getAtomName() {
+		return atom.getName();
+	}
 	
 	@Override
 	public Set<Atom> getVariables() {
@@ -31,5 +36,9 @@ public class Negation extends Formula {
 	@Override
 	public String toQCir() {
 		throw new UnsupportedOperationException("Cannot get a QCir for a Negation.");
+	}
+	
+	public String toQDIMACS(QDIMACSBuilder build) {
+		return "-" + build.getVarCode(this.atom.getName()).toString();
 	}
 }

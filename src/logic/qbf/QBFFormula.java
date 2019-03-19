@@ -23,4 +23,13 @@ public class QBFFormula {
 		build.append(matrix.toQCir());
 		return build.toString();
 	}
+	
+	public List<Quantifier> getQuantifiers() {
+		return this.quantifiers;
+	}
+	
+	public Formula getMatrix() {
+		return this.matrix;
+	}
+	
 }
