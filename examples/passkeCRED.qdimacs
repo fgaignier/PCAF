@@ -1,0 +1,181 @@
+c VarName 55	: att_e_e
+c VarName 56	: att_c_c
+c VarName 57	: att_a_e
+c VarName 58	: att_c_b
+c VarName 59	: att_b_c
+c VarName 60	: att_c_e
+c VarName 61	: att_e_c
+c VarName 62	: att_e_b
+c VarName 63	: att_b_e
+c VarName 64	: att_a_a
+c VarName 65	: att_c_a
+c VarName 66	: att_a_c
+c VarName 67	: att_b_b
+c VarName 68	: att_b_a
+c VarName 69	: att_a_b
+c VarName 70	: on_c
+c VarName 71	: on_e
+c VarName 72	: att_e_a
+c VarName 73	: acc_c
+c VarName 74	: acc_b
+c VarName 75	: acc_e
+c VarName 76	: acc_a
+c VarName 77	: main
+c VarName 78	: phiStCr
+c VarName 79	: structure
+c VarName 80	: semantics
+c VarName 81	: fixed
+c VarName 82	: equiv_a
+c VarName 83	: conjImpl_a
+c VarName 84	: impl_a_c
+c VarName 85	: impl_a_e
+c VarName 86	: impl_a_a
+c VarName 87	: impl_a_b
+c VarName 88	: equiv_b
+c VarName 89	: conjImpl_b
+c VarName 90	: impl_b_c
+c VarName 91	: impl_b_e
+c VarName 92	: impl_b_a
+c VarName 93	: impl_b_b
+c VarName 94	: control
+c VarName 95	: equiv_c
+c VarName 96	: conjImpl_c
+c VarName 97	: impl_c_c
+c VarName 98	: impl_c_e
+c VarName 99	: impl_c_a
+c VarName 100	: impl_c_b
+c VarName 101	: uncertain
+c VarName 102	: equiv_e
+c VarName 103	: conjImpl_e
+c VarName 104	: impl_e_c
+c VarName 105	: impl_e_e
+c VarName 106	: impl_e_a
+c VarName 107	: impl_e_b
+c VarName 108	: target
+p cnf 108 244
+e 70 0
+a 71 72 0
+e 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 0
+77 0
+-79 68 0
+-79 69 0
+-79 60 0
+-79 56 0
+-79 65 0
+-79 58 0
+-79 61 0
+-79 55 0
+-79 62 0
+-79 66 0
+-79 57 0
+-79 64 0
+-79 59 0
+-79 63 0
+-79 67 0
+79 -68 -69 -60 -56 -65 -58 -61 -55 -62 -66 -57 -64 -59 -63 -67 0
+-65 73 -84 0
+65 84 0
+-73 84 0
+-72 75 -85 0
+72 85 0
+-75 85 0
+-64 76 -86 0
+64 86 0
+-76 86 0
+-68 74 -87 0
+68 87 0
+-74 87 0
+-83 84 0
+-83 85 0
+-83 86 0
+-83 87 0
+83 -84 -85 -86 -87 0
+76 -83 -82 0
+-76 83 -82 0
+-76 -83 82 0
+76 83 82 0
+-58 73 -90 0
+58 90 0
+-73 90 0
+-62 75 -91 0
+62 91 0
+-75 91 0
+-69 76 -92 0
+69 92 0
+-76 92 0
+-67 74 -93 0
+67 93 0
+-74 93 0
+-89 90 0
+-89 91 0
+-89 92 0
+-89 93 0
+89 -90 -91 -92 -93 0
+74 -89 -88 0
+-74 89 -88 0
+-74 -89 88 0
+74 89 88 0
+-81 82 0
+-81 88 0
+81 -82 -88 0
+-56 73 -97 0
+56 97 0
+-73 97 0
+-61 75 -98 0
+61 98 0
+-75 98 0
+-66 76 -99 0
+66 99 0
+-76 99 0
+-59 74 -100 0
+59 100 0
+-74 100 0
+-96 97 0
+-96 98 0
+-96 99 0
+-96 100 0
+-96 70 0
+96 -97 -98 -99 -100 -70 0
+73 -96 -95 0
+-73 96 -95 0
+-73 -96 95 0
+73 96 95 0
+-94 95 0
+94 -95 0
+-60 73 -104 0
+60 104 0
+-73 104 0
+-55 75 -105 0
+55 105 0
+-75 105 0
+-57 76 -106 0
+57 106 0
+-76 106 0
+-63 74 -107 0
+63 107 0
+-74 107 0
+-103 104 0
+-103 105 0
+-103 106 0
+-103 107 0
+-103 71 0
+103 -104 -105 -106 -107 -71 0
+75 -103 -102 0
+-75 103 -102 0
+-75 -103 102 0
+75 103 102 0
+-101 102 0
+101 -102 0
+-80 81 0
+-80 94 0
+-80 101 0
+80 -81 -94 -101 0
+-108 76 0
+108 -76 0
+-78 79 0
+-78 80 0
+-78 108 0
+78 -79 -80 -108 0
+77 -78 0
+-77 78  0
+

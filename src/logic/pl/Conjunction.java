@@ -56,7 +56,7 @@ public class Conjunction extends Formula {
 	public String toQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		
-		build.addVar(this.getName());
+		build.addVar(this.getName(), true);
 		//build.incClause();
 		for(Formula f : subformulas) {
 			if(!(f instanceof Atom || f instanceof Negation)) {
@@ -64,14 +64,19 @@ public class Conjunction extends Formula {
 			}
 		}
 		// debug only
-		result.append(this.toString() + "\n");
+		//result.append(this.toString() + "\n");
 		result.append(this.andQDIMACS(build));
-		result.append("current number of clauses: " + build.getNbClause() + "\n");
+		//result.append("current number of clauses: " + build.getNbClause() + "\n");
 		return result.toString();
 	}
 	
-	// (f <==> (x1 & x2 & x3)) expands to
-    // (~x1 | ~x2 | ~x3 | f)  &  (~f | x1)  &  (~f | x2)  &  (~f | x3)
+
+	/**
+	 * (f <==> (x1 & x2 & x3)) expands to
+     * (~x1 | ~x2 | ~x3 | f)  &  (~f | x1)  &  (~f | x2)  &  (~f | x3)
+	 * @param build
+	 * @return
+	 */
 	public String andQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		StringBuilder individual = new StringBuilder();

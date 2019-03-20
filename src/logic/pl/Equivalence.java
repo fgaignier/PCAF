@@ -46,7 +46,7 @@ public class Equivalence extends Formula {
 	public String toQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		
-		build.addVar(this.getName());
+		build.addVar(this.getName(), true);
 		//build.incClause();
 		
 		if (!(left instanceof Atom || left instanceof Negation)) {
@@ -58,17 +58,22 @@ public class Equivalence extends Formula {
 		}
 
 		// debug only
-		result.append(this.toString() +"\n");
+		//result.append(this.toString() +"\n");
 		result.append(this.xorQDIMACS(build));
-		result.append("current number of clauses: " + build.getNbClause() + "\n");
+		//result.append("current number of clauses: " + build.getNbClause() + "\n");
 		
 		return result.toString();
 	}
 	
-		// C = A XOR B => (~A | ~B | ~C) & (A | B | ~C) & (A | ~B | C) & (~A | B | C)
-		// v <==> (~l xor r) expands to
-		// in our case C = v, A=~l, B=r
-		// v = ~l XOR r => (l | ~r | ~v) & (~l | r | ~v) & (~l | ~r | v) & (l | r | v)
+		
+	/**
+	 * C = A XOR B => (~A | ~B | ~C) & (A | B | ~C) & (A | ~B | C) & (~A | B | C)
+	 * v <==> (~l xor r) expands to
+	 * in our case C = v, A=~l, B=r
+	 * v = ~l XOR r => (l | ~r | ~v) & (~l | r | ~v) & (~l | ~r | v) & (l | r | v)
+	 * @param build
+	 * @return
+	 */
 		public String xorQDIMACS(QDIMACSBuilder build) {
 			StringBuilder result = new StringBuilder();
 			Integer encodeV = build.getVarCode(this.getName());

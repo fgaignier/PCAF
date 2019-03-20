@@ -57,10 +57,11 @@ public class Main {
 		QDIMACSConverter converter = new QDIMACSConverter(qcir_cred);
 		System.out.println(converter.toQDimacs());
 		QBFFormula qcir_ske = encoder.encode(ControllabilityEncoder.SKEPTICAL);
-		//System.out.println(qcir.toString());
+		
 		try {
 			Util.saveToFile(qcir_cred.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeCRED.qcir");
-			Util.saveToFile(qcir_ske.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeSKE.qcir");
+			Util.saveToFile(converter.toQDimacs(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeCRED.qdimacs");
+			//Util.saveToFile(qcir_ske.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeSKE.qcir");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

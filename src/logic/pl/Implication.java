@@ -46,8 +46,8 @@ public class Implication extends Formula {
 	public String toQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 
-		build.addVar(this.getName());
-		//build.incClause();
+		build.addVar(this.getName(), true);
+		
 		
 		if (!(formulaIf instanceof Atom || formulaIf instanceof Negation)) {
 			result.append(formulaIf.toQDIMACS(build));
@@ -58,14 +58,19 @@ public class Implication extends Formula {
 		}
 
 		// debug only
-		result.append(this.toString() + "\n");		
+		//result.append(this.toString() + "\n");		
 		result.append(this.implQDIMACS(build));
-		result.append("current number of clauses: " + build.getNbClause() + "\n");
+		//result.append("current number of clauses: " + build.getNbClause() + "\n");
 		return result.toString();
 	}
 	
-	// v <==> (c => t) expands to
-	// (~c | t | ~v) & (c | v) & (~t | v)
+	 
+	/**
+	 * v <==> (c => t) expands to
+	 * (~c | t | ~v) & (c | v) & (~t | v)
+	 * @param build
+	 * @return
+	 */
 	public String implQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		Integer encodeV = build.getVarCode(this.getName());

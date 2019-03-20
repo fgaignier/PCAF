@@ -5,23 +5,39 @@ import java.util.LinkedHashMap;
 
 public class QDIMACSBuilder {
 
-	protected Map<String, Integer> var;
+	//initial variables of the problem (all quantified with free, forall, exists)
+	protected Map<String, Integer> varI;
+	// additional variables created
+	protected Map<String, Integer> varA;
 	protected int nbClause;
 	protected int nbVar;
 	
 	public QDIMACSBuilder() {
-		var = new LinkedHashMap<String, Integer>();
+		varI = new LinkedHashMap<String, Integer>();
+		varA = new LinkedHashMap<String, Integer>();
 		this.nbVar = 0;
 		this.nbClause = 0;
 	}
 	
-	public void addVar(String name) {
+	/**
+	 * add a variable by its name. Must specify if it is an additional variable or ont
+	 * @param name
+	 * @param additional
+	 */
+	public void addVar(String name, boolean additional) {
 		this.nbVar ++;
-		var.put(name,  new Integer(this.nbVar));
+		if(additional) {
+			varA.put(name,  new Integer(this.nbVar));
+		} else {
+			varI.put(name,  new Integer(this.nbVar));
+		}
 	}
 	
 	public Integer getVarCode(String name) {
-		Integer encoding = var.get(name);
+		Integer encoding = varI.get(name);
+		if(encoding == null) {
+			encoding = varA.get(name);
+		}
 		if(encoding == null) {
 			throw new UnsupportedOperationException("Atom of name " + name + " is not in the var list");
 		}
@@ -29,7 +45,18 @@ public class QDIMACSBuilder {
 	}
 	
 	public Map<String, Integer> getVars() {
-		return this.var;
+		Map <String, Integer> result = new LinkedHashMap<String, Integer>();
+		result.putAll(this.varI);
+		result.putAll(this.varA);
+		return result;
+	}
+	
+	public Map<String, Integer> getInitialVars() {
+		return this.varI;
+	}
+	
+	public Map<String, Integer> getAdditionalVars() {
+		return this.varA;
 	}
 	
 	public void incClause() {
