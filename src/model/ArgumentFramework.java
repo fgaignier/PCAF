@@ -250,6 +250,8 @@ public class ArgumentFramework {
 	 */
 	public boolean containsAttack(Attack att) {
 		Set<Argument> attacked = this.getAttackedArguments(att.getFrom());
+		System.out.println(att.toString());
+		System.out.println(attacked.size());
 		if(attacked.contains(att.getTo())) {
 			return true;
 		}

@@ -123,7 +123,7 @@ public class RandomRootCompletionGenerator {
 	 * No arguments from the control part
 	 * FIXED and UNCERTAIN arguments are chosen randomly
 	 * FIXED and UNCERTAIN attacks are chosen randomly (if arguments are present)
-	 * randomly assign a direction to UNDIRECTED attacks (if arguments are present)
+	 * randomly assignment of a direction (or both) for UNDIRECTED attacks (if arguments are present)
 	 */
 	public ArgumentFramework getRandomRootCompletion() {
 		ArgumentFramework result = new ArgumentFramework();
@@ -171,6 +171,7 @@ public class RandomRootCompletionGenerator {
 		}
 		
 		// add attacks: unknown direction => here we need to decide randomly the direction
+		// or both directions
 		// of course if one argument is missing, the attack is not added
 		Set<CAttack> undirAtts = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
 		Iterator<CAttack> itud = undirAtts.iterator();
@@ -178,14 +179,26 @@ public class RandomRootCompletionGenerator {
 			CAttack attud = itud.next();
 			CArgument from = (CArgument)attud.getFrom();
 			CArgument to = (CArgument)attud.getTo();
-			if(RandomGen.randomBoolean() == true) {
+			// 3 possibilities with same probability
+			int random = RandomGen.getIndex(2);
+			//case 0 : we add (from, to)
+			if(random == 0) {
 				try {
 					result.addAttack(new Attack(from,to));
 				} catch(UnknownArgumentError uae) {
 					System.out.println("could not add uncertain attack because: " + uae.getMessage());
 				}
+			// case 1 : we add (to, from)
+			} else if(random == 1) {
+				try {
+					result.addAttack(new Attack(to,from));
+				} catch(UnknownArgumentError uae) {
+					System.out.println("could not add uncertain attack because: " + uae.getMessage());
+				}
+			// case 2 : we add both sides
 			} else {
 				try {
+					result.addAttack(new Attack(from,to));
 					result.addAttack(new Attack(to,from));
 				} catch(UnknownArgumentError uae) {
 					System.out.println("could not add uncertain attack because: " + uae.getMessage());
