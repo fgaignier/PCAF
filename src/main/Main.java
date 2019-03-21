@@ -99,12 +99,13 @@ public class Main {
 		ArgumentFramework af = rrg.getMaxRootCompletion();
 		System.out.println(af.toString());
 		System.out.println("for max root completion proba is: " + cpc.getProbability(af));
-		/*
+		
 		for(int i=0; i<10; i++) {
 			af = rrg.getRandomRootCompletion();
+			System.out.println(af.toString());
 			System.out.println("for random root completion " + i + " proba is: " + cpc.getProbability(af));
 		}
-		*/
+		
 	}
 
 	public static void printHelp() {

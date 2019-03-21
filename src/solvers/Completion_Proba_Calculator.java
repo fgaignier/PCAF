@@ -36,7 +36,7 @@ public class Completion_Proba_Calculator {
 			}
 		}
 		for(CAttack uatt : uatts) {
-			if(PCAF.containsArgument(uatt.getFrom()) && PCAF.containsArgument(uatt.getTo())) {
+			if(completion.containsArgument(uatt.getFrom()) && completion.containsArgument(uatt.getTo())) {
 				if(completion.containsAttack(uatt)) {
 					p = p*PCAF.getUattProba(uatt);
 				} else {
@@ -45,7 +45,7 @@ public class Completion_Proba_Calculator {
 			}
 		}
 		for(CAttack udatt : udatts) {
-			if(PCAF.containsArgument(udatt.getFrom()) && PCAF.containsArgument(udatt.getTo())) {
+			if(completion.containsArgument(udatt.getFrom()) && completion.containsArgument(udatt.getTo())) {
 				CAttack reverse = new CAttack(udatt.getTo(), udatt.getFrom(), CAttack.Type.UNDIRECTED); 
 				if(completion.containsAttack(udatt) && completion.containsAttack(reverse)) {
 					p = p*(1- PCAF.getUDAttFromToProba(udatt) - PCAF.getUDAttToFromProba(udatt));
