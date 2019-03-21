@@ -25,7 +25,10 @@ public class Main {
 		
 		Timer timer = new Timer();
 		
-		/*
+		/**
+		 * TEST ARGUMENT FRAMEWORK FROM FILE AND CAF GENERATOR
+		 */
+		/* 
 		System.out.println(args[1]);
 		AFParser af_parser = new AFParser(args[1]);
 		
@@ -45,6 +48,10 @@ public class Main {
 		*/
 		
 		
+		/**
+		 * TEST QCIR, QDIMACS generators versus Hardest Completion method
+		 */
+		/*
 		System.out.println(args[0]);
 		CAFParser parser = new CAFParser(args[0]);
 		ControlAF caf = parser.parse();
@@ -56,11 +63,11 @@ public class Main {
 		QBFFormula qcir_cred = encoder.encode(ControllabilityEncoder.CREDULOUS);
 		QDIMACSConverter converter = new QDIMACSConverter(qcir_cred);
 		System.out.println(converter.toQDimacs());
-		QBFFormula qcir_ske = encoder.encode(ControllabilityEncoder.SKEPTICAL);
+//		QBFFormula qcir_ske = encoder.encode(ControllabilityEncoder.SKEPTICAL);
 		
 		try {
-			Util.saveToFile(qcir_cred.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeCRED.qcir");
-			Util.saveToFile(converter.toQDimacs(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeCRED.qdimacs");
+			Util.saveToFile(qcir_cred.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\basic.qcir");
+			Util.saveToFile(converter.toQDimacs(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\basic.qdimacs");
 			//Util.saveToFile(qcir_ske.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeSKE.qcir");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,84 +84,16 @@ public class Main {
 		printSolutions(credulous);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
-		
-		/*
-		Set<CArgument> toProtect = caf.getArgumentsToProtect();
-		CArgument tp = toProtect.iterator().next();
-		
-		HardestRootCompletionGenerator hrcg = new HardestRootCompletionGenerator(caf);
-		WeightedArgumentFramework waf = hrcg.getHardestRootCompletionWRT(tp);
-		System.out.println("printout of the hardest af to control wrt " + tp.getName());
-		System.out.println(waf.toString());
-		
-		CSP_ControlConfiguration_Solver csp = new CSP_ControlConfiguration_Solver(caf, waf);
-		
-		Set<StableControlConfiguration> credulous = new HashSet<StableControlConfiguration>();
-		Set<StableControlConfiguration> skeptical = new HashSet<StableControlConfiguration>();
-		
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		credulous = csp.getCredulousControlConfigurations();
-		printSolutions(credulous);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		skeptical = csp.getSkepticalControlConfigurations();
-		printSolutions(skeptical);
 		*/
 		
-		//System.out.println("Duration = " + (System.currentTimeMillis() - startTime) + "ms");
+		/**
+		 * TEST PCAF Load et export
+		 */
+		System.out.println(args[0]);
+		PCAFParser parser = new PCAFParser(args[0]);
+		PControlAF pcaf = parser.parse();
+		System.out.println(pcaf.toString());
 		
-		/*
-		RandomRootCompletionGenerator compGen = new RandomRootCompletionGenerator(caf);
-		WeightedArgumentFramework waf = null; 
-		Map<Argument, Double> result = null; 
-		for(int i = 0; i<10; i++) {
-			waf = new WeightedArgumentFramework(compGen.getRandomRootCompletion());
-			result = waf.h_categorizer();
-			Iterator<Argument> iter = result.keySet().iterator();
-			
-			System.out.println("------ af number " + i + "------------");
-			System.out.println(waf.toString());
-			while(iter.hasNext()) {
-				Argument arg = iter.next();
-				Double strength = result.get(arg);
-				System.out.println("argument: " + arg.getName() + " has value: " + strength.toString());
-			}
-
-		}
-				
-	
-		System.out.println(caf.toString());
-		
-		System.out.println("----------------------");
-	
-		ArgumentFramework maxRoot = compGen.getRandomMaxRootCompletion();
-		System.out.println(maxRoot.toString());
-		
-		for(int i = 0; i<5; i++) {
-			ArgumentFramework af = compGen.getRandomRootCompletion();
-			if(af.isIncludedIn(maxRoot)) {
-				System.out.println("af is included in the max root");
-			} else {
-				System.out.println("af is not included in the max root");
-			}
-		}
-
-		
-		System.out.println("----------------------");
-		 
-		CSP_ControlConfiguration_Solver csp = new CSP_ControlConfiguration_Solver(caf, maxRoot);
-
-		Set<StableControlConfiguration> credulous = new HashSet<StableControlConfiguration>();
-		Set<StableControlConfiguration> skeptical = new HashSet<StableControlConfiguration>();
-		
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		credulous = csp.getCredulousControlConfigurations();
-		printSolutions(credulous);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		skeptical = csp.getSkepticalControlConfigurations();
-		printSolutions(skeptical);
-		
-		System.out.println("Duration = " + (System.currentTimeMillis() - startTime) + "ms");
-		*/
 		
 	}
 

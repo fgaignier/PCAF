@@ -1,181 +1,181 @@
-c VarName 55	: att_e_e
-c VarName 56	: att_c_c
-c VarName 57	: att_a_e
-c VarName 58	: att_c_b
-c VarName 59	: att_b_c
-c VarName 60	: att_c_e
-c VarName 61	: att_e_c
-c VarName 62	: att_e_b
-c VarName 63	: att_b_e
-c VarName 64	: att_a_a
-c VarName 65	: att_c_a
-c VarName 66	: att_a_c
-c VarName 67	: att_b_b
-c VarName 68	: att_b_a
-c VarName 69	: att_a_b
-c VarName 70	: on_c
-c VarName 71	: on_e
-c VarName 72	: att_e_a
-c VarName 73	: acc_c
-c VarName 74	: acc_b
-c VarName 75	: acc_e
-c VarName 76	: acc_a
-c VarName 77	: main
-c VarName 78	: phiStCr
-c VarName 79	: structure
-c VarName 80	: semantics
-c VarName 81	: fixed
-c VarName 82	: equiv_a
-c VarName 83	: conjImpl_a
-c VarName 84	: impl_a_c
-c VarName 85	: impl_a_e
-c VarName 86	: impl_a_a
-c VarName 87	: impl_a_b
-c VarName 88	: equiv_b
-c VarName 89	: conjImpl_b
-c VarName 90	: impl_b_c
-c VarName 91	: impl_b_e
-c VarName 92	: impl_b_a
-c VarName 93	: impl_b_b
-c VarName 94	: control
-c VarName 95	: equiv_c
-c VarName 96	: conjImpl_c
-c VarName 97	: impl_c_c
-c VarName 98	: impl_c_e
-c VarName 99	: impl_c_a
-c VarName 100	: impl_c_b
-c VarName 101	: uncertain
-c VarName 102	: equiv_e
-c VarName 103	: conjImpl_e
-c VarName 104	: impl_e_c
-c VarName 105	: impl_e_e
-c VarName 106	: impl_e_a
-c VarName 107	: impl_e_b
-c VarName 108	: target
-p cnf 108 244
-e 70 0
-a 71 72 0
-e 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 0
-77 0
--79 68 0
--79 69 0
--79 60 0
--79 56 0
--79 65 0
--79 58 0
--79 61 0
--79 55 0
--79 62 0
--79 66 0
--79 57 0
--79 64 0
--79 59 0
--79 63 0
--79 67 0
-79 -68 -69 -60 -56 -65 -58 -61 -55 -62 -66 -57 -64 -59 -63 -67 0
--65 73 -84 0
-65 84 0
--73 84 0
--72 75 -85 0
-72 85 0
--75 85 0
--64 76 -86 0
-64 86 0
--76 86 0
--68 74 -87 0
-68 87 0
--74 87 0
--83 84 0
--83 85 0
--83 86 0
--83 87 0
-83 -84 -85 -86 -87 0
-76 -83 -82 0
--76 83 -82 0
--76 -83 82 0
-76 83 82 0
--58 73 -90 0
-58 90 0
--73 90 0
--62 75 -91 0
-62 91 0
--75 91 0
--69 76 -92 0
-69 92 0
--76 92 0
--67 74 -93 0
-67 93 0
--74 93 0
--89 90 0
--89 91 0
--89 92 0
--89 93 0
-89 -90 -91 -92 -93 0
-74 -89 -88 0
--74 89 -88 0
--74 -89 88 0
-74 89 88 0
--81 82 0
--81 88 0
-81 -82 -88 0
--56 73 -97 0
-56 97 0
--73 97 0
--61 75 -98 0
-61 98 0
--75 98 0
--66 76 -99 0
-66 99 0
--76 99 0
--59 74 -100 0
-59 100 0
--74 100 0
--96 97 0
--96 98 0
--96 99 0
--96 100 0
--96 70 0
-96 -97 -98 -99 -100 -70 0
-73 -96 -95 0
--73 96 -95 0
--73 -96 95 0
-73 96 95 0
--94 95 0
-94 -95 0
--60 73 -104 0
-60 104 0
--73 104 0
--55 75 -105 0
-55 105 0
--75 105 0
--57 76 -106 0
-57 106 0
--76 106 0
--63 74 -107 0
-63 107 0
--74 107 0
--103 104 0
--103 105 0
--103 106 0
--103 107 0
--103 71 0
-103 -104 -105 -106 -107 -71 0
-75 -103 -102 0
--75 103 -102 0
--75 -103 102 0
-75 103 102 0
--101 102 0
-101 -102 0
--80 81 0
--80 94 0
--80 101 0
-80 -81 -94 -101 0
--108 76 0
-108 -76 0
--78 79 0
--78 80 0
--78 108 0
-78 -79 -80 -108 0
-77 -78 0
--77 78  0
+c VarName 1	: att_e_e
+c VarName 2	: att_c_c
+c VarName 3	: att_a_e
+c VarName 4	: att_c_b
+c VarName 5	: att_b_c
+c VarName 6	: att_c_e
+c VarName 7	: att_e_c
+c VarName 8	: att_e_b
+c VarName 9	: att_b_e
+c VarName 10	: att_a_a
+c VarName 11	: att_c_a
+c VarName 12	: att_a_c
+c VarName 13	: att_b_b
+c VarName 14	: att_b_a
+c VarName 15	: att_a_b
+c VarName 16	: on_c
+c VarName 17	: on_e
+c VarName 18	: att_e_a
+c VarName 19	: acc_c
+c VarName 20	: acc_b
+c VarName 21	: acc_e
+c VarName 22	: acc_a
+c VarName 23	: main
+c VarName 24	: phiStCr
+c VarName 25	: structure
+c VarName 26	: semantics
+c VarName 27	: fixed
+c VarName 28	: equiv_a
+c VarName 29	: conjImpl_a
+c VarName 30	: impl_a_c
+c VarName 31	: impl_a_e
+c VarName 32	: impl_a_a
+c VarName 33	: impl_a_b
+c VarName 34	: equiv_b
+c VarName 35	: conjImpl_b
+c VarName 36	: impl_b_c
+c VarName 37	: impl_b_e
+c VarName 38	: impl_b_a
+c VarName 39	: impl_b_b
+c VarName 40	: control
+c VarName 41	: equiv_c
+c VarName 42	: conjImpl_c
+c VarName 43	: impl_c_c
+c VarName 44	: impl_c_e
+c VarName 45	: impl_c_a
+c VarName 46	: impl_c_b
+c VarName 47	: uncertain
+c VarName 48	: equiv_e
+c VarName 49	: conjImpl_e
+c VarName 50	: impl_e_c
+c VarName 51	: impl_e_e
+c VarName 52	: impl_e_a
+c VarName 53	: impl_e_b
+c VarName 54	: target
+p cnf 54 122
+e 16 0
+a 17 18 0
+e 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 0
+23 0
+-25 14 0
+-25 15 0
+-25 6 0
+-25 2 0
+-25 11 0
+-25 4 0
+-25 7 0
+-25 1 0
+-25 8 0
+-25 12 0
+-25 3 0
+-25 10 0
+-25 5 0
+-25 9 0
+-25 13 0
+25 -14 -15 -6 -2 -11 -4 -7 -1 -8 -12 -3 -10 -5 -9 -13 0
+-11 19 -30 0
+11 30 0
+-19 30 0
+-18 21 -31 0
+18 31 0
+-21 31 0
+-10 22 -32 0
+10 32 0
+-22 32 0
+-14 20 -33 0
+14 33 0
+-20 33 0
+-29 30 0
+-29 31 0
+-29 32 0
+-29 33 0
+29 -30 -31 -32 -33 0
+22 -29 -28 0
+-22 29 -28 0
+-22 -29 28 0
+22 29 28 0
+-4 19 -36 0
+4 36 0
+-19 36 0
+-8 21 -37 0
+8 37 0
+-21 37 0
+-15 22 -38 0
+15 38 0
+-22 38 0
+-13 20 -39 0
+13 39 0
+-20 39 0
+-35 36 0
+-35 37 0
+-35 38 0
+-35 39 0
+35 -36 -37 -38 -39 0
+20 -35 -34 0
+-20 35 -34 0
+-20 -35 34 0
+20 35 34 0
+-27 28 0
+-27 34 0
+27 -28 -34 0
+-2 19 -43 0
+2 43 0
+-19 43 0
+-7 21 -44 0
+7 44 0
+-21 44 0
+-12 22 -45 0
+12 45 0
+-22 45 0
+-5 20 -46 0
+5 46 0
+-20 46 0
+-42 43 0
+-42 44 0
+-42 45 0
+-42 46 0
+-42 16 0
+42 -43 -44 -45 -46 -16 0
+19 -42 -41 0
+-19 42 -41 0
+-19 -42 41 0
+19 42 41 0
+-40 41 0
+40 -41 0
+-6 19 -50 0
+6 50 0
+-19 50 0
+-1 21 -51 0
+1 51 0
+-21 51 0
+-3 22 -52 0
+3 52 0
+-22 52 0
+-9 20 -53 0
+9 53 0
+-20 53 0
+-49 50 0
+-49 51 0
+-49 52 0
+-49 53 0
+-49 17 0
+49 -50 -51 -52 -53 -17 0
+21 -49 -48 0
+-21 49 -48 0
+-21 -49 48 0
+21 49 48 0
+-47 48 0
+47 -48 0
+-26 27 0
+-26 40 0
+-26 47 0
+26 -27 -40 -47 0
+-54 22 0
+54 -22 0
+-24 25 0
+-24 26 0
+-24 54 0
+24 -25 -26 -54 0
+23 -24 0
+-23 24  0
 

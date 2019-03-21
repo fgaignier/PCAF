@@ -20,9 +20,10 @@ public class RandomRootCompletionGenerator {
 	
 
 	/**
-	 * returns an AF containing everything but:
+	 * returns a root AF containing everything but:
 	 * undirected attacks
-	 * control part
+	 * control part (since it is a root AF)
+	 * THIS IS NOT A VALID COMPLETION => PRIVATE USE ONLY
 	 */
 	private ArgumentFramework getSkeletonMaxRootCompletion() {
 		ArgumentFramework result = new ArgumentFramework();
@@ -69,7 +70,30 @@ public class RandomRootCompletionGenerator {
 	
 	/**
 	 * This method returns a specific completion of the CAF.
-	 * A maximum root completion
+	 * THE UNIQUE MAXIMUM ROOT COMPLETION
+	 * No arguments from the control part
+	 * All FIXED and UNCERTAIN arguments
+	 * All the FIXED and UNCERTAIN attacks
+	 * randomly assign a direction to UNDIRECTED attacks
+	 */
+	public ArgumentFramework getMaxRootCompletion() {
+		ArgumentFramework result = this.getSkeletonMaxRootCompletion();
+		// add attacks: unknown direction => here we need to decide randomly the direction
+		Set<CAttack> undirAtts = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
+		Iterator<CAttack> itud = undirAtts.iterator();
+		while(itud.hasNext()) {
+			CAttack attud = itud.next();
+			CArgument from = (CArgument)attud.getFrom();
+			CArgument to = (CArgument)attud.getTo();
+			result.addAttack(new Attack(from,to));
+			result.addAttack(new Attack(to,from));
+		}
+		return result;
+	}
+	
+	/**
+	 * This method returns a specific completion of the CAF.
+	 * A sub maximum root completion (for undirected attacks a specific direction is randomly chosen)
 	 * No arguments from the control part
 	 * All FIXED and UNCERTAIN arguments
 	 * All the FIXED and UNCERTAIN attacks

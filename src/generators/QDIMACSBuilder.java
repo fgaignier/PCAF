@@ -3,6 +3,11 @@ package generators;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
+/**
+ * stores information for the QDIMACSConverter
+ * an additional variable is a variable that is not part of the quantifiers (free, exists, forall)
+ * These are separated since they are added to an exists quantifier at the end
+ */
 public class QDIMACSBuilder {
 
 	//initial variables of the problem (all quantified with free, forall, exists)
@@ -20,7 +25,8 @@ public class QDIMACSBuilder {
 	}
 	
 	/**
-	 * add a variable by its name. Must specify if it is an additional variable or ont
+	 * add a variable by its name. Must specify if it is an additional variable or not
+	 * additional variable is a variable that is not part of the quantifiers (free, exists, forall)
 	 * @param name
 	 * @param additional
 	 */

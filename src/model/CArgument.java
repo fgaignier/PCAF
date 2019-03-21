@@ -1,6 +1,6 @@
 package model;
 
-/*
+/**
  * CArgument is a CAF Argument
  * As such it extends Argument
  * We add a type to model the king of argument

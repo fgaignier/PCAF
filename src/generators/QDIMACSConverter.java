@@ -11,6 +11,14 @@ import logic.qbf.Free;
 import logic.qbf.QBFFormula;
 import logic.qbf.Quantifier;
 
+/**
+ * Class to convert a qbf formula to QDIMACS
+ * Requires a QDIMACSBuilder since the construction is not sequential
+ * Some metrics must be stored during construction and result assembly 
+ * can only happen at the end (nb var and nb clauses for example)
+ * @author Fabrice
+ *
+ */
 public class QDIMACSConverter {
 
 	protected QBFFormula qbf;
@@ -29,7 +37,10 @@ public class QDIMACSConverter {
 		StringBuilder quantifs = new StringBuilder();
 		StringBuilder encoding = new StringBuilder();
 		StringBuilder output = new StringBuilder();
-		
+
+		// must resset the builder
+		this.build = new QDIMACSBuilder();
+
 		// first we encode the quantifiers (to get the quantified variables)
 		List<Quantifier> quantifiers = qbf.getQuantifiers();
 		for(Quantifier q: quantifiers) {
