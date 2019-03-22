@@ -3,7 +3,6 @@ package generators;
 import model.*;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.Iterator;
 
 public class HardestRootCompletionGenerator {
@@ -16,7 +15,7 @@ public class HardestRootCompletionGenerator {
 		this.gen = new RandomRootCompletionGenerator(CAF);
 	}
 	
-	/*
+	/**
 	 * evaluate the new strength of an argument target in a new Weighted Argument Framework
 	 * compared to its previous strength
 	 * negative value if the strength decreases
@@ -29,14 +28,14 @@ public class HardestRootCompletionGenerator {
 		return update.doubleValue() - old.doubleValue();
 	}
 	
-	/*
+	/**
 	 * returns the argument framework that is the hardest to control with regard to target
 	 * the goal is to find the completion giving the minimum value of strength for target
 	 * we start with a maximum root completion (randomly chosen)
 	 * 1) we decide on the direction of undirected attacks first (scanning all max root completions and keeping the best one)
 	 * 2) we decide on the presence of uncertain attacks
 	 * 3) we decide on the presence of uncertain arguments (if not linked to uncertain attacks). Removing such argument 
-	 * will therefore test the completions where undirected attacks and/or fixed atacks are removed because linke to an 
+	 * will therefore test the completions where undirected attacks and/or fixed attacks are removed because linked to an 
 	 * uncertain argument
 	 */
 	public WeightedArgumentFramework getHardestRootCompletionWRT(Argument target) {
@@ -46,7 +45,7 @@ public class HardestRootCompletionGenerator {
 		// test the removal of uncertain attacks
 		waf = this.setUncertainAttacks(waf, target);
 		// test the removal of uncertain arguments (if not linked to uncertain attacks)
-		Set<Argument> freeU = getFreeUncertainArguments(waf);
+		Set<CArgument> freeU = CAF.getFreeUncertainArguments(waf);
 		/*
 		Iterator<Argument> iter = freeU.iterator();
 		while(iter.hasNext()) {
@@ -103,32 +102,38 @@ public class HardestRootCompletionGenerator {
 		return waf;
 	}
 	
-	/*
+	/** MOVED TO ControlAF
 	 * iterate over uncertain attacks and check if From or To are part of waf and are uncertain arguments.
 	 * If yes, removing from the list of free arguments
 	 * If no, keeping in the list the list
 	 */
+	/*
 	private Set<Argument> getFreeUncertainArguments(WeightedArgumentFramework waf) {
 		// add all uncertain arguments to result
 		Set<Argument> result = new HashSet<Argument>(CAF.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
 		Set<CAttack> uncertain = CAF.getAttacksByType(CAttack.Type.UNCERTAIN);
-		Iterator<CAttack> iter = uncertain.iterator();
-		// iterate over uncertain attacks
-		while(iter.hasNext()) {
-			CAttack catt = iter.next();
+		Set<CAttack> undirected = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
+		
+		for(CAttack catt : uncertain) {
 			if(waf.containsAttack(catt)) {
 				result.remove(catt.getFrom());
 				result.remove(catt.getTo());
 			}
 		}
+			
+		for(CAttack catt : undirected) {
+			CAttack reverse = new CAttack(catt.getTo(), catt.getFrom(), CAttack.Type.UNDIRECTED);
+			if(waf.containsAttack(catt) && waf.containsAttack(reverse)) {
+				result.remove(catt.getFrom());
+				result.remove(catt.getTo());
+			}
+		}
 		return result;
-	}
+	} */
 	
-	private WeightedArgumentFramework setUncertainArguments(WeightedArgumentFramework waf, Argument target, Set<Argument> freeU) {
-		Iterator<Argument> iter = freeU.iterator();
+	private WeightedArgumentFramework setUncertainArguments(WeightedArgumentFramework waf, Argument target, Set<CArgument> freeU) {
 		WeightedArgumentFramework clone = null;
-		while(iter.hasNext()) {
-			Argument current = iter.next();
+		for(CArgument current : freeU) {
 			Map<Argument, Double> strength = waf.h_categorizer();
 			double impact = 0;
 			clone = waf.clone();
@@ -141,4 +146,5 @@ public class HardestRootCompletionGenerator {
 		}
 		return waf;
 	}
+
 }

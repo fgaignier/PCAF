@@ -360,6 +360,39 @@ public class ControlAF {
 		return internal;
 	}
 	
+	/**
+	 * Calculates free uncertain arguments for minimal move purposes as in Definition8 of the report
+	 * iterate over uncertain attacks and check if it is present in the af.
+	 * If yes, removing From and To from the list of free arguments
+	 * If no, keeping in the list the list
+	 *
+	 * iterate over undirected attacks and check if both sides are present in the af.
+	 * If yes, removing From and To from the list of free arguments
+	 * If no, keeping in the list the list
+	 *
+	 */
+	public Set<CArgument> getFreeUncertainArguments(ArgumentFramework af) {
+		// add all uncertain arguments to result
+		Set<CArgument> result = new HashSet<CArgument>(this.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
+		Set<CAttack> uncertain = this.getAttacksByType(CAttack.Type.UNCERTAIN);
+		Set<CAttack> undirected = this.getAttacksByType(CAttack.Type.UNDIRECTED);
+		
+		for(CAttack catt : uncertain) {
+			if(af.containsAttack(catt)) {
+				result.remove(catt.getFrom());
+				result.remove(catt.getTo());
+			}
+		}
+			
+		for(CAttack catt : undirected) {
+			CAttack reverse = new CAttack(catt.getTo(), catt.getFrom(), CAttack.Type.UNDIRECTED);
+			if(af.containsAttack(catt) && af.containsAttack(reverse)) {
+				result.remove(catt.getFrom());
+				result.remove(catt.getTo());
+			}
+		}
+		return result;
+	}
 	
 	/**
 	 * String representation of CAF according to apx file format

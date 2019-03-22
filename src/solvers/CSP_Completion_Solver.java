@@ -61,7 +61,7 @@ public class CSP_Completion_Solver {
 		return result;
 	}
 	
-	/*
+	/**
 	 * returns the set of solutions (control configurations) that credulously control the CAF
 	 * according to the protected element list
 	 */

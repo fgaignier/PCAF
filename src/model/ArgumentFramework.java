@@ -101,6 +101,19 @@ public class ArgumentFramework {
 	}
 	
 	/*
+	 * add all arguments from a Set
+	 * attacks must be added later
+	 * @param set of arguments to be added
+	 */
+	public void addAllCArguments(Set<CArgument> args) {
+		Iterator<CArgument> it = args.iterator();
+		while(it.hasNext()) {
+			Argument a = it.next();
+			this.addArgument(a);
+		}
+	}
+	
+	/*
 	 * add an attack
 	 * If the origin or destination argument of the attack is not yet in the graph
 	 * a UnknownArgumentError will be thrown
@@ -132,6 +145,16 @@ public class ArgumentFramework {
 	 */
 	public void addAllAttacks(Set<Attack> attacks) {
 		Iterator<Attack> iter = attacks.iterator();
+		while(iter.hasNext()) {
+			this.addAttack(iter.next());
+		}
+	}
+	
+	/*
+	 * add all attacks to the AF
+	 */
+	public void addAllCAttacks(Set<CAttack> attacks) {
+		Iterator<CAttack> iter = attacks.iterator();
 		while(iter.hasNext()) {
 			this.addAttack(iter.next());
 		}

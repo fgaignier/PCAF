@@ -87,8 +87,9 @@ public class Main {
 		*/
 		
 		/**
-		 * TEST PCAF Load et export
+		 * TEST PCAF all algo
 		 */
+		
 		System.out.println(args[0]);
 		PCAFParser parser = new PCAFParser(args[0]);
 		PControlAF pcaf = parser.parse();
@@ -106,6 +107,19 @@ public class Main {
 			System.out.println("for random root completion " + i + " proba is: " + cpc.getProbability(af));
 		}
 		
+		MostProbableRootCompletionGenerator mprcg = new MostProbableRootCompletionGenerator(pcaf);
+		af = mprcg.getMostProbableRootCompletion();
+		System.out.println("most probable completion:");
+		System.out.println(af.toString());
+		System.out.println("proba is: " + mprcg.getProbability());
+		
+		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(pcaf);
+		Set<ArgumentFramework> result = pcaf_solver.getCompletionsOverLimit(0.2);
+		
+		System.out.println("Completions over 20% proba");
+		for(ArgumentFramework r : result) {
+			System.out.println(r.toString());
+		}
 	}
 
 	public static void printHelp() {
