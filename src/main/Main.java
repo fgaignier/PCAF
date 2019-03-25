@@ -114,12 +114,23 @@ public class Main {
 		System.out.println("proba is: " + mprcg.getProbability());
 		
 		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(pcaf);
-		Set<ArgumentFramework> result = pcaf_solver.getCompletionsOverLimit(0.2);
+		Set<ArgumentFramework> result = pcaf_solver.getCompletionsOverLimit(0.1);
 		
-		System.out.println("Completions over 20% proba");
+		//System.out.println(pcaf.toString());
+		System.out.println("Completions over 10% proba");
 		for(ArgumentFramework r : result) {
 			System.out.println(r.toString());
+			System.out.println("with probability = " + cpc.getProbability(r));
 		}
+		
+		System.out.println("most probable completions");
+		result = pcaf_solver.getMostProbableRootCompletion();
+		
+		for(ArgumentFramework r : result) {
+			System.out.println(r.toString());
+			System.out.println("with probability = " + cpc.getProbability(r));
+		}
+
 	}
 
 	public static void printHelp() {

@@ -397,7 +397,7 @@ public class CSP_Completion_Solver {
 	}
 
 	
-	/*
+	/**
 	 * protected internal use only
 	 * toString method for an array of IntVar
 	 */

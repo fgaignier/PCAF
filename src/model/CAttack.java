@@ -26,5 +26,7 @@ public class CAttack extends Attack {
 		return type;
 	}
 	
-
+	public String toString() {
+		return "(" + this.getFrom().getName() + "," + this.getTo().getName() + ")";
+	}
 }

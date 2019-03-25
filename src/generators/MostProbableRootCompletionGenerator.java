@@ -48,12 +48,12 @@ public class MostProbableRootCompletionGenerator {
 			double p1 = probas.getKey().doubleValue();
 			double p2 = 1 - p0 -p1;
 			if(p0 >= p1 && p0 >= p2) {
-				System.out.println("removing undirected attack (" + reverseAtt.getFrom().getName() + "," +  reverseAtt.getTo().getName() + ")");
+				//System.out.println("removing undirected attack (" + reverseAtt.getFrom().getName() + "," +  reverseAtt.getTo().getName() + ")");
 				af.removeAttack(reverseAtt);
 				//update maxproba 
 				maxproba = (maxproba/p2)*p0;
 			} else if(p1 >= p0 && p1 >=p2) {
-				System.out.println("removing undirected attack (" + att.getFrom().getName() + "," +  att.getTo().getName() + ")");
+				//System.out.println("removing undirected attack (" + att.getFrom().getName() + "," +  att.getTo().getName() + ")");
 				af.removeAttack(att);
 				//update maxproba 
 				maxproba = (maxproba/p2)*p1;
@@ -68,7 +68,7 @@ public class MostProbableRootCompletionGenerator {
 		for(CAttack att : uncertain) {
 			double proba = PCAF.getUattProba(att);
 			if(proba <0.5) {
-				System.out.println("removing uncertain attack (" + att.getFrom().getName() + "," +  att.getTo().getName() + ")");
+				//System.out.println("removing uncertain attack (" + att.getFrom().getName() + "," +  att.getTo().getName() + ")");
 				af.removeAttack(att);
 				//update maxproba 
 				maxproba = (maxproba/proba)*(1- proba);
