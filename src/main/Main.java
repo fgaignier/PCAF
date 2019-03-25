@@ -1,160 +1,34 @@
 package main;
 
-import parser.*;
-import model.*;
-import solvers.*;
-import generators.*;
-import util.*;
-import generators.StrongQBFEncoder;
-import logic.qbf.QBFFormula;
-
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-
+import tests.test_PCAF;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		//long startTime = System.currentTimeMillis();
-		if (args.length == 0) {
+		if (args.length < 2) {
 			printHelp();
 			System.exit(1);
 		}
 		
-		Timer timer = new Timer();
+		String path = args[0];
+		String file_name = args[1];
 		
-		/**
-		 * TEST ARGUMENT FRAMEWORK FROM FILE AND CAF GENERATOR
-		 */
-		/* 
-		System.out.println(args[1]);
-		AFParser af_parser = new AFParser(args[1]);
+		test_PCAF pcaftest = new test_PCAF();
 		
-		ArgumentFramework af = af_parser.parse();
-		System.out.println(af.toString());
-		CSP_AF_Solver af_solver = new CSP_AF_Solver(af);
-		Set<StableSet> stables = af_solver.getStableSets();
-		printStableSets(stables);
-		CAFGenerator gen = new CAFGenerator(af, 33, 33,33,33);
-		ControlAF caf = gen.generate();
-		System.out.println(caf.toString());
-		try {
-			Util.saveToFile(caf.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\testCAFGEN.caf");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
-		
-		
-		/**
-		 * TEST QCIR, QDIMACS generators versus Hardest Completion method
-		 */
-		/*
-		System.out.println(args[0]);
-		CAFParser parser = new CAFParser(args[0]);
-		ControlAF caf = parser.parse();
-		
-		StrongQBFEncoder encoder = new StrongQBFEncoder(caf);
-	
-		System.out.println(caf.toString());
-		
-		QBFFormula qcir_cred = encoder.encode(ControllabilityEncoder.CREDULOUS);
-		QDIMACSConverter converter = new QDIMACSConverter(qcir_cred);
-		System.out.println(converter.toQDimacs());
-//		QBFFormula qcir_ske = encoder.encode(ControllabilityEncoder.SKEPTICAL);
-		
-		try {
-			Util.saveToFile(qcir_cred.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\basic.qcir");
-			Util.saveToFile(converter.toQDimacs(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\basic.qdimacs");
-			//Util.saveToFile(qcir_ske.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\passkeSKE.qcir");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//System.out.println(caf.toString());
-		
-		CSP_CAF_Solver solver = new CSP_CAF_Solver(caf);
-		timer.start();
-		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
-		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
-		System.out.println("Duration = " + timer.stop() + "ms");
-		
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		printSolutions(credulous);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		printSolutions(skeptical);
-		*/
-		
-		/**
-		 * TEST PCAF all algo
-		 */
-		
-		System.out.println(args[0]);
-		PCAFParser parser = new PCAFParser(args[0]);
-		PControlAF pcaf = parser.parse();
-		System.out.println(pcaf.toString());
-		
-		RandomRootCompletionGenerator rrg = new RandomRootCompletionGenerator(pcaf);
-		Completion_Proba_Calculator cpc = new Completion_Proba_Calculator(pcaf);
-		ArgumentFramework af = rrg.getMaxRootCompletion();
-		System.out.println(af.toString());
-		System.out.println("for max root completion proba is: " + cpc.getProbability(af));
-		
-		for(int i=0; i<10; i++) {
-			af = rrg.getRandomRootCompletion();
-			System.out.println(af.toString());
-			System.out.println("for random root completion " + i + " proba is: " + cpc.getProbability(af));
-		}
-		
-		MostProbableRootCompletionGenerator mprcg = new MostProbableRootCompletionGenerator(pcaf);
-		af = mprcg.getMostProbableRootCompletion();
-		System.out.println("most probable completion:");
-		System.out.println(af.toString());
-		System.out.println("proba is: " + mprcg.getProbability());
-		
-		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(pcaf);
-		Set<ArgumentFramework> result = pcaf_solver.getCompletionsOverLimit(0.1);
-		
-		//System.out.println(pcaf.toString());
-		System.out.println("Completions over 10% proba");
-		for(ArgumentFramework r : result) {
-			System.out.println(r.toString());
-			System.out.println("with probability = " + cpc.getProbability(r));
-		}
-		
-		System.out.println("most probable completions");
-		result = pcaf_solver.getMostProbableRootCompletion();
-		
-		for(ArgumentFramework r : result) {
-			System.out.println(r.toString());
-			System.out.println("with probability = " + cpc.getProbability(r));
-		}
+		pcaftest.load_PCAF_from_file(path+file_name);
+		pcaftest.printMaxCompletionProba();
+		pcaftest.printCompletionsOverProbability(0.1);
+		pcaftest.printMostProbabelCompletionsCSP();
+		pcaftest.printMostProbableCompletion();
+		pcaftest.printRandomCompletionProba(5);
 
 	}
 
 	public static void printHelp() {
 		System.err.println("Usage:");
-		System.err.println("java -jar ControllabilitySolver.jar file");
+		System.err.println("java -jar ControllabilitySolver.jar path file_name");
 	}
 	
-	public static void printSolutions(Set<StableControlConfiguration> solutions) {
-		int i = 1;
-		Iterator<StableControlConfiguration> iter = solutions.iterator();
-		while(iter.hasNext()) {
-			System.out.println("--------- printing solution " + i + "-----------");
-			System.out.println(iter.next().toString());
-			i++;
-		}
-	}
 	
-	public static void printStableSets(Set<StableSet> solutions) {
-		int i = 1;
-		Iterator<StableSet> iter = solutions.iterator();
-		while(iter.hasNext()) {
-			System.out.println("--------- printing solution " + i + "-----------");
-			System.out.println(iter.next().toString());
-			i++;
-		}
-	}
 }

@@ -29,7 +29,7 @@ public class CAFParser {
 		filename = string;
 	}
 
-	/*
+	/**
 	 * This method will load a CAF from a file and return an instance of CAF
 	 * The syntax of the file is described below.
 	 * all ARGUMENTS must be defined first, else the attacks cannot be constructed

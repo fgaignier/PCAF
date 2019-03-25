@@ -28,14 +28,11 @@ public class CAFGenerator {
 	private int pAttU ;
 
 	/**
-	 * imput argument framework, probability of fixed argument, probability of uncertain argument
-	 * probability of fixed attack and uncertain attack
 	 * ALL IN % INTEGER VALUES
-	 * @param af
-	 * @param pArgF
-	 * @param pArgU
-	 * @param pAttF
-	 * @param pAttU
+	 * @param pArgF proportion of fixed argument
+	 * @param pArgU proportion of uncertain argument
+	 * @param pAttF proportion of fixed attacks
+	 * @param pAttU proportion of uncertain attacks
 	 */
 	public CAFGenerator(ArgumentFramework af, int pArgF, int pArgU, int pAttF, int pAttU) {
 		this.af = af;
