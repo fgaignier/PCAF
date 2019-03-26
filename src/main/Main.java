@@ -36,11 +36,11 @@ public class Main {
 		test_PCAF pcaftest = new test_PCAF();
 		
 		pcaftest.load_PCAF_from_file(path+file_name);
-		pcaftest.printMaxCompletionProba();
-		pcaftest.printCompletionsOverProbability(0.1);
+		//pcaftest.printMaxCompletionProba();
+		//pcaftest.printCompletionsOverProbability(0.1);
 		pcaftest.printMostProbabelCompletionsCSP();
 		pcaftest.printMostProbableCompletion();
-		pcaftest.printRandomCompletionProba(5);
+		//pcaftest.printRandomCompletionProba(5);
 		
 	}
 

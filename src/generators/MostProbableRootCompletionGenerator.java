@@ -33,8 +33,8 @@ public class MostProbableRootCompletionGenerator {
 		// test the removal of uncertain attacks
 		af = this.setUncertainAttacks(af);
 		// test the removal of uncertain arguments (if not linked to uncertain attacks)
-		Set<CArgument> freeU = PCAF.getFreeUncertainArguments(af);
-		af = this.setUncertainArguments(af, freeU);
+		//Set<CArgument> freeU = PCAF.getFreeUncertainArguments(af);
+		af = this.setUncertainArguments(af);
 		return af;
 	}
 	
@@ -77,29 +77,44 @@ public class MostProbableRootCompletionGenerator {
 		return af;
 	}
 	
+	/**
+	 * deprecated. Need to review the theory, but minimal moves do not always provide a good result
+	 * @param af
+	 * @param freeU
+	 * @return
+	 */
 	/*
-	 * moved to ControlAF
-	/*
-	private Set<CArgument> getFreeUncertainArguments(ArgumentFramework af) {
-		// add all uncertain arguments to result
-		Set<CArgument> result = new HashSet<CArgument>(PCAF.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
-		Set<CAttack> uncertain = PCAF.getAttacksByType(CAttack.Type.UNCERTAIN);
-		// iterate over uncertain attacks
-		for(CAttack catt : uncertain) {
-			if(af.containsAttack(catt)) {
-				result.remove(catt.getFrom());
-				result.remove(catt.getTo());
-			}
-		}
-		return result;
-	} */
-	
 	private ArgumentFramework setUncertainArguments(ArgumentFramework af, Set<CArgument> freeU) {
 		// it is much harder to mesure the full impact of such removal
 		// so we test it on a clone and if it does increase to probability we really remove it
 		// this is all linear calculations anyway
 		ArgumentFramework clone = null;
 		for(CArgument current : freeU) {
+			clone = af.clone();
+			clone.removeArgument(current);
+			double updatedProba = cpc.getProbability(clone);
+			if(updatedProba > this.maxproba) {
+				af.removeArgument(current);
+				this.maxproba = updatedProba;
+			}
+		}
+		return af;
+	} */
+	
+	/**
+	 * iterate through the uncertain arguments and checks if the removal has
+	 * a positive impact. If yes, the removal is performed
+	 * THIS IS NOT A MINIMAL MOVE !!!!!
+	 * @param af
+	 * @return
+	 */
+	private ArgumentFramework setUncertainArguments(ArgumentFramework af) {
+		// it is much harder to mesure the full impact of such removal
+		// so we test it on a clone and if it does increase to probability we really remove it
+		// this is all linear calculations anyway
+		ArgumentFramework clone = null;
+		Set<CArgument> uncertain = PCAF.getArgumentsByType(CArgument.Type.UNCERTAIN);
+		for(CArgument current : uncertain) {
 			clone = af.clone();
 			clone.removeArgument(current);
 			double updatedProba = cpc.getProbability(clone);

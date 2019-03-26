@@ -215,21 +215,20 @@ public class CSP_PCAF_Proba_Solver {
 		Constraint c2 = model.arithm(aj, "!=", valaj);
 		Constraint c3 = model.arithm(dij, "<", 0);
 		model.or(c1,c2, c3).post();
-		System.out.println("adding constraint dij<0 or ai!=" + valai + " or aj!=" + valaj);
+		//System.out.println("adding constraint dij<0 or ai!=" + valai + " or aj!=" + valaj);
 		
 		Constraint c4 = model.arithm(ai, "=", valai);
 		Constraint c5 = model.arithm(aj, "=", valaj);
 		Constraint c6 = model.arithm(dij, "=", 0);
 		Constraint and = model.and(c4,c5);
 		model.or(c6, and).post();
-		System.out.println("adding constraint dij=0 or(ai=" + valai + " and aj=" + valaj + ")");
+		//System.out.println("adding constraint dij=0 or(ai=" + valai + " and aj=" + valaj + ")");
 	}
 	
 	private ArgumentFramework buildAF(Map<String, IntVar> argVar, Map<String, IntVar> attackVar) {
 		ArgumentFramework af = new ArgumentFramework();
 		// build the structure (fixed part)
 		af.addAllCArguments(PCAF.getArgumentsByType(CArgument.Type.FIXED));
-		//af.addAllCAttacks(PCAF.getAttacksByType(CAttack.Type.CERTAIN));
 		
 		// add uncertain arguments if it is on
 		for(String name : argVar.keySet()) {
@@ -238,10 +237,7 @@ public class CSP_PCAF_Proba_Solver {
 			IntVar var = argVar.get(name);
 			if(arg.getType() == CArgument.Type.UNCERTAIN) {
 				int onValue = this.getLnIntValue(PCAF.getUargProba(arg));
-				//System.out.println("on value= " + onValue);
-				//System.out.println("var value= " + var.getValue());
 				if(var.getValue() == onValue) {
-					//System.out.println("argument added");
 					af.addArgument(arg);
 				} 
 			}
@@ -253,11 +249,14 @@ public class CSP_PCAF_Proba_Solver {
 		
 		for(CAttack att: fixedAtts) {
 			// OK, here we need to check for the fixed attacks
+			// since there is no value for those
 			if(af.containsArgument(att.getFrom()) && af.containsArgument(att.getTo())) {
 				af.addAttack(att);
 			}
 		}
 		
+		// no need to check the presence of the arguments
+		// if the attack is on, we have the arguments on as well by construction of the constraints
 		for(CAttack att: uncertainAtts) {
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
 			IntVar var = attackVar.get(attName);
@@ -267,8 +266,9 @@ public class CSP_PCAF_Proba_Solver {
 			}
 		}
 
+		// no need to check the presence of the arguments
+		// if the attack is on, we have the arguments on as well by construction of the constraints
 		for(CAttack att: undirectedAtts) {
-			//System.out.println("adding attack " + att.toString());
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
 			IntVar var = attackVar.get(attName);
 			int dir1Value = this.getLnIntValue(PCAF.getUDattProba(att).getKey().doubleValue());
