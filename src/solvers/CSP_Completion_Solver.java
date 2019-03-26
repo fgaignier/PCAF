@@ -158,6 +158,7 @@ public class CSP_Completion_Solver {
 			// if there are no attackers, accCurrent=1
 			if(attackers.size()==0) {
 				model.arithm(accCurrent, "=", 1).post();
+				//System.out.println("no attackers for argument " + current.getName());
 				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
 				
 			} else {
@@ -182,7 +183,7 @@ public class CSP_Completion_Solver {
 			// corresponding variables (need acc and on)
 			IntVar accCurrent = accVar.get(current.getName());
 			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getControlAttackers(current);
+			Set<Argument> attackers = CAF.getControlAttackers(current, this.completion);
 			Iterator<Argument> attackersIter = attackers.iterator();
 			Argument attacker = null;
 			IntVar accAtt = null;
@@ -191,6 +192,7 @@ public class CSP_Completion_Solver {
 			while(attackersIter.hasNext()) {
 				// attacker and its corresponding variable
 				attacker = attackersIter.next();
+				System.out.println(" look variable for " + attacker.getName());
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
@@ -358,7 +360,7 @@ public class CSP_Completion_Solver {
 			// corresponding variables (need acc and on)
 			IntVar accCurrent = accVar.get(current.getName());
 			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getControlAttackers(current);
+			Set<Argument> attackers = CAF.getControlAttackers(current, this.completion);
 			Iterator<Argument> attackersIter = attackers.iterator();
 			Argument attacker = null;
 			IntVar accAtt = null;

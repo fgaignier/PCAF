@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.variables.IntVar;
 
 import model.ArgumentFramework;
@@ -136,66 +137,13 @@ public class CSP_PCAF_Proba_Solver {
 		/*
 		 * Constraints
 		 */
-		/*
-		 * val(dij) < 0 iff val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))
-		 * if ai fixed ln(p1(ai)) = 0
-		 * if aj fixed ln(p1(aj)) = 0
-		 */
 		for(CAttack att : uncertainAtts) {
-			//System.out.println("undirected attack " + att.toString());
-			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
-			CArgument argFrom = PCAF.getArgumentByName(att.getFrom().getName());
-			CArgument argTo = PCAF.getArgumentByName(att.getTo().getName());
-			IntVar dij = attackVar.get(attName);
-			IntVar ai = argVar.get(att.getFrom().getName());
-			IntVar aj = argVar.get(att.getTo().getName());
-			int valai = 0;
-			if(argFrom.getType() == CArgument.Type.UNCERTAIN) {
-				valai = this.getLnIntValue(PCAF.getUargProba(argFrom));
-			}
-			int valaj = 0;
-			if(argTo.getType() == CArgument.Type.UNCERTAIN) {
-				valaj = this.getLnIntValue(PCAF.getUargProba(argTo));
-			}
-			int total = valai + valaj;
-			
-			IntVar[] sum = new IntVar[3];
-			sum[0] = dij;
-			sum[1] = ai;
-			sum[2] = aj;
-			model.sum(sum, "!=", total).post();
-			//System.out.println("adding constraint sum(" + fromTabToString(sum) + "!=" + total);
+			this.addAttackConstraints(att, model, argVar, attackVar);
 		}
 		
-		/*
-		 * val(dij) < 0 iff val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))
-		 * if ai fixed ln(p1(ai)) = 0
-		 * if aj fixed ln(p1(aj)) = 0
-		 */
 		for(CAttack att : undirectedAtts) {
-			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
-			CArgument argFrom = PCAF.getArgumentByName(att.getFrom().getName());
-			CArgument argTo = PCAF.getArgumentByName(att.getTo().getName());
-			IntVar dij = attackVar.get(attName);
-			IntVar ai = argVar.get(att.getFrom().getName());
-			IntVar aj = argVar.get(att.getTo().getName());
-			int valai = 0;
-			if(argFrom.getType() == CArgument.Type.UNCERTAIN) {
-				valai = this.getLnIntValue(PCAF.getUargProba(argFrom));
-			}
-			int valaj = 0;
-			if(argTo.getType() == CArgument.Type.UNCERTAIN) {
-				valaj = this.getLnIntValue(PCAF.getUargProba(argTo));
-			}
-			int total = valai + valaj;
-			
-			IntVar[] sum = new IntVar[3];
-			sum[0] = dij;
-			sum[1] = ai;
-			sum[2] = aj;
-			// add the constraint to the model
-			model.sum(sum, "!=", total).post();
-			//System.out.println("adding constraint sum(" + fromTabToString(sum) + "!=" + total);
+			this.addAttackConstraints(att, model, argVar, attackVar);
+	
 		}
 	
 		// global constraint
@@ -238,11 +186,50 @@ public class CSP_PCAF_Proba_Solver {
 		return result;
 	}
 	
+	/**
+	 * val(dij) < 0 <=> val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))
+	 * if ai fixed ln(p1(ai)) = 0
+	 * if aj fixed ln(p1(aj)) = 0
+	 * 
+	 * For CHOCO WE SPLIT IN TWO CONSTRAINTS
+	 * 1) [val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))] or val(dij) = 0
+	 * 2) val(dij) < 0 or val(ai) != ln(p1(ai)) or val(aj)!=ln(p1(aj))
+	 */
+	private void addAttackConstraints(CAttack att, Model model, Map<String, IntVar> argVar, Map<String, IntVar> attackVar) {
+		String attName = att.getFrom().getName() + "_" + att.getTo().getName();
+		CArgument argFrom = PCAF.getArgumentByName(att.getFrom().getName());
+		CArgument argTo = PCAF.getArgumentByName(att.getTo().getName());
+		IntVar dij = attackVar.get(attName);
+		IntVar ai = argVar.get(att.getFrom().getName());
+		IntVar aj = argVar.get(att.getTo().getName());
+		int valai = 0;
+		if(argFrom.getType() == CArgument.Type.UNCERTAIN) {
+			valai = this.getLnIntValue(PCAF.getUargProba(argFrom));
+		}
+		int valaj = 0;
+		if(argTo.getType() == CArgument.Type.UNCERTAIN) {
+			valaj = this.getLnIntValue(PCAF.getUargProba(argTo));
+		}
+		
+		Constraint c1 = model.arithm(ai, "!=", valai);
+		Constraint c2 = model.arithm(aj, "!=", valaj);
+		Constraint c3 = model.arithm(dij, "<", 0);
+		model.or(c1,c2, c3).post();
+		System.out.println("adding constraint dij<0 or ai!=" + valai + " or aj!=" + valaj);
+		
+		Constraint c4 = model.arithm(ai, "=", valai);
+		Constraint c5 = model.arithm(aj, "=", valaj);
+		Constraint c6 = model.arithm(dij, "=", 0);
+		Constraint and = model.and(c4,c5);
+		model.or(c6, and).post();
+		System.out.println("adding constraint dij=0 or(ai=" + valai + " and aj=" + valaj + ")");
+	}
+	
 	private ArgumentFramework buildAF(Map<String, IntVar> argVar, Map<String, IntVar> attackVar) {
 		ArgumentFramework af = new ArgumentFramework();
 		// build the structure (fixed part)
 		af.addAllCArguments(PCAF.getArgumentsByType(CArgument.Type.FIXED));
-		af.addAllCAttacks(PCAF.getAttacksByType(CAttack.Type.CERTAIN));
+		//af.addAllCAttacks(PCAF.getAttacksByType(CAttack.Type.CERTAIN));
 		
 		// add uncertain arguments if it is on
 		for(String name : argVar.keySet()) {
@@ -262,6 +249,14 @@ public class CSP_PCAF_Proba_Solver {
 		
 		Set<CAttack> uncertainAtts = PCAF.getAttacksByType(CAttack.Type.UNCERTAIN);
 		Set<CAttack> undirectedAtts = PCAF.getAttacksByType(CAttack.Type.UNDIRECTED);
+		Set<CAttack> fixedAtts = PCAF.getAttacksByType(CAttack.Type.CERTAIN);
+		
+		for(CAttack att: fixedAtts) {
+			// OK, here we need to check for the fixed attacks
+			if(af.containsArgument(att.getFrom()) && af.containsArgument(att.getTo())) {
+				af.addAttack(att);
+			}
+		}
 		
 		for(CAttack att: uncertainAtts) {
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();

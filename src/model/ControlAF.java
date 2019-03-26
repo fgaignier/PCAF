@@ -317,20 +317,25 @@ public class ControlAF {
 	}
 	
 	/**
+	 * According to a given completion
 	 * for a given argument (any type), returns the set of arguments attacking this argument via a control attack
-	 * if the argument is a control argument, the attackers can be in AC, AU, AF
+	 * if the argument is a control argument, the attackers can be in AC, AU, AF 
+	 * but if AU, argument must belong to completion
 	 * if the argument is not a control argument, the attackers can only be in AC
 	 * @param a
 	 * @return
 	 */
-	public Set<Argument> getControlAttackers(Argument a) {
+	public Set<Argument> getControlAttackers(Argument a, ArgumentFramework completion) {
 		Set<Argument> result = new HashSet<Argument>();
 		Set<CAttack> attacks = this.getAttacksByType(CAttack.Type.CONTROL);
-		Iterator<CAttack> iter = attacks.iterator();
-		while(iter.hasNext()) {
-			CAttack current = iter.next();
+		
+		for(CAttack current : attacks) {
+			CArgument from = this.getArgumentByName(current.getFrom().getName());
+			//CArgument to = this.getArgumentByName(current.getTo().getName());
 			if(current.getTo().equals(a)) {
-				result.add(current.getFrom());
+				if(completion.containsArgument(from)|| from.getType() == CArgument.Type.CONTROL) {
+					result.add(current.getFrom());
+				}
 			}
 		}
 		return result;
@@ -353,7 +358,7 @@ public class ControlAF {
 		// attackers from the root completion
 		Set<Argument> internal = completion.getAttackingArguments(a);
 		// attackers from AC (since a does not belong to AC)
-		Set<Argument> control = this.getControlAttackers(a);
+		Set<Argument> control = this.getControlAttackers(a, completion);
 		
 		internal.addAll(control);
 		

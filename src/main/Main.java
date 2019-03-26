@@ -1,5 +1,6 @@
 package main;
 
+import tests.test_CAF;
 import tests.test_PCAF;
 
 public class Main {
@@ -14,6 +15,24 @@ public class Main {
 		String path = args[0];
 		String file_name = args[1];
 		
+		/**
+		 * Test AF
+		 */
+		
+		/**
+		 * Test CAF
+		 */
+		
+		/*
+		test_CAF caftest = new test_CAF();
+		caftest.load_CAF_from_file(path+file_name);
+		caftest.solve_with_hardest_completion();
+		*/
+		
+		/**
+		 * Test PCAFs
+		 */
+		
 		test_PCAF pcaftest = new test_PCAF();
 		
 		pcaftest.load_PCAF_from_file(path+file_name);
@@ -22,7 +41,7 @@ public class Main {
 		pcaftest.printMostProbabelCompletionsCSP();
 		pcaftest.printMostProbableCompletion();
 		pcaftest.printRandomCompletionProba(5);
-
+		
 	}
 
 	public static void printHelp() {

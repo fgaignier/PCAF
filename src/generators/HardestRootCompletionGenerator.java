@@ -66,13 +66,15 @@ public class HardestRootCompletionGenerator {
 			if(waf.containsAttack(att)) {
 				waf.reverseAttack(att);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				if(impact >=0) {
+				// change here : test
+				if(impact >0) {
 					waf.reverseAttack(reverseAtt);
 				}
 			} else if(waf.containsAttack(reverseAtt)) {
 				waf.reverseAttack(reverseAtt);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				if(impact >=0) {
+				// change here : test
+				if(impact >0) {
 					waf.reverseAttack(att);
 				}
 			} else {
@@ -92,7 +94,8 @@ public class HardestRootCompletionGenerator {
 			if(waf.containsAttack(att)) {
 				waf.removeAttack(att);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				if(impact >=0) {
+				// change here : test
+				if(impact >0) {
 					waf.addAttack(att);
 				}
 			} else {
@@ -139,7 +142,8 @@ public class HardestRootCompletionGenerator {
 			clone = waf.clone();
 			clone.removeArgument(current);
 			impact = this.evaluateMinimalChangeImpactWRT(target, strength, clone);
-			if(impact <0) {
+			// change here : test
+			if(impact <=0) {
 				waf = clone;
 			}
 			
