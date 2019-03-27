@@ -42,7 +42,8 @@ public class HardestRootCompletionGenerator {
 		if(! this.CAF.isHardestRootCompletionCompatible()) {
 			throw new UnsupportedOperationException("Calculation cannot be made. There are attacks from AU or AF to AC");
 		}
-		WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getRandomMaxRootCompletion());
+		//WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getRandomMaxRootCompletion());
+		WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getMaxRootCompletion());
 		// test the change of direction of undirected attacks
 		waf = this.setUndirectedAttacks(waf, target);
 		// test the removal of uncertain attacks
@@ -61,6 +62,20 @@ public class HardestRootCompletionGenerator {
 			CAttack reverseAtt = new CAttack(att.getTo(), att.getFrom(), CAttack.Type.UNDIRECTED);
 			Map<Argument, Double> strength = waf.h_categorizer();
 			double impact = 0;
+			waf.removeAttack(att);
+			impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
+			// if impact not strictly negativ, leave the attack
+			if(impact >=0) {
+				waf.addAttack(att);
+			}
+			waf.removeAttack(reverseAtt);
+			impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
+			// if impact not strictly negativ, leave the attack
+			if(impact >=0) {
+				waf.addAttack(reverseAtt);
+			}
+
+			/*
 			if(waf.containsAttack(att)) {
 				waf.reverseAttack(att);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
@@ -80,6 +95,7 @@ public class HardestRootCompletionGenerator {
 			} else {
 				System.out.println("WARNING: undirected attack not present for hardest completion calculation");
 			}
+			*/
 		}
 		return waf;
 	}
