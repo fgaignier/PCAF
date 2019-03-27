@@ -317,10 +317,24 @@ public class ControlAF {
 	}
 	
 	/**
+	 * Returns true if no arguments from AU U AF are attacking argumets from AC
+	 */
+	public boolean isHardestRootCompletionCompatible() {
+		Set<CAttack> control = this.getAttacksByType(CAttack.Type.CONTROL);
+		for(CAttack att : control) {
+			CArgument from = this.getArgumentByName(att.getFrom().getName());
+			if(from.getType() == CArgument.Type.FIXED || from.getType() == CArgument.Type.UNCERTAIN) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * According to a given completion
 	 * for a given argument (any type), returns the set of arguments attacking this argument via a control attack
 	 * if the argument is a control argument, the attackers can be in AC, AU, AF 
-	 * but if AU, argument must belong to completion
+	 * but for AU, argument must belong to completion
 	 * if the argument is not a control argument, the attackers can only be in AC
 	 * @param a
 	 * @return

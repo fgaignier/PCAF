@@ -39,19 +39,17 @@ public class HardestRootCompletionGenerator {
 	 * uncertain argument
 	 */
 	public WeightedArgumentFramework getHardestRootCompletionWRT(Argument target) {
+		if(! this.CAF.isHardestRootCompletionCompatible()) {
+			throw new UnsupportedOperationException("Calculation cannot be made. There are attacks from AU or AF to AC");
+		}
 		WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getRandomMaxRootCompletion());
 		// test the change of direction of undirected attacks
 		waf = this.setUndirectedAttacks(waf, target);
 		// test the removal of uncertain attacks
 		waf = this.setUncertainAttacks(waf, target);
 		// test the removal of uncertain arguments (if not linked to uncertain attacks)
-		Set<CArgument> freeU = CAF.getFreeUncertainArguments(waf);
-		/*
-		Iterator<Argument> iter = freeU.iterator();
-		while(iter.hasNext()) {
-			System.out.println(iter.next().getName());
-		} */
-		waf = this.setUncertainArguments(waf, target, freeU);
+		//Set<CArgument> freeU = CAF.getFreeUncertainArguments(waf);
+		waf = this.setUncertainArguments(waf, target);
 		return waf;
 	}
 	
@@ -66,15 +64,17 @@ public class HardestRootCompletionGenerator {
 			if(waf.containsAttack(att)) {
 				waf.reverseAttack(att);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				// change here : test
-				if(impact >0) {
+				// impact change only if it strictly decreases the Deg(t), therefore reinstate the attack 
+				// if it has a positive or null impact
+				if(impact >=0) {
 					waf.reverseAttack(reverseAtt);
 				}
 			} else if(waf.containsAttack(reverseAtt)) {
 				waf.reverseAttack(reverseAtt);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				// change here : test
-				if(impact >0) {
+				// impact change only if it strictly decreases the Deg(t), therefore reinstate the attack 
+				// if it has a positive or null impact
+				if(impact >=0) {
 					waf.reverseAttack(att);
 				}
 			} else {
@@ -94,8 +94,9 @@ public class HardestRootCompletionGenerator {
 			if(waf.containsAttack(att)) {
 				waf.removeAttack(att);
 				impact = this.evaluateMinimalChangeImpactWRT(target, strength, waf);
-				// change here : test
-				if(impact >0) {
+				// impact change only if it strictly decreases the Deg(t), therefore reinstate the attack 
+				// if it has a positive or null impact
+				if(impact >=0) {
 					waf.addAttack(att);
 				}
 			} else {
@@ -105,46 +106,18 @@ public class HardestRootCompletionGenerator {
 		return waf;
 	}
 	
-	/** MOVED TO ControlAF
-	 * iterate over uncertain attacks and check if From or To are part of waf and are uncertain arguments.
-	 * If yes, removing from the list of free arguments
-	 * If no, keeping in the list the list
-	 */
-	/*
-	private Set<Argument> getFreeUncertainArguments(WeightedArgumentFramework waf) {
-		// add all uncertain arguments to result
-		Set<Argument> result = new HashSet<Argument>(CAF.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
-		Set<CAttack> uncertain = CAF.getAttacksByType(CAttack.Type.UNCERTAIN);
-		Set<CAttack> undirected = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
-		
-		for(CAttack catt : uncertain) {
-			if(waf.containsAttack(catt)) {
-				result.remove(catt.getFrom());
-				result.remove(catt.getTo());
-			}
-		}
-			
-		for(CAttack catt : undirected) {
-			CAttack reverse = new CAttack(catt.getTo(), catt.getFrom(), CAttack.Type.UNDIRECTED);
-			if(waf.containsAttack(catt) && waf.containsAttack(reverse)) {
-				result.remove(catt.getFrom());
-				result.remove(catt.getTo());
-			}
-		}
-		return result;
-	} */
-	
-	private WeightedArgumentFramework setUncertainArguments(WeightedArgumentFramework waf, Argument target, Set<CArgument> freeU) {
+	private WeightedArgumentFramework setUncertainArguments(WeightedArgumentFramework waf, Argument target) {
 		WeightedArgumentFramework clone = null;
-		for(CArgument current : freeU) {
+		Set<CArgument> uncertain = CAF.getArgumentsByType(CArgument.Type.UNCERTAIN);
+		for(CArgument current : uncertain) {
 			Map<Argument, Double> strength = waf.h_categorizer();
 			double impact = 0;
 			clone = waf.clone();
 			clone.removeArgument(current);
 			impact = this.evaluateMinimalChangeImpactWRT(target, strength, clone);
-			// change here : test
-			if(impact <=0) {
-				waf = clone;
+			// impact change only if it strictly decreases the Deg(t)
+			if(impact <0) {
+				waf.removeArgument(current);
 			}
 			
 		}
