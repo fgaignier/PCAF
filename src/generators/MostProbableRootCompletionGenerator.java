@@ -77,29 +77,6 @@ public class MostProbableRootCompletionGenerator {
 		return af;
 	}
 	
-	/**
-	 * deprecated. Need to review the theory, but minimal moves do not always provide a good result
-	 * @param af
-	 * @param freeU
-	 * @return
-	 */
-	/*
-	private ArgumentFramework setUncertainArguments(ArgumentFramework af, Set<CArgument> freeU) {
-		// it is much harder to mesure the full impact of such removal
-		// so we test it on a clone and if it does increase to probability we really remove it
-		// this is all linear calculations anyway
-		ArgumentFramework clone = null;
-		for(CArgument current : freeU) {
-			clone = af.clone();
-			clone.removeArgument(current);
-			double updatedProba = cpc.getProbability(clone);
-			if(updatedProba > this.maxproba) {
-				af.removeArgument(current);
-				this.maxproba = updatedProba;
-			}
-		}
-		return af;
-	} */
 	
 	/**
 	 * iterate through the uncertain arguments and checks if the removal has
