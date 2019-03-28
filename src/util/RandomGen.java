@@ -47,4 +47,12 @@ public class RandomGen {
 			return false;
 		}
 	}
+	
+	/**
+	 * Returns a random double between 0 incl  and 1 excl
+	 */
+	public static double randomDouble(double min, double max) {
+		Random rand = new Random();
+		return min + (max - min) * rand.nextDouble();
+	}
 }

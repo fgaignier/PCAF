@@ -23,26 +23,26 @@ public class Main {
 		 * Test CAF
 		 */
 		
-		
+		/*
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
 		caftest.solve_with_hardest_completion();
-		
+		*/
 		
 		/**
 		 * Test PCAFs
 		 */
 		
-		/*
+		
 		test_PCAF pcaftest = new test_PCAF();
 		
 		pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();
 		//pcaftest.printCompletionsOverProbability(0.1);
-		pcaftest.printMostProbabelCompletionsCSP();
-		pcaftest.printMostProbableCompletion();
+		//pcaftest.printMostProbabelCompletionsCSP();
+		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
-		*/
+		pcaftest.printRandomCompletions(6);
 	}
 
 	public static void printHelp() {

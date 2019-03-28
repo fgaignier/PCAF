@@ -11,6 +11,12 @@ import model.ControlAF;
 import model.UnknownArgumentError;
 import util.RandomGen;
 
+/**
+ * Returns root completions for a CAF (with no probability distribution)
+ * Therefore the random part is purely random
+ * @author Fabrice
+ *
+ */
 public class RandomRootCompletionGenerator {
 	protected ControlAF CAF;
 	

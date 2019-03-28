@@ -3,6 +3,7 @@ package tests;
 import java.util.Set;
 
 import generators.MostProbableRootCompletionGenerator;
+import generators.RandomProbaRootCompletionGenerator;
 import generators.RandomRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.PControlAF;
@@ -98,6 +99,15 @@ public class test_PCAF {
 		for(ArgumentFramework c : completions) {
 			System.out.println(c.toString());
 			System.out.println("with probability = " + cpc.getProbability(c));
+		}
+	}
+	
+	public void printRandomCompletions(int nb) {
+		RandomProbaRootCompletionGenerator gen = new RandomProbaRootCompletionGenerator(this.PCAF);
+		for(int i =0; i<nb; i++) {
+			ArgumentFramework af = gen.getRandomRootCompletion();
+			System.out.println("-------- random completion number " + i + "--------");
+			System.out.println(af.toString());
 		}
 	}
 
