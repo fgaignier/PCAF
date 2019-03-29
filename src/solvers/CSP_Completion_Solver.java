@@ -192,7 +192,7 @@ public class CSP_Completion_Solver {
 			while(attackersIter.hasNext()) {
 				// attacker and its corresponding variable
 				attacker = attackersIter.next();
-				System.out.println(" look variable for " + attacker.getName());
+				//System.out.println(" look variable for " + attacker.getName());
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;

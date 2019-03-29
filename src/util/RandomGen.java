@@ -49,7 +49,7 @@ public class RandomGen {
 	}
 	
 	/**
-	 * Returns a random double between 0 incl  and 1 excl
+	 * Returns a random double between min incl  and max excl
 	 */
 	public static double randomDouble(double min, double max) {
 		Random rand = new Random();

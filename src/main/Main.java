@@ -42,7 +42,8 @@ public class Main {
 		//pcaftest.printMostProbabelCompletionsCSP();
 		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
-		pcaftest.printRandomCompletions(6);
+		//pcaftest.printRandomCompletions(6);
+		pcaftest.printMostProbableControllingEntities(1000);
 	}
 
 	public static void printHelp() {

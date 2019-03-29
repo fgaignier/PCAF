@@ -49,16 +49,36 @@ public class StableControlConfiguration {
 		return onControl;
 	}
 	
-	/*
+	/**
 	 * return true if both are equal
 	 * it is enough to check that the accepted sets are the same
 	 */
+	/*
 	public boolean equals(StableControlConfiguration other) {
 		Set<CArgument> otherAccepted = other.getAccepted();
 		if(!otherAccepted.containsAll(this.accepted)) {
 			return false;
 		}
 		if(!this.accepted.containsAll(otherAccepted)) {
+			return false;
+		}
+		return true;
+	} */
+	
+	/**
+	 * returns true if both contain the same control elements
+	 * false else
+	 * no matter what the accepted elements are
+	 * @param other
+	 * @return
+	 */
+
+	public boolean equals(StableControlConfiguration other) {
+		Set<CArgument> otherControl = other.getOnControl();
+		if(!otherControl.containsAll(this.getOnControl())) {
+			return false;
+		}
+		if(!this.getOnControl().containsAll(otherControl)) {
 			return false;
 		}
 		return true;

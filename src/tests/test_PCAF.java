@@ -2,6 +2,7 @@ package tests;
 
 import java.util.Set;
 
+import generators.ControllabilityEncoder;
 import generators.MostProbableRootCompletionGenerator;
 import generators.RandomProbaRootCompletionGenerator;
 import generators.RandomRootCompletionGenerator;
@@ -10,6 +11,8 @@ import model.PControlAF;
 import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
+import solvers.Most_Probable_Controlling_Entities_Solver;
+import solvers.StableControlConfiguration;
 
 public class test_PCAF {
 
@@ -111,4 +114,13 @@ public class test_PCAF {
 		}
 	}
 
+	public void printMostProbableControllingEntities(int nbSimu) {
+		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+		Set<StableControlConfiguration> result = solver.getMostProbableControllingEntities(nbSimu, ControllabilityEncoder.CREDULOUS);
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		}
+	}
+	
 }
