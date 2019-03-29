@@ -22,7 +22,7 @@ public class RandomProbaRootCompletionGenerator {
 		this.PCAF = PCAF;
 	}
 	
-	private double[] getRandomThresholds() {
+	public double[] getRandomThresholds() {
 		double t1 = RandomGen.randomDouble(0.0, 1.0);
 		double t2 = RandomGen.randomDouble(0.0, 1.0);
 		double t3 = 0;
@@ -42,6 +42,7 @@ public class RandomProbaRootCompletionGenerator {
 		result[3] = t4;
 		return result;
 	}
+	
 	
 	public ArgumentFramework getRandomRootCompletion() {
 		double[] t = getRandomThresholds();

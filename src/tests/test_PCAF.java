@@ -1,11 +1,13 @@
 package tests;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import generators.ControllabilityEncoder;
 import generators.MostProbableRootCompletionGenerator;
 import generators.RandomProbaRootCompletionGenerator;
 import generators.RandomRootCompletionGenerator;
+
 import model.ArgumentFramework;
 import model.PControlAF;
 import parser.PCAFParser;
@@ -13,6 +15,7 @@ import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
 import solvers.StableControlConfiguration;
+import util.Util;
 
 public class test_PCAF {
 
@@ -120,6 +123,54 @@ public class test_PCAF {
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		}
+	}
+	/**
+	 * just a test function to check the distribution generated
+	 * by RandomProbaRootCompletionGenerator
+	 * it must be uniform between 0 and 1 even for t3 and t4
+	 * @param nb
+	 */
+	public void testRandomThresholds(int nb) {
+		RandomProbaRootCompletionGenerator generator = new RandomProbaRootCompletionGenerator(this.PCAF);
+		TreeSet<Double> t1 = new TreeSet<Double>();
+		TreeSet<Double> t2 = new TreeSet<Double>();
+		TreeSet<Double> t3 = new TreeSet<Double>();
+		TreeSet<Double> t4 = new TreeSet<Double>();
+		for(int i = 0; i<nb;i++) {
+			double[] t = generator.getRandomThresholds();
+			t1.add(new Double(t[0]));
+			t2.add(new Double(t[1]));
+			t3.add(new Double(t[2]));
+			t4.add(new Double(t[3]));
+		}
+		StringBuilder result = new StringBuilder();
+		
+		for(Double d1 : t1) {
+			result.append(d1.doubleValue());
+			result.append(";");
+		}
+		result.append("\n");
+		for(Double d2 : t2) {
+			result.append(d2.doubleValue());
+			result.append(";");
+		}
+		result.append("\n");
+		for(Double d3 : t3) {
+			result.append(d3.doubleValue());
+			result.append(";");
+		}
+		result.append("\n");
+		for(Double d4 : t4) {
+			result.append(d4.doubleValue());
+			result.append(";");
+		}
+		result.append("\n");
+		System.out.println(result.toString());
+		try {
+			Util.saveToFile(result.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\distribution.csv");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -43,7 +43,8 @@ public class Main {
 		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
 		//pcaftest.printRandomCompletions(6);
-		pcaftest.printMostProbableControllingEntities(1000);
+		pcaftest.printMostProbableControllingEntities(10000);
+		//pcaftest.testRandomThresholds(1000);
 	}
 
 	public static void printHelp() {

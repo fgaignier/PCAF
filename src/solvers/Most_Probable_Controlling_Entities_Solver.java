@@ -43,9 +43,6 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
-			Completion_Proba_Calculator cpgen = new Completion_Proba_Calculator(this.PCAF);
-			System.out.println("generated random af number " + i );
-			System.out.println(cpgen.getProbability(af));
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
 			Set<StableControlConfiguration> cc_list = null;
 			if(type == ControllabilityEncoder.CREDULOUS) {
@@ -54,26 +51,40 @@ public class Most_Probable_Controlling_Entities_Solver {
 				cc_list = solver.getSkepticalControlConfigurations();
 			}
 			for(StableControlConfiguration scc : cc_list) {
-				System.out.println("stable control configuration found:");
-				System.out.println(scc.toString());
 				StableControlConfiguration present = this.find(result.keySet(), scc);
 				if(present != null) {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
-					System.out.println("already present, increasing its value to " + newVal.intValue());
 				} else {
 					result.put(scc, new Integer(1));
-					System.out.println("new, setting its value to 1");
 				}
 			}
 		}
 		this.setControllingPower(result);
 		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
 		this.controllingPower = this.controllingPower/N;
+		double min = this.controllingPower - this.getConfidenceInterval(N);
+		double max = this.controllingPower + this.getConfidenceInterval(N);
+		System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
 		return selection;
 	}
 	 
+	 private double getConfidenceInterval(int nbSimu) {
+		 double value = 1.96;
+		 double temp = this.controllingPower*(1-this.controllingPower)/nbSimu;
+		 value = value*Math.sqrt(temp);
+		 return value;
+	 }
+	 
+	 /**
+	  * looks for a StableControlConfiguration in a list
+	  * This is done since new objects are calculated all the time.
+	  * Therefore the objects are different, but we want to know if the control elements are the same
+	  * @param list
+	  * @param cc
+	  * @return
+	  */
 	 private StableControlConfiguration find(Set<StableControlConfiguration> list, StableControlConfiguration cc) {
 		 for(StableControlConfiguration scc : list) {
 			 if(cc.equals(scc)) {
@@ -83,17 +94,13 @@ public class Most_Probable_Controlling_Entities_Solver {
 		 return null;
 	 }
 	 
-	 /*
-	 private SortedMap<Integer, StableControlConfiguration> reverse(Map<StableControlConfiguration, Integer> imput) {
-		 SortedMap<Integer, StableControlConfiguration> result = new TreeMap<Integer, StableControlConfiguration>();
-		 for(StableControlConfiguration scc : imput.keySet()) {
-			 Integer value = imput.get(scc);
-			 result.put(value,  scc);
-		 }
-		 return result;
-	 }
-	 */
 	 
+	 /**
+	  * isolate the most probable controlling entities from
+	  * all found control entities
+	  * @param imput
+	  * @return
+	  */
 	 private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput) {
 		 Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		 System.out.println("------------ TAKE MAX ------------------");
@@ -107,6 +114,10 @@ public class Most_Probable_Controlling_Entities_Solver {
 		 return result;
 	 }
 	 
+	 /**
+	  * Once done, controlling power is set
+	  * @param imput
+	  */
 	 private void setControllingPower(Map<StableControlConfiguration, Integer> imput) {		 
 		 System.out.println("------------ CALCULATE CONTROLLING POWER ------------------");
 		 for(StableControlConfiguration scc : imput.keySet()) {
