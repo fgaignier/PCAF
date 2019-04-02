@@ -1,5 +1,6 @@
 package solvers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,10 +19,12 @@ import model.PControlAF;
 public class Prefered_Controlling_Entities_Solver {
 	protected PControlAF PCAF;
 	protected List<Set<CArgument>> preference;
+	protected Set<CArgument> originalTarget;
 	
 	public Prefered_Controlling_Entities_Solver(PControlAF PCAF, List<Set<CArgument>> preference) {
 		this.PCAF = PCAF;
 		this.preference = preference;
+		this.originalTarget = this.PCAF.getTarget();
 	}
 	
 	/**
@@ -55,24 +58,42 @@ public class Prefered_Controlling_Entities_Solver {
 		 Set<CArgument> T0 = this.preference.remove(0);
 		 this.PCAF.setTarget(T0);
 		 Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
-		 Set<StableControlConfiguration> CE0 = null;
+		 Set<StableControlConfiguration> CEi = null;
 		 if(type == ControllabilityEncoder.CREDULOUS) {
-			 CE0 = solver.getCredulousControlConfigurations(N);
+			 CEi = solver.getCredulousControlConfigurations(N);
 		 } else {
-			 CE0 = solver.getSkepticalControlConfigurations(N);
+			 CEi = solver.getSkepticalControlConfigurations(N);
 		 }
 		 for(Set<CArgument> T : this.preference) {
-			 
+			 CEi = this.getMaximumWRT(N, type, CEi, T);
 		 }
 		 
-		 return null;
+		 return CEi;
 	 }
 	 
 	 /**
 	  * returns the next subset of StableControlConfigurations in taking 
 	  * the ones with the highest controlling power wrt Ti
 	  */
-	 private Set<StableControlConfiguration> getMaximumWRT(Set<StableControlConfiguration> CEi, Set<CArgument> subTarget) {
-		 return null;
+	 private Set<StableControlConfiguration> getMaximumWRT(int N, int type, Set<StableControlConfiguration> CEi, Set<CArgument> subTarget) {
+		 Controlling_Power_Solver cpSolver = new Controlling_Power_Solver(this.PCAF);
+		 Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
+		 double max = -1;
+		 for(StableControlConfiguration ce : CEi) {
+			 double current = -1;
+			 if(type == ControllabilityEncoder.CREDULOUS) {
+				 current = cpSolver.getCredulousControllingPower(N, ce, subTarget);
+			 } else {
+				 current = cpSolver.getSkepticalControllingPower(N, ce, subTarget);
+			 }
+			 if(current > max) {
+				 result.clear();
+				 result.add(ce);
+				 max = current;
+			 } else if(current == max) {
+				 result.add(ce);
+			 }
+		 }
+		 return result;
 	 }
 }
