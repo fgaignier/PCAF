@@ -4,11 +4,14 @@ import java.util.Iterator;
 import java.util.Set;
 
 import generators.QDIMACSConverter;
+import generators.RandomRootCompletionGenerator;
 import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 import model.ControlAF;
 import parser.CAFParser;
 import solvers.CSP_CAF_Solver;
+import solvers.CSP_Completion_Verifier;
+import solvers.Monte_Carlo_CAF_Solver;
 import solvers.StableControlConfiguration;
 import util.Util;
 
@@ -66,7 +69,44 @@ public class test_CAF {
 		printSolutions(skeptical);
 	}
 	
+	public void solve_with_monte_carlo(int N) {
+		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
+		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations(N);
+		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations(N);
+		
+		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		printSolutions(credulous);
+		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		printSolutions(skeptical);
+	}
 	
+	public void test_solution() {
+		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
+		
+		RandomRootCompletionGenerator generator = new RandomRootCompletionGenerator(this.CAF);
+		
+		CSP_Completion_Verifier verifier = new CSP_Completion_Verifier(this.CAF, generator.getRandomRootCompletion());
+		
+		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
+		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
+
+		for(StableControlConfiguration cc : credulous) {
+			if(verifier.isCredulousControlConfigurations(cc)) {
+				System.out.println("OK credulous control configuration");
+			} else {
+				System.out.println("error not a control configuration");
+			}
+		}
+		
+		for(StableControlConfiguration cc : skeptical) {
+			if(verifier.isSkepticalControlConfigurations(cc)) {
+				System.out.println("OK skeptical control configuration");
+			} else {
+				System.out.println("error not a credulous control configuration");
+			}
+		}
+		
+	}
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions) {
 		int i = 1;

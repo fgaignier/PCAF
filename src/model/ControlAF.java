@@ -90,7 +90,25 @@ public class ControlAF {
 			throw new UnknownArgumentError("the argument " + arg.getName() + " is not present in the fixed part of the CAF");
 		}
 	}
+
+	/**
+	 * sets the target for the CAF
+	 * replacing the previous target entirely
+	 * @param target
+	 */
+	public void setTarget(Set<CArgument> target) {
+		this.target = target;
+	}
 	
+	/**
+	 * returns the set of arguments to protect
+	 * @return
+	 */
+	public Set<CArgument> getTarget() {
+		return target;
+	}
+	
+
 	/**
 	 * true if arg is a fixed argument
 	 * @param arg
@@ -308,13 +326,6 @@ public class ControlAF {
 		return res;
 	}
 	
-	/**
-	 * returns the set of arguments to protect
-	 * @return
-	 */
-	public Set<CArgument> getTarget() {
-		return target;
-	}
 	
 	/**
 	 * Returns true if no arguments from AU U AF are attacking argumets from AC

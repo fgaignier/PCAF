@@ -7,7 +7,6 @@ import model.Argument;
 import model.UnknownArgumentError;
 
 import java.util.Set;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
@@ -19,12 +18,13 @@ import org.chocosolver.solver.constraints.*;
 /*
  * Class to find a control configuration via a solver
  */
-public class CSP_Completion_Solver {
+public class CSP_Completion_Verifier {
 
 	protected ControlAF CAF;
 	protected ArgumentFramework completion;
 	
-	public CSP_Completion_Solver(ControlAF CAF, ArgumentFramework completion) {
+	
+	public CSP_Completion_Verifier(ControlAF CAF, ArgumentFramework completion) {
 		this.CAF = CAF;
 		this.completion = completion;
 	}
@@ -37,35 +37,24 @@ public class CSP_Completion_Solver {
 	public void setCAF(ControlAF cAF) {
 		CAF = cAF;
 	}
-
-
-	public ArgumentFramework getCompletion() {
-		return completion;
-	}
-
-
-	public void setCompletion(ArgumentFramework completion) {
-		this.completion = completion;
-	}
 	
-	public Set<StableControlConfiguration> getSkepticalControlConfigurations() {
-		Set<StableControlConfiguration> solutions = this.getCredulousControlConfigurations();
-		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
-		Iterator<StableControlConfiguration> solIter = solutions.iterator();
-		while(solIter.hasNext()) {
-			StableControlConfiguration current = solIter.next(); 
-			if(isScepticallyAccepted(current)) {
-				result.add(current);
-			}
+	/**
+	 * returns true if cc skeptically controls the CAF
+	 * according to the protected element list
+	 */
+	public boolean isSkepticalControlConfigurations(StableControlConfiguration cc) {
+		boolean isCredulousCC = this.isCredulousControlConfigurations(cc);
+		if(isScepticallyAccepted(cc) && isCredulousCC) {
+				return true;
 		}
-		return result;
+		return false;
 	}
 	
 	/**
-	 * returns the set of solutions (control configurations) that credulously control the CAF
+	 * returns true if cc credulously controls the CAF
 	 * according to the protected element list
 	 */
-	public Set<StableControlConfiguration> getCredulousControlConfigurations() {
+	public boolean isCredulousControlConfigurations(StableControlConfiguration cc) {
 
 		// variables must be stored in a structure for later access
 		// acc variables and on variables
@@ -117,7 +106,6 @@ public class CSP_Completion_Solver {
 			//System.out.println("adding constraint: " + acc.getName() + "=1");
 		}
 		
-		
 		// accepted control arguments must be on and vice versa
 		Set<String> on = onVar.keySet();
 		Iterator<String> onArg = on.iterator();
@@ -127,6 +115,18 @@ public class CSP_Completion_Solver {
 			IntVar accIt = accVar.get(argName);
 			model.arithm(onIt, "-", accIt, "=",0).post();
 			//System.out.println("adding constraint: " + onIt.getName() + " - " + accIt.getName() + " =0");
+		}
+				
+		// the control arguments in cc are bot on and accepted
+		Set<CArgument> controlConf = cc.getOnControl();
+		for(CArgument arg : controlConf) {
+			String argName = arg.getName();
+			IntVar onIt = onVar.get(argName);
+			IntVar accIt = accVar.get(argName);
+			model.arithm(onIt, "=", 1).post();
+			model.arithm(accIt, "=", 1).post();
+			//System.out.println("adding constraint: " + onIt.getName() + " =1");
+			//System.out.println("adding constraint: " + accIt.getName() + " =1");
 		}
 		
 		// no two arguments attacking each other in the solution
@@ -213,13 +213,11 @@ public class CSP_Completion_Solver {
 		}
 		
 		// 4. Solve the problem and return the set of solutions
-		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
-		while(model.getSolver().solve()) {
-			StableControlConfiguration solution = this.buildResultStable(accVar, onVar);
-			result.add(solution);
+		if(model.getSolver().solve()) {
+			return true;
 		} 
 
-        return result;
+        return false;
 	}
 
 	/*
@@ -304,7 +302,9 @@ public class CSP_Completion_Solver {
 		while(onArgsIter.hasNext()) {
 			String argName = onArgsIter.next().getName();
 			IntVar onIt = onVar.get(argName);
+			IntVar accIt = accVar.get(argName);
 			model.arithm(onIt, "=",1).post();
+			model.arithm(accIt, "=",1).post();
 			//System.out.println("adding constraint: " + onIt.getName() +  " =1");
 		}
 		// no two arguments attacking each other in the solution

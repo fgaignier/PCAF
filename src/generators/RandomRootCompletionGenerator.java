@@ -28,7 +28,7 @@ public class RandomRootCompletionGenerator {
 	/**
 	 * returns a root AF containing everything but:
 	 * undirected attacks
-	 * control part (since it is a root AF)
+	 * and control part (since it is a root AF)
 	 * THIS IS NOT A VALID COMPLETION => PRIVATE USE ONLY
 	 */
 	private ArgumentFramework getSkeletonMaxRootCompletion() {
@@ -130,6 +130,8 @@ public class RandomRootCompletionGenerator {
 	 * FIXED and UNCERTAIN arguments are chosen randomly
 	 * FIXED and UNCERTAIN attacks are chosen randomly (if arguments are present)
 	 * randomly assignment of a direction (or both) for UNDIRECTED attacks (if arguments are present)
+	 * This is a special case of a PCAF where probabilities are 1/2 for uncertain parts
+	 * and 1/3 for undirected attacks
 	 */
 	public ArgumentFramework getRandomRootCompletion() {
 		ArgumentFramework result = new ArgumentFramework();

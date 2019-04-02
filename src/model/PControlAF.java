@@ -31,7 +31,6 @@ public class PControlAF extends ControlAF {
 		udattProba = new HashMap<CAttack, Pair<Double, Double>>();
 	}
 	
-	
 	public Map<CArgument, Double> getUargProbas() {
 		return this.uargProba;
 	}

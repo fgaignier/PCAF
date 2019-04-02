@@ -23,17 +23,18 @@ public class Main {
 		 * Test CAF
 		 */
 		
-		/*
+		
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
-		caftest.solve_with_hardest_completion();
-		*/
+		//caftest.solve_with_hardest_completion();
+		//caftest.test_solution();
+		caftest.solve_with_monte_carlo(100);
 		
 		/**
 		 * Test PCAFs
 		 */
 		
-		
+		/*
 		test_PCAF pcaftest = new test_PCAF();
 		
 		pcaftest.load_PCAF_from_file(path+file_name);
@@ -45,6 +46,8 @@ public class Main {
 		//pcaftest.printRandomCompletions(6);
 		pcaftest.printMostProbableControllingEntities(10000);
 		//pcaftest.testRandomThresholds(1000);
+		 * 
+		 */
 	}
 
 	public static void printHelp() {

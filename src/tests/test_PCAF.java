@@ -119,7 +119,15 @@ public class test_PCAF {
 
 	public void printMostProbableControllingEntities(int nbSimu) {
 		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
-		Set<StableControlConfiguration> result = solver.getMostProbableControllingEntities(nbSimu, ControllabilityEncoder.CREDULOUS);
+		Set<StableControlConfiguration> result = solver.getCredulousControlConfigurations(nbSimu);
+		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		}
+		
+		result = solver.getCredulousControlConfigurations(nbSimu);
+		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");

@@ -5,24 +5,24 @@ import java.util.Map;
 import java.util.Set;
 
 import generators.ControllabilityEncoder;
-import generators.RandomProbaRootCompletionGenerator;
+import generators.RandomRootCompletionGenerator;
 import model.ArgumentFramework;
-import model.PControlAF;
+import model.ControlAF;
 
 /**
  * Use of Monte Carlo simulation to calculate 
- * the most probable controlling entities (together with their controlling power)
+ * the control configurations of a CAF
  * @author Fabrice
  *
  */
-public class Most_Probable_Controlling_Entities_Solver {
-	private PControlAF PCAF;
-	private RandomProbaRootCompletionGenerator generator; 
+public class Monte_Carlo_CAF_Solver {
+	private ControlAF CAF;
+	private RandomRootCompletionGenerator generator; 
 	private double controllingPower;
 	
-	public Most_Probable_Controlling_Entities_Solver(PControlAF PCAF) {
-		this.PCAF = PCAF;
-		this.generator = new RandomProbaRootCompletionGenerator(this.PCAF);
+	public Monte_Carlo_CAF_Solver(ControlAF CAF) {
+		this.CAF = CAF;
+		this.generator = new RandomRootCompletionGenerator(this.CAF);
 		this.controllingPower = -1;
 	}
 	
@@ -30,28 +30,38 @@ public class Most_Probable_Controlling_Entities_Solver {
 		return this.controllingPower;
 	}
 	
+	/**
+	 * returns the set of credulous control configurations
+	 * @param N
+	 * @return
+	 */
 	public Set<StableControlConfiguration> getCredulousControlConfigurations(int N) {
-		return this.getMostProbableControllingEntities(N, ControllabilityEncoder.CREDULOUS);
-	}
-	
-	public Set<StableControlConfiguration> getSkepticalControlConfigurations(int N) {
-		return this.getMostProbableControllingEntities(N, ControllabilityEncoder.SKEPTICAL);
+		return this.getControlConfigurations(N, ControllabilityEncoder.CREDULOUS);
 	}
 	
 	/**
-	 * returns the most probable controlling entities
+	 * returns the set of skeptical control configurations
+	 * @param N
+	 * @return
+	 */
+	public Set<StableControlConfiguration> getSkepticalControlConfigurations(int N) {
+		return this.getControlConfigurations(N, ControllabilityEncoder.SKEPTICAL);
+	}
+	
+	/**
+	 * returns the control configurations if they exist
 	 * use of a CSP_Completion_Solver to get Credulous/Skeptical Set<StableControlConfiguration>
 	 * stored in a Map
 	 * @param N, number of simulations
 	 * @param type, ControllabilityEncoder.CREDULOUS or ControllabilityEncoder.SKEPTICAL
 	 * @return
 	 */
-	 private Set<StableControlConfiguration> getMostProbableControllingEntities(int N, int type) {
+	 private Set<StableControlConfiguration> getControlConfigurations(int N, int type) {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
-			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
+			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
 			Set<StableControlConfiguration> cc_list = null;
 			if(type == ControllabilityEncoder.CREDULOUS) {
 				cc_list = solver.getCredulousControlConfigurations();
@@ -72,18 +82,24 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.setControllingPower(result);
 		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
 		this.controllingPower = this.controllingPower/N;
-		double min = this.controllingPower - this.getConfidenceInterval(N);
-		double max = this.controllingPower + this.getConfidenceInterval(N);
-		System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
-		return selection;
+		//double min = this.controllingPower - this.getConfidenceInterval(N);
+		//double max = this.controllingPower + this.getConfidenceInterval(N);
+		//System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
+		if(controllingPower < 1) {
+			return null;
+		} else {
+			return selection;
+		}
 	}
 	 
+	 /*
 	 private double getConfidenceInterval(int nbSimu) {
 		 double value = 1.96;
 		 double temp = this.controllingPower*(1-this.controllingPower)/nbSimu;
 		 value = value*Math.sqrt(temp);
 		 return value;
 	 }
+	 */
 	 
 	 /**
 	  * looks for a StableControlConfiguration in a list
