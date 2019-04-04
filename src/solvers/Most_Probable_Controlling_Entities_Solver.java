@@ -13,6 +13,8 @@ import util.Util;
 /**
  * Use of Monte Carlo simulation to calculate 
  * the most probable controlling entities (together with their controlling power)
+ * Two ways: Indicate the number of simulations you want
+ * or the error (width) of the 95% confidence interval 
  * @author Fabrice
  *
  */

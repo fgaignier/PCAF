@@ -12,6 +12,8 @@ import model.ControlAF;
 /**
  * Use of Monte Carlo simulation to calculate 
  * the control configurations of a CAF
+ * in this version you need to give a number of simulations
+ * Need to implement with max error of 95% confidence interval
  * @author Fabrice
  *
  */
@@ -82,24 +84,12 @@ public class Monte_Carlo_CAF_Solver {
 		this.setControllingPower(result);
 		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
 		this.controllingPower = this.controllingPower/N;
-		//double min = this.controllingPower - this.getConfidenceInterval(N);
-		//double max = this.controllingPower + this.getConfidenceInterval(N);
-		//System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
 		if(controllingPower < 1) {
 			return null;
 		} else {
 			return selection;
 		}
 	}
-	 
-	 /*
-	 private double getConfidenceInterval(int nbSimu) {
-		 double value = 1.96;
-		 double temp = this.controllingPower*(1-this.controllingPower)/nbSimu;
-		 value = value*Math.sqrt(temp);
-		 return value;
-	 }
-	 */
 	 
 	 /**
 	  * looks for a StableControlConfiguration in a list
@@ -127,7 +117,6 @@ public class Monte_Carlo_CAF_Solver {
 	  */
 	 private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput) {
 		 Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
-		 System.out.println("------------ TAKE MAX ------------------");
 		 for(StableControlConfiguration scc : imput.keySet()) {
 			 Integer value = imput.get(scc);
 			 double val = (double)value.intValue();
@@ -143,7 +132,6 @@ public class Monte_Carlo_CAF_Solver {
 	  * @param imput
 	  */
 	 private void setControllingPower(Map<StableControlConfiguration, Integer> imput) {		 
-		 System.out.println("------------ CALCULATE CONTROLLING POWER ------------------");
 		 for(StableControlConfiguration scc : imput.keySet()) {
 			 int value = imput.get(scc).intValue();
 			 if(value >= this.controllingPower) {
