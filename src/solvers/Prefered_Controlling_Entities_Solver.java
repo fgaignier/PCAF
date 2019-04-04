@@ -68,6 +68,8 @@ public class Prefered_Controlling_Entities_Solver {
 			 CEi = this.getMaximumWRT(N, type, CEi, T);
 		 }
 		 
+		 this.PCAF.setTarget(this.originalTarget);
+		 
 		 return CEi;
 	 }
 	 

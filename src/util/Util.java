@@ -10,6 +10,9 @@ import java.util.Iterator;
 
 public class Util {
 
+	public static double CONFIDENCE_INT = 1.96;
+	public static double STANDARD_ERROR = 0.01;
+	public static int MINIMUM_SIMULATION = 100;
 	
 	public static Set<StableControlConfiguration> intersect(Set<StableControlConfiguration> set1, Set<StableControlConfiguration> set2) {
 		Iterator<StableControlConfiguration> iter1 = set1.iterator();

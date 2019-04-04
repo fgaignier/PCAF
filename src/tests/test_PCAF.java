@@ -1,19 +1,21 @@
 package tests;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import generators.ControllabilityEncoder;
 import generators.MostProbableRootCompletionGenerator;
 import generators.RandomProbaRootCompletionGenerator;
 import generators.RandomRootCompletionGenerator;
 
 import model.ArgumentFramework;
+import model.CArgument;
 import model.PControlAF;
 import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
+import solvers.Prefered_Controlling_Entities_Solver;
 import solvers.StableControlConfiguration;
 import util.Util;
 
@@ -30,6 +32,10 @@ public class test_PCAF {
 	public test_PCAF() {
 		this.PCAF = null;
 		this.cpc = null;
+	}
+	
+	public PControlAF getPCAF() {
+		return this.PCAF;
 	}
 	
 	/**
@@ -124,6 +130,7 @@ public class test_PCAF {
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
 		}
 		
 		result = solver.getCredulousControlConfigurations(nbSimu);
@@ -131,8 +138,48 @@ public class test_PCAF {
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
 		}
 	}
+	
+	public void printMostProbableControllingEntities(double error) {
+		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+		Set<StableControlConfiguration> result = solver.getCredulousControlConfigurations(error);
+		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+		}
+		
+		result = solver.getCredulousControlConfigurations(error);
+		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+		}
+	}
+	
+	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference) {
+		Prefered_Controlling_Entities_Solver solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+	
+		Set<StableControlConfiguration> result = solver.getPreferedCredulousCE(nbSimu);
+		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		}
+		
+		result = solver.getPreferedSkepticalCE(nbSimu);
+		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		}
+	}
+	
+	
 	/**
 	 * just a test function to check the distribution generated
 	 * by RandomProbaRootCompletionGenerator
