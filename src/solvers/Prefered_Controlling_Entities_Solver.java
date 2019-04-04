@@ -1,5 +1,6 @@
 package solvers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,10 +24,23 @@ public class Prefered_Controlling_Entities_Solver {
 	
 	public Prefered_Controlling_Entities_Solver(PControlAF PCAF, List<Set<CArgument>> preference) {
 		this.PCAF = PCAF;
-		this.preference = preference;
+		this.preference = this.clonePreference(preference);
 		this.originalTarget = this.PCAF.getTarget();
 	}
 	
+	/**
+	 * need to clone the preference list since it is modified in 
+	 * calculation (the highest preference is removed
+	 * @param preference
+	 * @return
+	 */
+	private List<Set<CArgument>> clonePreference(List<Set<CArgument>> preference) {
+		List<Set<CArgument>> result = new ArrayList<Set<CArgument>>();
+		for(Set<CArgument> sub : preference) {
+			result.add(sub);
+		}
+		return result;
+	}
 	/**
 	 * returns the set of credulous control configurations
 	 * @param N
@@ -72,6 +86,15 @@ public class Prefered_Controlling_Entities_Solver {
 		 
 		 return CEi;
 	 }
+	 
+	 /*
+	 private void printConfs(Set<StableControlConfiguration> confs) {
+		 for(StableControlConfiguration scc : confs) {
+			 System.out.println(scc.toString());
+			 System.out.println("------");
+		 }
+	 }
+	 */
 	 
 	 /**
 	  * returns the next subset of StableControlConfigurations in taking 

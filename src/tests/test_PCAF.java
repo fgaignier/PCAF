@@ -162,17 +162,22 @@ public class test_PCAF {
 	}
 	
 	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference) {
-		Prefered_Controlling_Entities_Solver solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
-	
-		Set<StableControlConfiguration> result = solver.getPreferedCredulousCE(nbSimu);
+		
+		System.out.println("prefered controlling entities");
+		Prefered_Controlling_Entities_Solver solver = null;
+		Set<StableControlConfiguration> result = null;
+		
+		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+		result = solver.getPreferedCredulousCE(nbSimu);
 		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
 		}
 		
-		result = solver.getPreferedSkepticalCE(nbSimu);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+		result = solver.getPreferedSkepticalCE(nbSimu);
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");

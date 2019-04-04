@@ -50,11 +50,11 @@ public class Main {
 		//pcaftest.printMostProbabelCompletionsCSP();
 		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
-		pcaftest.printMostProbableControllingEntities(100);
-		System.out.println("---------------------------");
-		pcaftest.printMostProbableControllingEntities(0.01);
+		//pcaftest.printMostProbableControllingEntities(100);
+		//System.out.println("---------------------------");
+		//pcaftest.printMostProbableControllingEntities(0.01);
 		//pcaftest.testRandomThresholds(1000);
-		/*
+		
 		Set<CArgument> target = pcaftest.getPCAF().getTarget();
 		List<Set<CArgument>> preference = new ArrayList<Set<CArgument>>(); 
 		for(CArgument arg : target) {
@@ -69,7 +69,7 @@ public class Main {
 			}
 		}
 		pcaftest.printPreferedCE(1000, preference);
-		*/
+		
 	}
 
 	public static void printHelp() {

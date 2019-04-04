@@ -50,22 +50,6 @@ public class StableControlConfiguration {
 	}
 	
 	/**
-	 * return true if both are equal
-	 * it is enough to check that the accepted sets are the same
-	 */
-	/*
-	public boolean equals(StableControlConfiguration other) {
-		Set<CArgument> otherAccepted = other.getAccepted();
-		if(!otherAccepted.containsAll(this.accepted)) {
-			return false;
-		}
-		if(!this.accepted.containsAll(otherAccepted)) {
-			return false;
-		}
-		return true;
-	} */
-	
-	/**
 	 * returns true if both contain the same control elements
 	 * false else
 	 * no matter what the accepted elements are
@@ -95,11 +79,11 @@ public class StableControlConfiguration {
 			CArgument current = iter.next();
 			if(current.getType() == CArgument.Type.FIXED || current.getType() == CArgument.Type.CONTROL) {
 				result = result + "accepted argument " + current.getName();
+				if(current.getType() == CArgument.Type.CONTROL) {
+					result = result + " control argument on";
+				}
+				result = String.format(result + "%n");
 			}
-			if(current.getType() == CArgument.Type.CONTROL) {
-				result = result + " control argument on";
-			}
-			result = String.format(result + "%n");
 		}
 		
 		return result;

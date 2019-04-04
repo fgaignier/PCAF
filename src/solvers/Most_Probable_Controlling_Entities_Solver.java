@@ -7,6 +7,7 @@ import java.util.Set;
 import generators.ControllabilityEncoder;
 import generators.RandomProbaRootCompletionGenerator;
 import model.ArgumentFramework;
+import model.CArgument;
 import model.PControlAF;
 import util.Util;
 
