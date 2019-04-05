@@ -68,7 +68,7 @@ public class Main {
 				preference.add(l2);
 			}
 		}
-		pcaftest.printPreferedCE(1000, preference);
+		pcaftest.printPreferedCE(100, preference);
 		
 	}
 

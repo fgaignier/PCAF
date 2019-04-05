@@ -20,17 +20,19 @@ import model.PControlAF;
 public class Prefered_Controlling_Entities_Solver {
 	protected PControlAF PCAF;
 	protected List<Set<CArgument>> preference;
+	protected List<Set<CArgument>> originalPreference;
 	protected Set<CArgument> originalTarget;
 	
 	public Prefered_Controlling_Entities_Solver(PControlAF PCAF, List<Set<CArgument>> preference) {
 		this.PCAF = PCAF;
+		this.originalPreference = preference;
 		this.preference = this.clonePreference(preference);
 		this.originalTarget = this.PCAF.getTarget();
 	}
 	
 	/**
 	 * need to clone the preference list since it is modified in 
-	 * calculation (the highest preference is removed
+	 * calculation (the highest preference is removed)
 	 * @param preference
 	 * @return
 	 */
@@ -82,19 +84,13 @@ public class Prefered_Controlling_Entities_Solver {
 			 CEi = this.getMaximumWRT(N, type, CEi, T);
 		 }
 		 
+		 // reset the original status of the CAF (with original target
 		 this.PCAF.setTarget(this.originalTarget);
-		 
+		 // reset the preference list to a clone of its original state
+		 this.preference = this.clonePreference(originalPreference);
 		 return CEi;
 	 }
 	 
-	 /*
-	 private void printConfs(Set<StableControlConfiguration> confs) {
-		 for(StableControlConfiguration scc : confs) {
-			 System.out.println(scc.toString());
-			 System.out.println("------");
-		 }
-	 }
-	 */
 	 
 	 /**
 	  * returns the next subset of StableControlConfigurations in taking 
