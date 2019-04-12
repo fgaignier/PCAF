@@ -8,6 +8,12 @@ import model.Attack;
 import model.CAttack;
 import util.RandomGen;
 
+/**
+ * Given an argument framework, this class will generate 
+ * CAFs according to the proportion of uncertain and undirected elements given.
+ * @author Fabrice
+ *
+ */
 public class CAFGenerator {
 	private ArgumentFramework af;
 	/**
@@ -60,6 +66,10 @@ public class CAFGenerator {
 		}
 	}
 
+	/**
+	 * generate randomly a CAF according to the proportions given
+	 * @return
+	 */
 	public ControlAF generate() {
 		ControlAF caf = new ControlAF();
 		

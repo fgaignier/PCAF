@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import generators.ControllabilityEncoder;
-import generators.RandomRootCompletionGenerator;
+import generators.RandomCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.ControlAF;
 
@@ -19,12 +19,12 @@ import model.ControlAF;
  */
 public class Monte_Carlo_CAF_Solver {
 	private ControlAF CAF;
-	private RandomRootCompletionGenerator generator; 
+	private RandomCAFRootCompletionGenerator generator; 
 	private double controllingPower;
 	
 	public Monte_Carlo_CAF_Solver(ControlAF CAF) {
 		this.CAF = CAF;
-		this.generator = new RandomRootCompletionGenerator(this.CAF);
+		this.generator = new RandomCAFRootCompletionGenerator(this.CAF);
 		this.controllingPower = -1;
 	}
 	

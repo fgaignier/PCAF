@@ -5,14 +5,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Iterator;
 
+/**
+ * False. Should be removed
+ * @author Fabrice
+ *
+ */
 public class HardestRootCompletionGenerator {
 	
 	protected ControlAF CAF;
-	protected RandomRootCompletionGenerator gen;
+	protected RandomCAFRootCompletionGenerator gen;
 	
 	public HardestRootCompletionGenerator(ControlAF CAF) {
 		this.CAF = CAF;
-		this.gen = new RandomRootCompletionGenerator(CAF);
+		this.gen = new RandomCAFRootCompletionGenerator(CAF);
 	}
 	
 	/**

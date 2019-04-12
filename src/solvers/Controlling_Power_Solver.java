@@ -3,18 +3,18 @@ package solvers;
 import java.util.Set;
 
 import generators.ControllabilityEncoder;
-import generators.RandomProbaRootCompletionGenerator;
+import generators.RandomPCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.PControlAF;
 
 public class Controlling_Power_Solver {
 	private PControlAF PCAF;
-	private RandomProbaRootCompletionGenerator generator; 
+	private RandomPCAFRootCompletionGenerator generator; 
 	
 	public Controlling_Power_Solver(PControlAF PCAF) {
 		this.PCAF = PCAF;
-		this.generator = new RandomProbaRootCompletionGenerator(this.PCAF);
+		this.generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 	}
 	
 	/**

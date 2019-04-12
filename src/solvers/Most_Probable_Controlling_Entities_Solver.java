@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import generators.ControllabilityEncoder;
-import generators.RandomProbaRootCompletionGenerator;
+import generators.RandomPCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.PControlAF;
 import util.Util;
@@ -20,14 +20,14 @@ import util.Util;
  */
 public class Most_Probable_Controlling_Entities_Solver {
 	private PControlAF PCAF;
-	private RandomProbaRootCompletionGenerator generator; 
+	private RandomPCAFRootCompletionGenerator generator; 
 	private double controllingPower;
 	private double min_interval;
 	private double max_interval;
 	
 	public Most_Probable_Controlling_Entities_Solver(PControlAF PCAF) {
 		this.PCAF = PCAF;
-		this.generator = new RandomProbaRootCompletionGenerator(this.PCAF);
+		this.generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		this.controllingPower = -1;
 		this.min_interval = 0;
 		this.max_interval = 0;

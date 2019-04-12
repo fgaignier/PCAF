@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import generators.QDIMACSConverter;
-import generators.RandomRootCompletionGenerator;
+import generators.RandomCAFRootCompletionGenerator;
 import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 import model.ControlAF;
@@ -83,7 +83,7 @@ public class test_CAF {
 	public void test_solution() {
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
 		
-		RandomRootCompletionGenerator generator = new RandomRootCompletionGenerator(this.CAF);
+		RandomCAFRootCompletionGenerator generator = new RandomCAFRootCompletionGenerator(this.CAF);
 		
 		CSP_Completion_Verifier verifier = new CSP_Completion_Verifier(this.CAF, generator.getRandomRootCompletion());
 		

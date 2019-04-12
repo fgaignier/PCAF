@@ -1,5 +1,10 @@
+generators
+logic
+logic.pl
+logic.qbf
 main
 model
 parser
 solvers
+tests
 util

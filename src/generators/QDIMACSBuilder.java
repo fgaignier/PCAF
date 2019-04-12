@@ -24,11 +24,12 @@ public class QDIMACSBuilder {
 		this.nbClause = 0;
 	}
 	
+	
 	/**
 	 * add a variable by its name. Must specify if it is an additional variable or not
 	 * additional variable is a variable that is not part of the quantifiers (free, exists, forall)
-	 * @param name
-	 * @param additional
+	 * @param name name of variable
+	 * @param additional additional variable or not 
 	 */
 	public void addVar(String name, boolean additional) {
 		this.nbVar ++;

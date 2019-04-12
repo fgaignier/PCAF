@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import generators.MostProbableRootCompletionGenerator;
-import generators.RandomProbaRootCompletionGenerator;
-import generators.RandomRootCompletionGenerator;
+import generators.RandomPCAFRootCompletionGenerator;
+import generators.RandomCAFRootCompletionGenerator;
 
 import model.ArgumentFramework;
 import model.CArgument;
@@ -52,7 +51,7 @@ public class test_PCAF {
 	 * Calculates proba of max root completion
 	 */
 	public void printMaxCompletionProba() {
-		RandomRootCompletionGenerator rrg = new RandomRootCompletionGenerator(PCAF);
+		RandomCAFRootCompletionGenerator rrg = new RandomCAFRootCompletionGenerator(PCAF);
 
 		ArgumentFramework af = rrg.getMaxRootCompletion();
 		System.out.println("----------printMaxCompletionProba-----------------");
@@ -67,7 +66,7 @@ public class test_PCAF {
 	 * @param nbSimulations
 	 */
 	public void printRandomCompletionProba(int nbSimulations) {
-		RandomRootCompletionGenerator rrg = new RandomRootCompletionGenerator(PCAF);
+		RandomCAFRootCompletionGenerator rrg = new RandomCAFRootCompletionGenerator(PCAF);
 		System.out.println("----------printRandomCompletionProba-----------------");
 		
 		for(int i=0; i<10; i++) {
@@ -80,6 +79,7 @@ public class test_PCAF {
 		System.out.println("--------------------------------");
 	}
 	
+	/*
 	public void printMostProbableCompletion() {
 		MostProbableRootCompletionGenerator mprcg = new MostProbableRootCompletionGenerator(this.PCAF);
 		ArgumentFramework af = mprcg.getMostProbableRootCompletion();
@@ -89,6 +89,7 @@ public class test_PCAF {
 		System.out.println("proba is: " + mprcg.getProbability());
 		System.out.println("--------------------------------");
 	}
+	*/
 	
 	public void printMostProbabelCompletionsCSP() {
 		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(this.PCAF);
@@ -115,7 +116,7 @@ public class test_PCAF {
 	}
 	
 	public void printRandomCompletions(int nb) {
-		RandomProbaRootCompletionGenerator gen = new RandomProbaRootCompletionGenerator(this.PCAF);
+		RandomPCAFRootCompletionGenerator gen = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		for(int i =0; i<nb; i++) {
 			ArgumentFramework af = gen.getRandomRootCompletion();
 			System.out.println("-------- random completion number " + i + "--------");
@@ -192,7 +193,7 @@ public class test_PCAF {
 	 * @param nb
 	 */
 	public void testRandomThresholds(int nb) {
-		RandomProbaRootCompletionGenerator generator = new RandomProbaRootCompletionGenerator(this.PCAF);
+		RandomPCAFRootCompletionGenerator generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		TreeSet<Double> t1 = new TreeSet<Double>();
 		TreeSet<Double> t2 = new TreeSet<Double>();
 		TreeSet<Double> t3 = new TreeSet<Double>();
