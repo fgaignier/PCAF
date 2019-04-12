@@ -45,16 +45,16 @@ public class Main {
 		test_PCAF pcaftest = new test_PCAF();
 		
 		pcaftest.load_PCAF_from_file(path+file_name);
-		//pcaftest.printMaxCompletionProba();
+		pcaftest.printMaxCompletionProba();
 		//pcaftest.printCompletionsOverProbability(0.1);
-		//pcaftest.printMostProbabelCompletionsCSP();
+		pcaftest.printMostProbabelCompletionsCSP();
 		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
 		//pcaftest.printMostProbableControllingEntities(100);
 		//System.out.println("---------------------------");
 		//pcaftest.printMostProbableControllingEntities(0.01);
 		//pcaftest.testRandomThresholds(1000);
-		
+		/*
 		Set<CArgument> target = pcaftest.getPCAF().getTarget();
 		List<Set<CArgument>> preference = new ArrayList<Set<CArgument>>(); 
 		for(CArgument arg : target) {
@@ -69,6 +69,7 @@ public class Main {
 			}
 		}
 		pcaftest.printPreferedCE(100, preference);
+		*/
 		
 	}
 

@@ -17,8 +17,6 @@ import model.PControlAF;
 /**
  * Find completions over a given limit of probability
  * Find the most probable completion
- * for this we have a much better solution implemented in MostProbableRootCompletionGenerator
- * This is just for comparison purposes
  * @author Fabrice
  *
  */
@@ -83,6 +81,8 @@ public class CSP_PCAF_Proba_Solver {
 		// variables for arguments (uncertain and fixed) and attacks (uncertain and undirected)
 		Map<String, IntVar> argVar = new HashMap<String, IntVar>();
 		Map<String, IntVar> attackVar = new HashMap<String, IntVar>();
+		Map<String, IntVar> onArg = new HashMap<String, IntVar>();
+		Map<String, IntVar> onAttack = new HashMap<String, IntVar>();
 		
 		// 1. Create the CSP Model
 		Model model = new Model("Over Limit Completion Solver");
@@ -95,7 +95,10 @@ public class CSP_PCAF_Proba_Solver {
 			String argName = arg.getName();
 			double proba = PCAF.getUargProba(arg);
 			IntVar arg_var = model.intVar(argName, new int[]{this.getLnIntValue(proba),this.getLnIntValue(1-proba)});
+			IntVar on_arg = model.intVar("on-" + argName, new int[]{0,1});
 			argVar.put(argName,  arg_var);
+			onArg.put(argName, on_arg);
+			
 			//System.out.println("adding variable " + argName);
 			//System.out.println("domains: " + this.getLnIntValue(proba) + "," + this.getLnIntValue(1-proba) + "," + 0);
 		}
@@ -103,7 +106,10 @@ public class CSP_PCAF_Proba_Solver {
 		for(CArgument arg : fixedArgs) {
 			String argName = arg.getName();
 			IntVar arg_var = model.intVar(argName, 0);
+			IntVar on_var = model.intVar("on-" + argName, new int[] {1});
 			argVar.put(argName,  arg_var);
+			onArg.put(argName, on_var);
+			
 			//System.out.println("adding variable " + argName);
 			//System.out.println("domains: " + 0);
 		}
@@ -115,7 +121,9 @@ public class CSP_PCAF_Proba_Solver {
 			double proba = PCAF.getUattProba(att);
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
 			IntVar att_var = model.intVar(attName, new int[]{this.getLnIntValue(proba),this.getLnIntValue(1-proba), 0});
+			IntVar on_var = model.intVar("on-" + attName, new int[]{0,1,2});
 			attackVar.put(attName,  att_var);
+			onAttack.put(attName, on_var);
 			//System.out.println("adding variable " + attName);
 			//System.out.println("domains: " + this.getLnIntValue(proba) + "," + this.getLnIntValue(1-proba) + "," + 0);
 		}
@@ -128,7 +136,9 @@ public class CSP_PCAF_Proba_Solver {
 			double pd12 = 1 - pd1 -pd2;
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
 			IntVar att_var = model.intVar(attName, new int[]{this.getLnIntValue(pd1),this.getLnIntValue(pd2), this.getLnIntValue(pd12), 0});
+			IntVar on_var = model.intVar("on-" + attName, new int[]{0,1,2,3});
 			attackVar.put(attName,  att_var);
+			onAttack.put(attName, on_var);
 			//System.out.println("adding variable " + attName);
 			//System.out.println("domains: " + this.getLnIntValue(pd1) + "," + this.getLnIntValue(pd2) + "," + this.getLnIntValue(pd12) + "," + 0);
 		}
@@ -137,12 +147,16 @@ public class CSP_PCAF_Proba_Solver {
 		/*
 		 * Constraints
 		 */
+		// uncertain arguments
+		for(CArgument arg : uncertainArgs) {
+			this.addArgumentConstraints(arg, model, argVar, onArg);
+		}
 		for(CAttack att : uncertainAtts) {
-			this.addAttackConstraints(att, model, argVar, attackVar);
+			this.addUAttackConstraints(att, model, argVar, onArg , attackVar, onAttack);
 		}
 		
 		for(CAttack att : undirectedAtts) {
-			this.addAttackConstraints(att, model, argVar, attackVar);
+			this.addUDAttackConstraints(att, model, argVar, onArg , attackVar, onAttack);
 	
 		}
 	
@@ -180,67 +194,135 @@ public class CSP_PCAF_Proba_Solver {
 		// 4. Solve the problem and return the set of solutions
 		Set<ArgumentFramework> result = new HashSet<ArgumentFramework>();
 		while(model.getSolver().solve()) {
-			ArgumentFramework solution = this.buildAF(argVar, attackVar);
+			ArgumentFramework solution = this.buildAF(onArg, onAttack);
 			result.add(solution);
 		} 
 		return result;
 	}
 	
 	/**
-	 * val(dij) < 0 <=> val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))
-	 * if ai fixed ln(p1(ai)) = 0
-	 * if aj fixed ln(p1(aj)) = 0
-	 * 
-	 * For CHOCO WE SPLIT IN TWO CONSTRAINTS
-	 * 1) [val(ai) = ln(p1(ai)) and val(aj)=ln(p1(aj))] or val(dij) = 0
-	 * 2) val(dij) < 0 or val(ai) != ln(p1(ai)) or val(aj)!=ln(p1(aj))
+	* add all the constraints for uncertain arguments
 	 */
-	private void addAttackConstraints(CAttack att, Model model, Map<String, IntVar> argVar, Map<String, IntVar> attackVar) {
-		String attName = att.getFrom().getName() + "_" + att.getTo().getName();
-		CArgument argFrom = PCAF.getArgumentByName(att.getFrom().getName());
-		CArgument argTo = PCAF.getArgumentByName(att.getTo().getName());
-		IntVar dij = attackVar.get(attName);
-		IntVar ai = argVar.get(att.getFrom().getName());
-		IntVar aj = argVar.get(att.getTo().getName());
-		int valai = 0;
-		if(argFrom.getType() == CArgument.Type.UNCERTAIN) {
-			valai = this.getLnIntValue(PCAF.getUargProba(argFrom));
-		}
-		int valaj = 0;
-		if(argTo.getType() == CArgument.Type.UNCERTAIN) {
-			valaj = this.getLnIntValue(PCAF.getUargProba(argTo));
-		}
+	private void addArgumentConstraints(CArgument arg, Model model, Map<String, IntVar> argVar, Map<String, IntVar> onArg) {
+		IntVar onVar = onArg.get(arg.getName());
+		IntVar valVar = argVar.get(arg.getName());
+		int valarg1 = this.getLnIntValue(PCAF.getUargProba(arg));
+		int valarg2 = this.getLnIntValue(1- PCAF.getUargProba(arg));
+		Constraint c1 = model.arithm(onVar, "=", 0);
+		Constraint c2 = model.arithm(onVar, "=", 1);
+		Constraint c3 = model.arithm(valVar, "=", valarg1);
+		Constraint c4 = model.arithm(valVar, "=", valarg2);
+		model.or(c1,c3).post();
+		model.or(c2,c4).post();
 		
-		Constraint c1 = model.arithm(ai, "!=", valai);
-		Constraint c2 = model.arithm(aj, "!=", valaj);
-		Constraint c3 = model.arithm(dij, "<", 0);
-		model.or(c1,c2, c3).post();
-		//System.out.println("adding constraint dij<0 or ai!=" + valai + " or aj!=" + valaj);
-		
-		Constraint c4 = model.arithm(ai, "=", valai);
-		Constraint c5 = model.arithm(aj, "=", valaj);
-		Constraint c6 = model.arithm(dij, "=", 0);
-		Constraint and = model.and(c4,c5);
-		model.or(c6, and).post();
-		//System.out.println("adding constraint dij=0 or(ai=" + valai + " and aj=" + valaj + ")");
 	}
 	
-	private ArgumentFramework buildAF(Map<String, IntVar> argVar, Map<String, IntVar> attackVar) {
+	/**
+	* add all the constraints for uncertain attacks
+	 */
+	private void addUAttackConstraints(CAttack att, Model model, Map<String, IntVar> argVar, Map<String, IntVar> onArg, Map<String, IntVar> attackVar, Map<String, IntVar> onAttack) {
+		String attName = att.getFrom().getName() + "_" + att.getTo().getName();
+		IntVar dij = attackVar.get(attName);
+		IntVar onij = onAttack.get(attName);
+		IntVar oni = onArg.get(att.getFrom().getName());
+		IntVar onj = onArg.get(att.getTo().getName());
+		int valij1 = this.getLnIntValue(PCAF.getUattProba(att));
+		int valij2 = this.getLnIntValue(1- PCAF.getUattProba(att));
+		
+		Constraint c1 = model.arithm(onij, "!=", 0);
+		Constraint c2 = model.arithm(oni, "=", 0);
+		Constraint c3 = model.arithm(onj, "=", 0);
+		model.or(c1,c2,c3).post();
+		
+		Constraint c4 = model.arithm(oni, "=", 1);
+		Constraint c5 = model.arithm(onj, "=", 1);
+		Constraint c6 = model.arithm(onij, "=", 0);
+		Constraint bothpresent = model.and(c4,c5);
+		model.or(bothpresent, c6).post();
+		
+		Constraint c7 = model.arithm(dij, "=", 0);
+		Constraint c8 = model.arithm(dij, "!=", 0);
+		model.or(c1,c7).post();
+		model.or(c6,c8).post();
+
+		Constraint c9 = model.arithm(dij, "=", valij1);
+		Constraint c10 = model.arithm(dij, "=", valij2);
+		Constraint c11 = model.arithm(onij, "!=", 1);
+		Constraint c12 = model.arithm(onij, "!=", 2);
+
+		Constraint c13 = model.and(bothpresent,c9);
+		Constraint c14 = model.and(bothpresent,c10);
+
+		model.or(c13, c11).post();
+		model.or(c14, c12).post();
+				
+	}
+
+	/**
+	* add all the constraints for undirected attacks
+	 */
+	private void addUDAttackConstraints(CAttack att, Model model, Map<String, IntVar> argVar, Map<String, IntVar> onArg, Map<String, IntVar> attackVar, Map<String, IntVar> onAttack) {
+		String attName = att.getFrom().getName() + "_" + att.getTo().getName();
+		IntVar dij = attackVar.get(attName);
+		IntVar onij = onAttack.get(attName);
+		IntVar oni = onArg.get(att.getFrom().getName());
+		IntVar onj = onArg.get(att.getTo().getName());
+		int valij1 = this.getLnIntValue(PCAF.getUDAttFromToProba(att));
+		int valij2 = this.getLnIntValue(PCAF.getUDAttToFromProba(att));
+		int valij3 = this.getLnIntValue(1 - PCAF.getUDAttFromToProba(att) - PCAF.getUDAttToFromProba(att));
+		
+		Constraint c1 = model.arithm(onij, "!=", 0);
+		Constraint c2 = model.arithm(oni, "=", 0);
+		Constraint c3 = model.arithm(onj, "=", 0);
+		model.or(c1,c2,c3).post();
+		
+		Constraint c4 = model.arithm(oni, "=", 1);
+		Constraint c5 = model.arithm(onj, "=", 1);
+		Constraint c6 = model.arithm(onij, "=", 0);
+		Constraint bothpresent = model.and(c4,c5);
+		model.or(bothpresent, c6).post();
+		
+		Constraint c7 = model.arithm(dij, "=", 0);
+		Constraint c8 = model.arithm(dij, "!=", 0);
+		
+		model.or(c1,c7).post();
+		model.or(c6,c8).post();
+		
+		Constraint c9 = model.arithm(dij, "=", valij1);
+		Constraint c10 = model.arithm(dij, "=", valij2);
+		Constraint c11 = model.arithm(dij, "=", valij3);
+		Constraint c12 = model.arithm(onij, "!=", 1);
+		Constraint c13 = model.arithm(onij, "!=", 2);
+		Constraint c14 = model.arithm(onij, "!=", 3);
+		
+		Constraint c15 = model.and(bothpresent,c9);
+		Constraint c16 = model.and(bothpresent,c10);
+		Constraint c17 = model.and(bothpresent,c11);
+		
+		model.or(c12, c15).post();
+		model.or(c13, c16).post();
+		model.or(c14, c17).post();
+				
+	}
+
+	/**
+	 * build the corresponding AF
+	 * @param onArg
+	 * @param onAttack
+	 * @return
+	 */
+	private ArgumentFramework buildAF(Map<String, IntVar> onArg, Map<String, IntVar> onAttack) {
 		ArgumentFramework af = new ArgumentFramework();
 		// build the structure (fixed part)
-		af.addAllCArguments(PCAF.getArgumentsByType(CArgument.Type.FIXED));
+		//af.addAllCArguments(PCAF.getArgumentsByType(CArgument.Type.FIXED));
 		
-		// add uncertain arguments if it is on
-		for(String name : argVar.keySet()) {
-			//System.out.println("evaluating addition of " + name);
+		// add all arguments with on=1
+		for(String name : onArg.keySet()) {
 			CArgument arg = PCAF.getArgumentByName(name);
-			IntVar var = argVar.get(name);
-			if(arg.getType() == CArgument.Type.UNCERTAIN) {
-				int onValue = this.getLnIntValue(PCAF.getUargProba(arg));
-				if(var.getValue() == onValue) {
-					af.addArgument(arg);
-				} 
-			}
+			IntVar onVar = onArg.get(name);
+			if(onVar.getValue() == 1) {
+				af.addArgument(arg);
+			} 
 		}
 		
 		Set<CAttack> uncertainAtts = PCAF.getAttacksByType(CAttack.Type.UNCERTAIN);
@@ -259,31 +341,26 @@ public class CSP_PCAF_Proba_Solver {
 		// if the attack is on, we have the arguments on as well by construction of the constraints
 		for(CAttack att: uncertainAtts) {
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
-			IntVar var = attackVar.get(attName);
-			int onValue = this.getLnIntValue(PCAF.getUattProba(att));
-			if(var.getValue() == onValue) {
+			IntVar var = onAttack.get(attName);
+			if(var.getValue() == 1) {
 				af.addAttack(att);
-			}
+			} // else do nothing (cannot be present or not present)
 		}
 
 		// no need to check the presence of the arguments
 		// if the attack is on, we have the arguments on as well by construction of the constraints
 		for(CAttack att: undirectedAtts) {
 			String attName = att.getFrom().getName() + "_" + att.getTo().getName();
-			IntVar var = attackVar.get(attName);
-			int dir1Value = this.getLnIntValue(PCAF.getUDattProba(att).getKey().doubleValue());
-			int dir2Value = this.getLnIntValue(PCAF.getUDattProba(att).getValue().doubleValue());
+			IntVar var = onAttack.get(attName);
 			CAttack reverse = new CAttack(att.getTo(), att.getFrom(), CAttack.Type.UNDIRECTED);
-			if(af.containsArgument(att.getFrom()) && af.containsArgument(att.getTo())) {
-				if(var.getValue() == dir1Value) {
-					af.addAttack(att);
-				} else if(var.getValue() == dir2Value) {
+			if(var.getValue() == 1) {
+				af.addAttack(att);
+			} else if(var.getValue() == 2) {
 					af.addAttack(reverse);
-				} else {
-					af.addAttack(att);
-					af.addAttack(reverse);
-				}
-			}
+			} else if(var.getValue() == 3) {
+				af.addAttack(att);
+				af.addAttack(reverse);
+			} // else do nothing (cannot be present)
 		}
 
 		return af;
