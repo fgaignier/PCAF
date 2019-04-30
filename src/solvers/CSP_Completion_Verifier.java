@@ -15,7 +15,7 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.constraints.*;
 
-/*
+/**
  * Class to find a control configuration via a solver
  */
 public class CSP_Completion_Verifier {

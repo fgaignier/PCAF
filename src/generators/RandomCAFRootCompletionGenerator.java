@@ -161,7 +161,8 @@ public class RandomCAFRootCompletionGenerator {
 			try {
 				result.addAttack(attf);
 			} catch(UnknownArgumentError uae) {
-				System.out.println("could not add fixed attack because: " + uae.getMessage());
+				// we do not care if one attack is not added
+				//System.out.println("could not add fixed attack because: " + uae.getMessage());
 			}
 		}
 		// Uncertain Attacks (chosen randomly) if both arguments are in the AF
@@ -173,7 +174,8 @@ public class RandomCAFRootCompletionGenerator {
 				try {
 					result.addAttack(attu);
 				} catch(UnknownArgumentError uae) {
-					System.out.println("could not add uncertain attack because: " + uae.getMessage());
+					// we do not care if one attack is not added
+					//System.out.println("could not add uncertain attack because: " + uae.getMessage());
 				}
 			}
 		}
@@ -194,6 +196,7 @@ public class RandomCAFRootCompletionGenerator {
 				try {
 					result.addAttack(new Attack(from,to));
 				} catch(UnknownArgumentError uae) {
+					// we do not care if one attack is not added
 					System.out.println("could not add uncertain attack because: " + uae.getMessage());
 				}
 			// case 1 : we add (to, from)
@@ -201,6 +204,7 @@ public class RandomCAFRootCompletionGenerator {
 				try {
 					result.addAttack(new Attack(to,from));
 				} catch(UnknownArgumentError uae) {
+					// we do not care if one attack is not added
 					System.out.println("could not add uncertain attack because: " + uae.getMessage());
 				}
 			// case 2 : we add both sides
@@ -209,6 +213,7 @@ public class RandomCAFRootCompletionGenerator {
 					result.addAttack(new Attack(from,to));
 					result.addAttack(new Attack(to,from));
 				} catch(UnknownArgumentError uae) {
+					// we do not care if one attack is not added
 					System.out.println("could not add uncertain attack because: " + uae.getMessage());
 				}
 			}

@@ -9,7 +9,6 @@ import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 import model.ControlAF;
 import parser.CAFParser;
-import solvers.CSP_CAF_Solver;
 import solvers.CSP_Completion_Verifier;
 import solvers.Monte_Carlo_CAF_Solver;
 import solvers.StableControlConfiguration;
@@ -25,6 +24,10 @@ public class test_CAF {
 	
 	public test_CAF() {
 		this.CAF = null;
+	}
+	
+	public ControlAF getCAF() {
+		return this.CAF;
 	}
 	
 	public void load_CAF_from_file(String file) {
@@ -57,6 +60,7 @@ public class test_CAF {
 		}
 	}
 	
+	/*
 	public void solve_with_hardest_completion() {
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
 
@@ -68,18 +72,20 @@ public class test_CAF {
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
 	}
-	
+	*/
 	public void solve_with_monte_carlo(int N) {
 		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
 		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations(N);
-		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations(N);
 		
 		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 		printSolutions(credulous);
+		
+		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations(N);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 		printSolutions(skeptical);
 	}
 	
+	/*
 	public void test_solution() {
 		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
 		
@@ -106,10 +112,13 @@ public class test_CAF {
 			}
 		}
 		
-	}
+	}*/
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions) {
 		int i = 1;
+		if(solutions == null) {
+			return;
+		}
 		Iterator<StableControlConfiguration> iter = solutions.iterator();
 		while(iter.hasNext()) {
 			System.out.println("--------- printing solution " + i + "-----------");

@@ -75,6 +75,11 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
+			/*
+			System.out.println("random root completion:");
+			System.out.println(af.toString());
+			System.out.println("--------------------------");
+			*/
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
 			Set<StableControlConfiguration> cc_list = null;
 			if(type == ControllabilityEncoder.CREDULOUS) {
@@ -83,11 +88,12 @@ public class Most_Probable_Controlling_Entities_Solver {
 				cc_list = solver.getSkepticalControlConfigurations();
 			}
 			for(StableControlConfiguration scc : cc_list) {
-				StableControlConfiguration present = this.find(result.keySet(), scc);
+				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
 				if(present != null) {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
+					//System.out.println("updates cc with value: " + newVal.toString() + " over " + i + " tries");
 				} else {
 					result.put(scc, new Integer(1));
 				}
@@ -98,7 +104,6 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.controllingPower = this.controllingPower/N;
 		this.min_interval = this.controllingPower - this.getConfidenceInterval(N);
 		this.max_interval = this.controllingPower + this.getConfidenceInterval(N);
-		//System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
 		return selection;
 	}
 	 
@@ -139,7 +144,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 					cc_list = solver.getSkepticalControlConfigurations();
 				}
 				for(StableControlConfiguration scc : cc_list) {
-					StableControlConfiguration present = this.find(result.keySet(), scc);
+					StableControlConfiguration present = util.Util.find(result.keySet(), scc);
 					if(present != null) {
 						Integer count = result.get(present);
 						Integer newVal = new Integer(count.intValue()+1);
@@ -181,6 +186,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 	  * @param cc
 	  * @return
 	  */
+	 /*
 	 private StableControlConfiguration find(Set<StableControlConfiguration> list, StableControlConfiguration cc) {
 		 for(StableControlConfiguration scc : list) {
 			 if(cc.equals(scc)) {
@@ -189,7 +195,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 		 }
 		 return null;
 	 }
-	 
+	 */
 	 
 	 /**
 	  * isolate the most probable controlling entities from

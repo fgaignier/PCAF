@@ -12,7 +12,8 @@ import parser.CAFParser;
  * Extends the class Control AF
  * Adding the probability distributions p1, p2, p3
  * for uncertain arguments, uncertain attacks and undirected attacks
- * p3: ATT -> pd1, pd2
+ * p1 and p2 return a double
+ * p3 returns a pair of doubles
  * @author Fabrice
  *
  */
@@ -24,11 +25,58 @@ public class PControlAF extends ControlAF {
 	// undirected attacks
 	protected Map <CAttack, Pair<Double, Double>> udattProba;
 	
+	/**
+	 * constructs an empty P Control AF
+	 */
 	public PControlAF() {
 		super();
 		uargProba = new HashMap<CArgument, Double>();
 		uattProba = new HashMap<CAttack, Double>();
 		udattProba = new HashMap<CAttack, Pair<Double, Double>>();
+	}
+	
+	/**
+	 * Constructs a PControlAF from a CAF
+	 * It will use the according probability distribution (as stated in the paper)
+	 * @param CAF
+	 */
+	public PControlAF(ControlAF CAF) {
+		super();
+		uargProba = new HashMap<CArgument, Double>();
+		uattProba = new HashMap<CAttack, Double>();
+		udattProba = new HashMap<CAttack, Pair<Double, Double>>();
+		// add all arguments
+		Set<CArgument> args = CAF.getAllArguments();
+		for(CArgument arg : args) {
+			if(arg.getType() == CArgument.Type.UNCERTAIN) {
+				this.addArgument(arg, 0.5);
+			} else {
+				this.addArgument(arg);
+			}
+		}
+		// add all attacks (depending on the type
+		Set<CAttack> fixed = CAF.getAttacksByType(CAttack.Type.CERTAIN);
+		Set<CAttack> control = CAF.getAttacksByType(CAttack.Type.CONTROL);
+		Set<CAttack> uncertain = CAF.getAttacksByType(CAttack.Type.UNCERTAIN);
+		Set<CAttack> undirected = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
+		//fixed (proba = 1)
+		for(CAttack att : fixed) {
+			this.addAttack(att);
+		}
+		// control (proba = 1)
+		for(CAttack att : control) {
+			this.addAttack(att);
+		}
+		//uncertain (proba = 1/2)
+		for(CAttack att : uncertain) {
+			this.addAttack(att, 0.5);
+		}
+		//undirected (proba = [1/3, 1/3])
+		for(CAttack att : undirected) {
+			this.addAttack(att, 1/3, 1/3);
+		}
+		// sets the target
+		super.setTarget(CAF.getTarget());
 	}
 	
 	public Map<CArgument, Double> getUargProbas() {

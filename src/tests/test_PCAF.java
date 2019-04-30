@@ -91,7 +91,7 @@ public class test_PCAF {
 	}
 	*/
 	
-	public void printMostProbabelCompletionsCSP() {
+	public void printMostProbableCompletionsCSP() {
 		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(this.PCAF);
 		System.out.println("---------most probable completions CSP-----------------------");
 		System.out.println("most probable completions");
@@ -128,19 +128,22 @@ public class test_PCAF {
 		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
 		Set<StableControlConfiguration> result = solver.getCredulousControlConfigurations(nbSimu);
 		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+		
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
 			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+			System.out.println("--------------------------------------");
 		}
 		
-		result = solver.getCredulousControlConfigurations(nbSimu);
+		result = solver.getSkepticalControlConfigurations(nbSimu);
 		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+		
 		for(StableControlConfiguration scc : result) {
 			System.out.println(scc.toString());
 			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
 			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
-		}
+		} 
 	}
 	
 	public void printMostProbableControllingEntities(double error) {

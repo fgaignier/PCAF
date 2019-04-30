@@ -83,6 +83,9 @@ public class StableControlConfiguration {
 					result = result + " control argument on";
 				}
 				result = String.format(result + "%n");
+			} else {
+				result = result + "uncertain accepted argument " + current.getName();
+				result = String.format(result + "%n");
 			}
 		}
 		

@@ -71,10 +71,11 @@ public class Monte_Carlo_CAF_Solver {
 				cc_list = solver.getSkepticalControlConfigurations();
 			}
 			for(StableControlConfiguration scc : cc_list) {
-				StableControlConfiguration present = this.find(result.keySet(), scc);
+				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
 				if(present != null) {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
+					//System.out.println("found at iteration " + i + " with count= " + newVal.toString());
 					result.put(present, newVal);
 				} else {
 					result.put(scc, new Integer(1));
@@ -82,6 +83,7 @@ public class Monte_Carlo_CAF_Solver {
 			}
 		}
 		this.setControllingPower(result);
+		System.out.println("controlling power hihi = " + this.controllingPower);
 		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
 		this.controllingPower = this.controllingPower/N;
 		if(controllingPower < 1) {
@@ -99,6 +101,7 @@ public class Monte_Carlo_CAF_Solver {
 	  * @param cc
 	  * @return
 	  */
+	 /*
 	 private StableControlConfiguration find(Set<StableControlConfiguration> list, StableControlConfiguration cc) {
 		 for(StableControlConfiguration scc : list) {
 			 if(cc.equals(scc)) {
@@ -107,7 +110,7 @@ public class Monte_Carlo_CAF_Solver {
 		 }
 		 return null;
 	 }
-	 
+	 */
 	 
 	 /**
 	  * isolate the most probable controlling entities from

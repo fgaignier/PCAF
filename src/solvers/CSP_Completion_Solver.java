@@ -16,8 +16,9 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.constraints.*;
 
-/*
- * Class to find a control configuration via a solver
+/**
+ * Class to find all control configurations for a given completion of a CAF
+ * Both credulous and skeptical acceptance
  */
 public class CSP_Completion_Solver {
 
@@ -216,9 +217,17 @@ public class CSP_Completion_Solver {
 		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
 		while(model.getSolver().solve()) {
 			StableControlConfiguration solution = this.buildResultStable(accVar, onVar);
-			result.add(solution);
+			if(util.Util.find(result, solution) == null) {
+				result.add(solution);
+			}
 		} 
-
+		/*
+		if(result.size() == 0) {
+			System.out.println("no solution found for completion ");
+			System.out.println(completion.toString());
+		} else {
+			System.out.println("solution found!!!!!");
+		} */
         return result;
 	}
 

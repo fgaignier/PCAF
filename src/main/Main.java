@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import model.CArgument;
+import model.ControlAF;
+import model.PControlAF;
 import tests.test_CAF;
 import tests.test_PCAF;
 
@@ -29,31 +31,37 @@ public class Main {
 		 * Test CAF
 		 */
 		
-		/*
+		
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
+		ControlAF CAF = caftest.getCAF();
+	//	System.out.println(CAF.toString());
 		//caftest.solve_with_hardest_completion();
 		//caftest.test_solution();
-		caftest.solve_with_monte_carlo(100);
-		*/
+		caftest.solve_with_monte_carlo(1000);
+		
 		
 		/**
 		 * Test PCAFs
 		 */
 		
 		
-		test_PCAF pcaftest = new test_PCAF();
+		PControlAF PCAF = new PControlAF(CAF);
+		test_PCAF pcaftest = new test_PCAF(PCAF);
+		//System.out.println(PCAF.toString());
+		pcaftest.printMostProbableControllingEntities(1000);
 		
-		pcaftest.load_PCAF_from_file(path+file_name);
-		pcaftest.printMaxCompletionProba();
+		//pcaftest.load_PCAF_from_file(path+file_name);
+		//pcaftest.printMaxCompletionProba();
 		//pcaftest.printCompletionsOverProbability(0.1);
-		pcaftest.printMostProbabelCompletionsCSP();
+		//pcaftest.printMostProbableCompletionsCSP();
 		//pcaftest.printMostProbableCompletion();
 		//pcaftest.printRandomCompletionProba(5);
-		//pcaftest.printMostProbableControllingEntities(100);
 		//System.out.println("---------------------------");
 		//pcaftest.printMostProbableControllingEntities(0.01);
 		//pcaftest.testRandomThresholds(1000);
+		
+
 		/*
 		Set<CArgument> target = pcaftest.getPCAF().getTarget();
 		List<Set<CArgument>> preference = new ArrayList<Set<CArgument>>(); 

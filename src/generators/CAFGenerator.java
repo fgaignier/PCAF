@@ -35,6 +35,7 @@ public class CAFGenerator {
 
 	/**
 	 * ALL IN % INTEGER VALUES
+	 * @param af the original argument framework
 	 * @param pArgF proportion of fixed argument
 	 * @param pArgU proportion of uncertain argument
 	 * @param pAttF proportion of fixed attacks
@@ -68,7 +69,7 @@ public class CAFGenerator {
 
 	/**
 	 * generate randomly a CAF according to the proportions given
-	 * @return
+	 * @return CAF
 	 */
 	public ControlAF generate() {
 		ControlAF caf = new ControlAF();

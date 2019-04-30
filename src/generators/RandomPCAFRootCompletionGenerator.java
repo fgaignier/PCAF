@@ -22,6 +22,27 @@ public class RandomPCAFRootCompletionGenerator {
 		this.PCAF = PCAF;
 	}
 	
+	public double getUncertain() {
+		return RandomGen.randomDouble(0.0, 1.0);
+	}
+	
+	public double[] getUndirected() {
+		double t3 = 0;
+		double t4 = 0;
+		boolean first = RandomGen.randomBoolean();
+		if(first) {
+			t3 = RandomGen.randomDouble(0.0, 1.0);
+			t4 = RandomGen.randomDouble(0.0, 1-t3);
+		} else {
+			t4 = RandomGen.randomDouble(0.0, 1.0);
+			t3 = RandomGen.randomDouble(0.0, 1-t4);
+		}
+		double[] result = new double[2];
+		result[2] = t3;
+		result[3] = t4;
+		return result;
+	}
+	
 	public double[] getRandomThresholds() {
 		double t1 = RandomGen.randomDouble(0.0, 1.0);
 		double t2 = RandomGen.randomDouble(0.0, 1.0);
@@ -45,13 +66,13 @@ public class RandomPCAFRootCompletionGenerator {
 	
 	
 	public ArgumentFramework getRandomRootCompletion() {
-		double[] t = getRandomThresholds();
+		//double[] t = getRandomThresholds();
 		ArgumentFramework af = new ArgumentFramework();
 		this.addFixedArguments(af);
-		this.addUncertainArguments(af, t[0]);
+		this.addUncertainArguments(af);
 		this.addFixedAttacks(af);
-		this.addUncertainAttacks(af, t[1]);
-		this.addUndirectedAttacks(af, t[2], t[3]);
+		this.addUncertainAttacks(af);
+		this.addUndirectedAttacks(af);
 		return af;
 	}
 	
@@ -62,9 +83,10 @@ public class RandomPCAFRootCompletionGenerator {
 		}
 	}
 	
-	private void addUncertainArguments(ArgumentFramework af, double t1) {
+	private void addUncertainArguments(ArgumentFramework af) {
 		Set<CArgument> uncertain = this.PCAF.getArgumentsByType(CArgument.Type.UNCERTAIN);
 		for(CArgument arg : uncertain) {
+			double t1 = this.getUncertain();
 			double proba = PCAF.getUargProba(arg);
 			if(proba >= t1) {
 				af.addArgument(arg);
@@ -83,9 +105,10 @@ public class RandomPCAFRootCompletionGenerator {
 		}
 	}
 
-	private void addUncertainAttacks(ArgumentFramework af, double t2) {
+	private void addUncertainAttacks(ArgumentFramework af) {
 		Set<CAttack> uncertain = this.PCAF.getAttacksByType(CAttack.Type.UNCERTAIN);
 		for(CAttack att : uncertain) {
+			double t2 = this.getUncertain();
 			double proba = this.PCAF.getUattProba(att);
 			if(proba >= t2) {
 				try {
@@ -97,9 +120,12 @@ public class RandomPCAFRootCompletionGenerator {
 		}
 	}
 	
-	private void addUndirectedAttacks(ArgumentFramework af, double t3, double t4) {
+	private void addUndirectedAttacks(ArgumentFramework af) {
 		Set<CAttack> undirected = this.PCAF.getAttacksByType(CAttack.Type.UNDIRECTED);
 		for(CAttack att : undirected) {
+			double[] t = this.getUndirected();
+			double t3 = t[0];
+			double t4 = t[1];
 			double p3 = this.PCAF.getUDAttFromToProba(att);
 			double p4 = this.PCAF.getUDAttToFromProba(att);
 			int o1 = 0;
