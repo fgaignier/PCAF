@@ -68,10 +68,27 @@ public class StableControlConfiguration {
 		return true;
 	}
 	
+	/**
+	 * represents only the control part
+	 */
+	public String toString() {
+		String result = new String();
+		Iterator<CArgument> iter = accepted.iterator();
+		while(iter.hasNext()) {
+			CArgument current = iter.next();
+			if(current.getType() == CArgument.Type.CONTROL) {
+				result = result + "control argument on: " + current.getName();
+				result = String.format(result + "%n");
+			}  
+		}		
+		return result;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
+	/*
 	public String toString() {
 		String result = new String();
 		Iterator<CArgument> iter = accepted.iterator();
@@ -83,12 +100,9 @@ public class StableControlConfiguration {
 					result = result + " control argument on";
 				}
 				result = String.format(result + "%n");
-			} else {
-				result = result + "uncertain accepted argument " + current.getName();
-				result = String.format(result + "%n");
-			}
+			}  
 		}
 		
 		return result;
-	}
+	} */
 }

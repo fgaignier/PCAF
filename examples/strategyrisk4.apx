@@ -12,6 +12,7 @@ u_arg(SC6).
 u_arg(E1).
 c_arg(H1).
 c_arg(H2).
+c_arg(H3).
 c_arg(M1).
 c_arg(M2).
 c_arg(M3).
@@ -62,6 +63,7 @@ u_att(SC6,SC5).
 u_att(SC4,SC1).
 att(H1,SC2).
 att(H2,SC5).
+att(H3,SC6).
 att(M1,R1).
 att(M2,R1).
 att(M2,R2).

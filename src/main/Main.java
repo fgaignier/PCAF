@@ -38,7 +38,7 @@ public class Main {
 	//	System.out.println(CAF.toString());
 		//caftest.solve_with_hardest_completion();
 		//caftest.test_solution();
-		caftest.solve_with_monte_carlo(1000);
+		caftest.solve_with_monte_carlo(100);
 		
 		
 		/**
@@ -49,7 +49,7 @@ public class Main {
 		PControlAF PCAF = new PControlAF(CAF);
 		test_PCAF pcaftest = new test_PCAF(PCAF);
 		//System.out.println(PCAF.toString());
-		pcaftest.printMostProbableControllingEntities(1000);
+		pcaftest.printMostProbableControllingEntities(100);
 		
 		//pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();

@@ -83,7 +83,7 @@ public class Monte_Carlo_CAF_Solver {
 			}
 		}
 		this.setControllingPower(result);
-		System.out.println("controlling power hihi = " + this.controllingPower);
+		System.out.println("controlling power = " + this.controllingPower);
 		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
 		this.controllingPower = this.controllingPower/N;
 		if(controllingPower < 1) {
