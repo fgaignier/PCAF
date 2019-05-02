@@ -1,8 +1,9 @@
 package util;
 
-import solvers.StableControlConfiguration;
-
 import java.util.Set;
+
+import model.StableControlConfiguration;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashSet;
@@ -41,4 +42,5 @@ public class Util {
 		out.println(content);
 		out.close();
 	}
+	
 }

@@ -1,6 +1,7 @@
 package solvers;
 
 import model.ControlAF;
+import model.StableControlConfiguration;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.Argument;
@@ -221,17 +222,11 @@ public class CSP_Completion_Solver {
 				result.add(solution);
 			}
 		} 
-		/*
-		if(result.size() == 0) {
-			System.out.println("no solution found for completion ");
-			System.out.println(completion.toString());
-		} else {
-			System.out.println("solution found!!!!!");
-		} */
+		
         return result;
 	}
 
-	/*
+	/**
 	 * once a stable control configuration is calculated
 	 * it implies credulous acceptance of protected arguments
 	 * We need to perform this check to test if it is skeptically accepted

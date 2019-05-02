@@ -8,6 +8,7 @@ import generators.ControllabilityEncoder;
 import generators.RandomPCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.PControlAF;
+import model.StableControlConfiguration;
 import util.Util;
 
 /**
@@ -75,11 +76,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
-			/*
-			System.out.println("random root completion:");
-			System.out.println(af.toString());
-			System.out.println("--------------------------");
-			*/
+			
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
 			Set<StableControlConfiguration> cc_list = null;
 			if(type == ControllabilityEncoder.CREDULOUS) {

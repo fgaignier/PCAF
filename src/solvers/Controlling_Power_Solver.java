@@ -7,6 +7,7 @@ import generators.RandomPCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.PControlAF;
+import model.StableControlConfiguration;
 
 public class Controlling_Power_Solver {
 	private PControlAF PCAF;

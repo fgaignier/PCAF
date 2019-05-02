@@ -327,9 +327,18 @@ public class ControlAF {
 	}
 	
 	
+	public ControllingPowerRecorder getControllingPowerRecorder() {
+		ControllingPowerRecorder recorder = new ControllingPowerRecorder();
+		recorder.addArguments(this.getArgumentsByType(CArgument.Type.FIXED));
+		recorder.addArguments(this.getArgumentsByType(CArgument.Type.UNCERTAIN));
+		
+		return recorder;
+	}
+	
 	/**
 	 * Returns true if no arguments from AU U AF are attacking argumets from AC
 	 */
+	/*
 	public boolean isHardestRootCompletionCompatible() {
 		Set<CAttack> control = this.getAttacksByType(CAttack.Type.CONTROL);
 		for(CAttack att : control) {
@@ -340,7 +349,7 @@ public class ControlAF {
 		}
 		return true;
 	}
-	
+	*/
 	/**
 	 * According to a given completion
 	 * for a given argument (any type), returns the set of arguments attacking this argument via a control attack
@@ -401,6 +410,7 @@ public class ControlAF {
 	 * If no, keeping in the list the list
 	 *
 	 */
+	/*
 	public Set<CArgument> getFreeUncertainArguments(ArgumentFramework af) {
 		// add all uncertain arguments to result
 		Set<CArgument> result = new HashSet<CArgument>(this.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
@@ -423,7 +433,7 @@ public class ControlAF {
 		}
 		return result;
 	}
-	
+	*/
 	/**
 	 * String representation of CAF according to apx file format
 	 */

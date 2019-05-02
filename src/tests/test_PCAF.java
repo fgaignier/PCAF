@@ -10,12 +10,12 @@ import generators.RandomCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.PControlAF;
+import model.StableControlConfiguration;
 import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
 import solvers.Prefered_Controlling_Entities_Solver;
-import solvers.StableControlConfiguration;
 import util.Util;
 
 public class test_PCAF {

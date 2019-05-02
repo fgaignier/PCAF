@@ -1,6 +1,7 @@
 package solvers;
 
 import model.ControlAF;
+import model.StableControlConfiguration;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.Argument;

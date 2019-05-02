@@ -1,15 +1,13 @@
-package solvers;
+package model;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import model.Argument;
-
-public class StableSet {
+public class StableExtension {
 	protected Set<Argument> accepted;
 	
-	public StableSet() {
+	public StableExtension() {
 		this.accepted = new HashSet<Argument>();
 	}
 	
@@ -31,7 +29,7 @@ public class StableSet {
 	 * return true if both are equal
 	 * it is enough to check that the accepted sets are the same
 	 */
-	public boolean equals(StableSet other) {
+	public boolean equals(StableExtension other) {
 		Set<Argument> otherAccepted = other.getAccepted();
 		if(!otherAccepted.containsAll(this.accepted)) {
 			return false;

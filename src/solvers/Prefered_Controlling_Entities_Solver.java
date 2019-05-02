@@ -8,6 +8,7 @@ import java.util.Set;
 import generators.ControllabilityEncoder;
 import model.CArgument;
 import model.PControlAF;
+import model.StableControlConfiguration;
 
 /**
  * according to the paper, calculates the preferred controlling entities

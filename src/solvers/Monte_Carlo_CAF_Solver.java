@@ -8,6 +8,7 @@ import generators.ControllabilityEncoder;
 import generators.RandomCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.ControlAF;
+import model.StableControlConfiguration;
 
 /**
  * Use of Monte Carlo simulation to calculate 
@@ -75,7 +76,6 @@ public class Monte_Carlo_CAF_Solver {
 				if(present != null) {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
-					//System.out.println("found at iteration " + i + " with count= " + newVal.toString());
 					result.put(present, newVal);
 				} else {
 					result.put(scc, new Integer(1));

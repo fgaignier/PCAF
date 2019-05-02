@@ -4,14 +4,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import generators.QDIMACSConverter;
-import generators.RandomCAFRootCompletionGenerator;
 import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 import model.ControlAF;
+import model.StableControlConfiguration;
 import parser.CAFParser;
-import solvers.CSP_Completion_Verifier;
 import solvers.Monte_Carlo_CAF_Solver;
-import solvers.StableControlConfiguration;
 import util.Util;
 
 public class test_CAF {

@@ -12,6 +12,7 @@ import org.chocosolver.solver.variables.IntVar;
 
 import model.Argument;
 import model.ArgumentFramework;
+import model.StableExtension;
 import model.UnknownArgumentError;
 
 public class CSP_AF_Solver {
@@ -34,7 +35,7 @@ public class CSP_AF_Solver {
 	/*
 	 * returns the set of solutions (stable sets) for the AF
 	 */
-	public Set<StableSet> getStableSets() {
+	public Set<StableExtension> getStableSets() {
 
 		// variables must be stored in a structure for later access
 		// acc variables
@@ -103,10 +104,10 @@ public class CSP_AF_Solver {
 		}
 		
 		// 4. Solve the problem and return the set of solutions
-		Set<StableSet> result = new HashSet<StableSet>();
+		Set<StableExtension> result = new HashSet<StableExtension>();
 		while(model.getSolver().solve()) {
 			//System.out.println("solution has been found !!!!");
-			StableSet solution = this.buildResultStable(accVar);
+			StableExtension solution = this.buildResultStable(accVar);
 			result.add(solution);
 		} 
 
@@ -130,8 +131,8 @@ public class CSP_AF_Solver {
 	 * builds the stable control configuration result of the CSP solution
 	 * for internal use only
 	 */
-	protected StableSet buildResultStable(Map<String, IntVar> accVar) {
-		StableSet scc = new StableSet();
+	protected StableExtension buildResultStable(Map<String, IntVar> accVar) {
+		StableExtension scc = new StableExtension();
 		Set<String> argNames = accVar.keySet();
 		Iterator<String> iterNames = argNames.iterator();
 		while(iterNames.hasNext()) {

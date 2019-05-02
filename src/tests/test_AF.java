@@ -6,9 +6,9 @@ import java.util.Set;
 import generators.CAFGenerator;
 import model.ArgumentFramework;
 import model.ControlAF;
+import model.StableExtension;
 import parser.AFParser;
 import solvers.CSP_AF_Solver;
-import solvers.StableSet;
 import util.Util;
 
 /**
@@ -42,13 +42,13 @@ public class test_AF {
 			throw new UnsupportedOperationException("Please load an Argument Framework first");
 		}
 		CSP_AF_Solver af_solver = new CSP_AF_Solver(af);
-		Set<StableSet> stables = af_solver.getStableSets();
+		Set<StableExtension> stables = af_solver.getStableSets();
 		printStableSets(stables);
 	}
 	
-	private static void printStableSets(Set<StableSet> solutions) {
+	private static void printStableSets(Set<StableExtension> solutions) {
 		int i = 1;
-		Iterator<StableSet> iter = solutions.iterator();
+		Iterator<StableExtension> iter = solutions.iterator();
 		while(iter.hasNext()) {
 			System.out.println("--------- printing solution " + i + "-----------");
 			System.out.println(iter.next().toString());
