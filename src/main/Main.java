@@ -11,7 +11,8 @@ public class Main {
 	public static void main(String[] args) {
 		//long startTime = System.currentTimeMillis();
 		if (args.length < 2) {
-			printHelp();
+			//printHelp();
+			System.out.println("usage: path, file name");
 			System.exit(1);
 		}
 		
@@ -109,11 +110,5 @@ public class Main {
 		*/
 		
 	}
-
-	public static void printHelp() {
-		System.err.println("Usage:");
-		System.err.println("java -jar ControllabilitySolver.jar path file_name");
-	}
-	
 	
 }
