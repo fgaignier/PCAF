@@ -130,17 +130,13 @@ public class Most_Probable_Controlling_Entities_Solver {
 		 return value;
 	 }
 	 
-	 private double getNewSimulationNumber(double max, double nbSimu, double error) {
-		 double result = (max/nbSimu)*(1-(max/nbSimu));
-		 result = result*Math.pow(Util.CONFIDENCE_INT,2);
-		 result = result / (Math.pow(error,2));
-		 return result;
-	 }
 	 
 	 /**
 	  * returns the most probable controlling entities
 	  * using monte carlo simulations, reaching a maximum width of confidence interval
 	  * at 95% of error
+	  * In any case, we never run less simulations than the minimum of Util.MINIMUM_SIMUALTION
+	  * in order to keep a good level of estimation for the supporting power
 	  * @param type: ControllabilityEncoder.CREDULOUS or ControllabilityEncoder.SKEPTICAL
 	  * @return
 	  */
@@ -152,7 +148,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 			double current_max = 0;
 			int N = Util.MINIMUM_SIMULATION;
 			int current_simu = 0;
-			while(current_simu < N) {
+			while(current_simu < N || current_simu < util.Util.MINIMUM_SIMULATION) {
 				ArgumentFramework af = this.generator.getRandomRootCompletion();
 				CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
 				Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
@@ -187,21 +183,18 @@ public class Most_Probable_Controlling_Entities_Solver {
 					}
 				}
 				current_simu++;
-				if(current_max > 1) {
-					N = (int)this.getNewSimulationNumber(current_max, current_simu, error);
-				}
+				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 			}
-			//this.setControllingPower(result);
+
+			System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
 			this.controllingPower = current_max;
-			//System.out.println("controlling power raw: " + this.controllingPower);
-			//System.out.println("nbr simulations to reach 0.1 error: " + current_simu);
+			
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
-			//this.controllingPower = this.controllingPower/N;
 			this.controllingPower = current_max/current_simu;
 
 			this.min_interval = this.controllingPower - this.getConfidenceInterval(current_simu);
 			this.max_interval = this.controllingPower + this.getConfidenceInterval(current_simu);
-			//System.out.println("confidence interval 95%: [" + min + " , " + max + "]");
+
 			return selection;
 		}
 

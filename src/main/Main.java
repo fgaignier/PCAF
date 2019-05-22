@@ -30,10 +30,20 @@ public class Main {
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
 		ControlAF CAF = caftest.getCAF();
-		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		
-	
+		System.out.println("##########################################");
+		System.out.println("fixed number of simulations");
+		System.out.println("##########################################");
+		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.CREDULOUS);
+
+		System.out.println("##########################################");
+		System.out.println("error level");
+		System.out.println("##########################################");
+		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
+		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
+
+		
 		
 		/**
 		 * Test PCAFs
@@ -56,8 +66,20 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		System.out.println();
+		
+		System.out.println("##########################################");
+		System.out.println("fixed number of simulations");
+		System.out.println("##########################################");
+		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.SKEPTICAL);
+		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.CREDULOUS);
+		
+		System.out.println("##########################################");
+		System.out.println("error level");
+		System.out.println("##########################################");
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.CREDULOUS);
+		
+		
 		//pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();
 		//pcaftest.printCompletionsOverProbability(0.1);

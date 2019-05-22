@@ -85,6 +85,28 @@ public class test_CAF {
 		}
 	}
 	
+	public void solve_with_monte_carlo(double error, int type) {
+		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getCredulousControlConfigurations(error);
+
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		} else {
+			result = solver.getSkepticalControlConfigurations(error);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		}
+	}
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions) {
 		int i = 1;

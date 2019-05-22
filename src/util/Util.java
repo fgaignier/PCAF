@@ -43,4 +43,20 @@ public class Util {
 		out.close();
 	}
 	
+	 /**
+	  * Agresti-Coull interval method to avoid problems when p=0 or p=1
+	  * regular method is N=p*(1-p)*alpha2/epsilon2
+	  * @param success number of success
+	  * @param nbSimu number of trials
+	  * @param error error level
+	  * @return
+	  */
+	 public static double getNewSimulationNumber(double success, double nbSimu, double error) {
+		 double epsilon2 = Math.pow(error,2);
+		 double alpha2 = Math.pow(Util.CONFIDENCE_INT,2);
+		 double p = (success + alpha2/2)/(nbSimu + alpha2);
+		 double result = p*(1-p)*alpha2/epsilon2;
+		 return result;
+	 }
+	
 }
