@@ -1,16 +1,20 @@
 package tests;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import generators.RandomPCAFRootCompletionGenerator;
+import generators.ControllabilityEncoder;
 import generators.RandomCAFRootCompletionGenerator;
 
 import model.ArgumentFramework;
 import model.CArgument;
 import model.PControlAF;
 import model.StableControlConfiguration;
+import model.SupportingPowerRecorder;
 import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
@@ -78,19 +82,7 @@ public class test_PCAF {
 		
 		System.out.println("--------------------------------");
 	}
-	
-	/*
-	public void printMostProbableCompletion() {
-		MostProbableRootCompletionGenerator mprcg = new MostProbableRootCompletionGenerator(this.PCAF);
-		ArgumentFramework af = mprcg.getMostProbableRootCompletion();
-		System.out.println("-----------most probable completion ---------------------");
-		System.out.println("most probable completion:");
-		System.out.println(af.toString());
-		System.out.println("proba is: " + mprcg.getProbability());
-		System.out.println("--------------------------------");
-	}
-	*/
-	
+		
 	public void printMostProbableCompletionsCSP() {
 		CSP_PCAF_Proba_Solver pcaf_solver = new CSP_PCAF_Proba_Solver(this.PCAF);
 		System.out.println("---------most probable completions CSP-----------------------");
@@ -124,67 +116,68 @@ public class test_PCAF {
 		}
 	}
 
-	public void printMostProbableControllingEntities(int nbSimu) {
+	public void printMostProbableControllingEntities(int N, int type) {
 		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
-		Set<StableControlConfiguration> result = solver.getCredulousControlConfigurations(nbSimu);
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
-			System.out.println("--------------------------------------");
-		}
-		
-		result = solver.getSkepticalControlConfigurations(nbSimu);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
-		} 
-	}
-	
-	public void printMostProbableControllingEntities(double error) {
-		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
-		Set<StableControlConfiguration> result = solver.getCredulousControlConfigurations(error);
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
-		}
-		
-		result = solver.getCredulousControlConfigurations(error);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getCredulousControlConfigurations(N);
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			printSolutions(result, solver);
+
+		} else {
+			result = solver.getSkepticalControlConfigurations(N);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			printSolutions(result, solver);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
-	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference) {
-		
+	public void printMostProbableControllingEntities(double error, int type) {
+		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			solver.getCredulousControlConfigurations(error);
+
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result, solver);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		} else {
+			result = solver.getSkepticalControlConfigurations(error);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result, solver);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		}
+	}
+	
+	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference, int type) {
+
 		System.out.println("prefered controlling entities");
 		Prefered_Controlling_Entities_Solver solver = null;
 		Set<StableControlConfiguration> result = null;
-		
+
 		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
-		result = solver.getPreferedCredulousCE(nbSimu);
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-		}
-		
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
-		result = solver.getPreferedSkepticalCE(nbSimu);
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-			//System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getPreferedCredulousCE(nbSimu);
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			for(StableControlConfiguration scc : result) {
+				System.out.println(scc.toString());
+			}
+		} else {		
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+			result = solver.getPreferedSkepticalCE(nbSimu);
+			for(StableControlConfiguration scc : result) {
+				System.out.println(scc.toString());
+			}
 		}
 	}
 	
@@ -238,4 +231,30 @@ public class test_PCAF {
 		}
 	}
 	
+	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver solver) {
+		int i = 1;
+		if(solutions == null) {
+			return;
+		}
+		Iterator<StableControlConfiguration> iter = solutions.iterator();
+		while(iter.hasNext()) {
+			System.out.println("--------- printing solution " + i + "-----------");
+			System.out.println(iter.next().toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+			i++;
+		}
+	}
+	
+	private static void printSupportingPower(Map<StableControlConfiguration, SupportingPowerRecorder> recorders) {
+		if(recorders == null) {
+			return;
+		}
+		for(StableControlConfiguration scc : recorders.keySet()) {
+			System.out.println("for control configuration: ");
+			System.out.println(scc.toString());
+			System.out.println("supporting power: ");
+			System.out.println(recorders.get(scc).toString());
+		}
+	}
 }

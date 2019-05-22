@@ -1,11 +1,6 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import model.CArgument;
+import generators.ControllabilityEncoder;
 import model.ControlAF;
 import model.PControlAF;
 import tests.test_CAF;
@@ -35,11 +30,10 @@ public class Main {
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
 		ControlAF CAF = caftest.getCAF();
-	//	System.out.println(CAF.toString());
-		//caftest.solve_with_hardest_completion();
-		//caftest.test_solution();
-		caftest.solve_with_monte_carlo(100);
+		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		
+	
+		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.CREDULOUS);
 		
 		/**
 		 * Test PCAFs
@@ -48,9 +42,22 @@ public class Main {
 		
 		PControlAF PCAF = new PControlAF(CAF);
 		test_PCAF pcaftest = new test_PCAF(PCAF);
-		//System.out.println(PCAF.toString());
-		pcaftest.printMostProbableControllingEntities(100);
 		
+		/*
+		test_PCAF pcaftest = new test_PCAF();
+		pcaftest.load_PCAF_from_file(path+file_name);
+		*/
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("##########################################");
+		System.out.println("transforming the CAF into PCAF");
+		System.out.println("##########################################");
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
+		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.CREDULOUS);
 		//pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();
 		//pcaftest.printCompletionsOverProbability(0.1);

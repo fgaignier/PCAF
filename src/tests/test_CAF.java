@@ -1,13 +1,16 @@
 package tests;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
+import generators.ControllabilityEncoder;
 import generators.QDIMACSConverter;
 import generators.StrongQBFEncoder;
 import logic.qbf.QBFFormula;
 import model.ControlAF;
 import model.StableControlConfiguration;
+import model.SupportingPowerRecorder;
 import parser.CAFParser;
 import solvers.Monte_Carlo_CAF_Solver;
 import util.Util;
@@ -58,59 +61,30 @@ public class test_CAF {
 		}
 	}
 	
-	/*
-	public void solve_with_hardest_completion() {
-		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
 
-		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
-		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
-		
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		printSolutions(credulous);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		printSolutions(skeptical);
-	}
-	*/
-	public void solve_with_monte_carlo(int N) {
+	public void solve_with_monte_carlo(int N, int type) {
 		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
-		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations(N);
-		
-		System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-		printSolutions(credulous);
-		
-		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations(N);
-		System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-		printSolutions(skeptical);
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getCredulousControlConfigurations(N);
+
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		} else {
+			result = solver.getSkepticalControlConfigurations(N);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
+		}
 	}
 	
-	/*
-	public void test_solution() {
-		CSP_CAF_Solver solver = new CSP_CAF_Solver(this.CAF);
-		
-		RandomCAFRootCompletionGenerator generator = new RandomCAFRootCompletionGenerator(this.CAF);
-		
-		CSP_Completion_Verifier verifier = new CSP_Completion_Verifier(this.CAF, generator.getRandomRootCompletion());
-		
-		Set<StableControlConfiguration> credulous = solver.getCredulousControlConfigurations();
-		Set<StableControlConfiguration> skeptical = solver.getSkepticalControlConfigurations();
-
-		for(StableControlConfiguration cc : credulous) {
-			if(verifier.isCredulousControlConfigurations(cc)) {
-				System.out.println("OK credulous control configuration");
-			} else {
-				System.out.println("error not a control configuration");
-			}
-		}
-		
-		for(StableControlConfiguration cc : skeptical) {
-			if(verifier.isSkepticalControlConfigurations(cc)) {
-				System.out.println("OK skeptical control configuration");
-			} else {
-				System.out.println("error not a credulous control configuration");
-			}
-		}
-		
-	}*/
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions) {
 		int i = 1;
@@ -124,5 +98,16 @@ public class test_CAF {
 			i++;
 		}
 	}
-	
+		
+	private static void printSupportingPower(Map<StableControlConfiguration, SupportingPowerRecorder> recorders) {
+		if(recorders == null) {
+			return;
+		}
+		for(StableControlConfiguration scc : recorders.keySet()) {
+			System.out.println("for control configuration: ");
+			System.out.println(scc.toString());
+			System.out.println("supporting power: ");
+			System.out.println(recorders.get(scc).toString());
+		}
+	}
 }

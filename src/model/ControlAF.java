@@ -326,15 +326,7 @@ public class ControlAF {
 		return res;
 	}
 	
-	
-	public ControllingPowerRecorder getControllingPowerRecorder() {
-		ControllingPowerRecorder recorder = new ControllingPowerRecorder();
-		recorder.addArguments(this.getArgumentsByType(CArgument.Type.FIXED));
-		recorder.addArguments(this.getArgumentsByType(CArgument.Type.UNCERTAIN));
 		
-		return recorder;
-	}
-	
 	/**
 	 * Returns true if no arguments from AU U AF are attacking argumets from AC
 	 */

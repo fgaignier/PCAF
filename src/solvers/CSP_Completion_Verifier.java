@@ -413,16 +413,13 @@ public class CSP_Completion_Verifier {
 		return result;
 	}
 	
-	/*
+	/**
 	 * builds the stable control configuration result of the CSP solution
 	 * for internal use only
 	 */
-	protected StableControlConfiguration buildResultStable(Map<String, IntVar> accVar, Map<String, IntVar> onVar) {
+	protected StableControlConfiguration buildResultStable(Map<String, IntVar> accVar) {
 		StableControlConfiguration scc = new StableControlConfiguration();
-		Set<String> argNames = accVar.keySet();
-		Iterator<String> iterNames = argNames.iterator();
-		while(iterNames.hasNext()) {
-			String argName = iterNames.next();
+		for(String argName : accVar.keySet()) {
 			IntVar accCurrent = accVar.get(argName);
 			// all arguments must be accepted or rejected
 			if(accCurrent.getValue() ==1) {
@@ -434,12 +431,9 @@ public class CSP_Completion_Verifier {
 					if(currentArg.getType() == CArgument.Type.CONTROL) {
 						scc.addOnControl(currentArg);
 					}
-					// add the argument as accepted
-					scc.addAccepted(currentArg);
 				}
 			}
-		}
-		
+		}		
 		return scc;
 	}
 	

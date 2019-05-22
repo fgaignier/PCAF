@@ -9,6 +9,8 @@ import generators.RandomPCAFRootCompletionGenerator;
 import model.ArgumentFramework;
 import model.PControlAF;
 import model.StableControlConfiguration;
+import model.StableExtension;
+import model.SupportingPowerRecorder;
 import util.Util;
 
 /**
@@ -23,6 +25,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 	private PControlAF PCAF;
 	private RandomPCAFRootCompletionGenerator generator; 
 	private double controllingPower;
+	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
 	private double min_interval;
 	private double max_interval;
 	
@@ -30,6 +33,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.PCAF = PCAF;
 		this.generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		this.controllingPower = -1;
+		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 		this.min_interval = 0;
 		this.max_interval = 0;
 	}
@@ -44,6 +48,10 @@ public class Most_Probable_Controlling_Entities_Solver {
 	
 	public double getHighInterval() {
 		return this.max_interval;
+	}
+	
+	public Map<StableControlConfiguration, SupportingPowerRecorder> getSupportingPowerRecorders() {
+		return this.recorders;
 	}
 	
 	public Set<StableControlConfiguration> getCredulousControlConfigurations(int N) {
@@ -73,31 +81,42 @@ public class Most_Probable_Controlling_Entities_Solver {
 	 */
 	 private Set<StableControlConfiguration> getMostProbableControllingEntities(int N, int type) {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
+		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+		
 		this.controllingPower = -1;
+		
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
 			
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
+			Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 			Set<StableControlConfiguration> cc_list = null;
+			Set<StableExtension> stables = null;
 			if(type == ControllabilityEncoder.CREDULOUS) {
-				cc_list = solver.getCredulousControlConfigurations();
+				solutions = solver.getCredulousControlConfigurations();
 			} else {
-				cc_list = solver.getSkepticalControlConfigurations();
+				solutions = solver.getSkepticalControlConfigurations();
 			}
+			cc_list = solutions.keySet();
 			for(StableControlConfiguration scc : cc_list) {
+				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
 				if(present != null) {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
-					//System.out.println("updates cc with value: " + newVal.toString() + " over " + i + " tries");
+					SupportingPowerRecorder recorder = temp_recorders.get(present);
+					recorder.updateOccurencesList(stables);
 				} else {
 					result.put(scc, new Integer(1));
+					SupportingPowerRecorder recorder = new SupportingPowerRecorder();
+					recorder.updateOccurencesList(stables);
+					temp_recorders.put(scc,  recorder);
 				}
 			}
 		}
 		this.setControllingPower(result);
-		Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
+		Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 		this.controllingPower = this.controllingPower/N;
 		this.min_interval = this.controllingPower - this.getConfidenceInterval(N);
 		this.max_interval = this.controllingPower + this.getConfidenceInterval(N);
@@ -127,6 +146,8 @@ public class Most_Probable_Controlling_Entities_Solver {
 	  */
 	 private Set<StableControlConfiguration> getMostProbableControllingEntities(int type, double error) {
 			Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
+			Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+			
 			this.controllingPower = -1;
 			double current_max = 0;
 			int N = Util.MINIMUM_SIMULATION;
@@ -134,23 +155,32 @@ public class Most_Probable_Controlling_Entities_Solver {
 			while(current_simu < N) {
 				ArgumentFramework af = this.generator.getRandomRootCompletion();
 				CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
+				Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 				Set<StableControlConfiguration> cc_list = null;
+				Set<StableExtension> stables = null;
 				if(type == ControllabilityEncoder.CREDULOUS) {
-					cc_list = solver.getCredulousControlConfigurations();
+					solutions = solver.getCredulousControlConfigurations();
 				} else {
-					cc_list = solver.getSkepticalControlConfigurations();
+					solutions = solver.getSkepticalControlConfigurations();
 				}
+				cc_list = solutions.keySet();
 				for(StableControlConfiguration scc : cc_list) {
+					stables = solutions.get(scc);
 					StableControlConfiguration present = util.Util.find(result.keySet(), scc);
 					if(present != null) {
 						Integer count = result.get(present);
 						Integer newVal = new Integer(count.intValue()+1);
 						result.put(present, newVal);
+						SupportingPowerRecorder recorder = temp_recorders.get(present);
+						recorder.updateOccurencesList(stables);
 						if(count.intValue() +1 > current_max) {
 							current_max = count.intValue() +1;
 						}
 					} else {
 						result.put(scc, new Integer(1));
+						SupportingPowerRecorder recorder = new SupportingPowerRecorder();
+						recorder.updateOccurencesList(stables);
+						temp_recorders.put(scc,  recorder);
 						if(current_max <1) {
 							current_max = 1;
 						}
@@ -165,7 +195,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 			this.controllingPower = current_max;
 			//System.out.println("controlling power raw: " + this.controllingPower);
 			//System.out.println("nbr simulations to reach 0.1 error: " + current_simu);
-			Set<StableControlConfiguration> selection = this.takeMax(result).keySet();
+			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 			//this.controllingPower = this.controllingPower/N;
 			this.controllingPower = current_max/current_simu;
 
@@ -175,24 +205,6 @@ public class Most_Probable_Controlling_Entities_Solver {
 			return selection;
 		}
 
-	 /**
-	  * looks for a StableControlConfiguration in a list
-	  * This is done since new objects are calculated all the time.
-	  * Therefore the objects are different, but we want to know if the control elements are the same
-	  * @param list
-	  * @param cc
-	  * @return
-	  */
-	 /*
-	 private StableControlConfiguration find(Set<StableControlConfiguration> list, StableControlConfiguration cc) {
-		 for(StableControlConfiguration scc : list) {
-			 if(cc.equals(scc)) {
-				 return scc;
-			 }
-		 }
-		 return null;
-	 }
-	 */
 	 
 	 /**
 	  * isolate the most probable controlling entities from
@@ -200,16 +212,16 @@ public class Most_Probable_Controlling_Entities_Solver {
 	  * @param imput
 	  * @return
 	  */
-	 private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput) {
+	 private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput, Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders) {
 		 Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
-		// System.out.println("------------ TAKE MAX ------------------");
+		 this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+
 		 for(StableControlConfiguration scc : imput.keySet()) {
 			 Integer value = imput.get(scc);
 			 double val = (double)value.intValue();
-			// System.out.println("val for scc " + val);
-			// System.out.println("max val " + this.controllingPower);
 			 if(val == this.controllingPower) {
 				 result.put(scc, value);
+				 this.recorders.put(scc, temp_recorders.get(scc));
 			 }
 		 }
 		 return result;

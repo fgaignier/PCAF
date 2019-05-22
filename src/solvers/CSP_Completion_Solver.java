@@ -2,6 +2,7 @@ package solvers;
 
 import model.ControlAF;
 import model.StableControlConfiguration;
+import model.StableExtension;
 import model.ArgumentFramework;
 import model.CArgument;
 import model.Argument;
@@ -15,6 +16,9 @@ import java.util.HashMap;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
+
+import javafx.util.Pair;
+
 import org.chocosolver.solver.constraints.*;
 
 /**
@@ -49,25 +53,30 @@ public class CSP_Completion_Solver {
 	public void setCompletion(ArgumentFramework completion) {
 		this.completion = completion;
 	}
-	
-	public Set<StableControlConfiguration> getSkepticalControlConfigurations() {
-		Set<StableControlConfiguration> solutions = this.getCredulousControlConfigurations();
-		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
-		Iterator<StableControlConfiguration> solIter = solutions.iterator();
-		while(solIter.hasNext()) {
-			StableControlConfiguration current = solIter.next(); 
-			if(isScepticallyAccepted(current)) {
-				result.add(current);
+
+	/**
+	 * returns a Map of control configurations that skeptically control the CAF together
+	 * with all the extensions that correspond to each control configuration
+	 * First the credulous control confs are calculated. 
+	 * If a control conf does not control skeptically, it is removed.
+	 * @return
+	 */
+	public Map<StableControlConfiguration, Set<StableExtension>> getSkepticalControlConfigurations() {
+		Map<StableControlConfiguration, Set<StableExtension>> solutions = this.getCredulousControlConfigurations();
+		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
+		for(StableControlConfiguration scc : solutions.keySet()) {
+			if(isScepticallyAccepted(scc)) {
+				result.put(scc, solutions.get(scc));
 			}
 		}
 		return result;
 	}
 	
 	/**
-	 * returns the set of solutions (control configurations) that credulously control the CAF
-	 * according to the protected element list
+	 * returns a Map of control configurations that credulously control the CAF together
+	 * with all the extensions that correspond to each control configuration
 	 */
-	public Set<StableControlConfiguration> getCredulousControlConfigurations() {
+	public Map<StableControlConfiguration, Set<StableExtension>> getCredulousControlConfigurations() {
 
 		// variables must be stored in a structure for later access
 		// acc variables and on variables
@@ -215,14 +224,20 @@ public class CSP_Completion_Solver {
 		}
 		
 		// 4. Solve the problem and return the set of solutions
-		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
+		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
+		Set<StableExtension> extensions = null;
 		while(model.getSolver().solve()) {
-			StableControlConfiguration solution = this.buildResultStable(accVar, onVar);
-			if(util.Util.find(result, solution) == null) {
-				result.add(solution);
+			Pair<StableControlConfiguration, StableExtension> solution = this.buildStableExtension(accVar);
+			StableControlConfiguration scc = util.Util.find(result.keySet(), solution.getKey());
+			if( scc == null) {
+				extensions = new HashSet<StableExtension>();
+				extensions.add(solution.getValue());
+				result.put(solution.getKey(), extensions);
+			} else {
+				extensions = result.get(scc);
+				extensions.add(solution.getValue());
 			}
 		} 
-		
         return result;
 	}
 
@@ -292,6 +307,9 @@ public class CSP_Completion_Solver {
 
 		
 		// accepted control arguments must be on and vice versa
+		// BUG FIX: WE DO NOT IMPOSE TO CONTROL ARGUMENTS TO BE ACCEPTED.
+		// SINCE WE ARE LOOKING FOR ANOTHER STABLE EXTENSION
+		/*
 		Set<String> on = onVar.keySet();
 		Iterator<String> onArg = on.iterator();
 		while(onArg.hasNext()) {
@@ -301,7 +319,9 @@ public class CSP_Completion_Solver {
 			model.arithm(onIt, "-", accIt, "=",0).post();
 			//System.out.println("adding constraint: " + onIt.getName() + " - " + accIt.getName() + " =0");
 		}
-
+		*/
+		
+		/*
 		// on control arguments of solution remain on
 		Set<CArgument> onArgs = solution.getOnControl();
 		Iterator<CArgument> onArgsIter = onArgs.iterator();
@@ -311,6 +331,21 @@ public class CSP_Completion_Solver {
 			model.arithm(onIt, "=",1).post();
 			//System.out.println("adding constraint: " + onIt.getName() +  " =1");
 		}
+		*/
+		//on control arguments of solution remain on
+		// off control arguments of solution remain off
+		controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
+		Set<CArgument> onArgs = solution.getOnControl();
+		for(CArgument arg : controlArgs) {
+			String argName = arg.getName();
+			IntVar onIt = onVar.get(argName);
+			if(onArgs.contains(arg)) {
+				model.arithm(onIt, "=",1).post();
+			} else {
+				model.arithm(onIt, "=",0).post();
+			}
+		}
+		
 		// no two arguments attacking each other in the solution
 		// if an argument is accepted (from the root completion or control), all its attackers are rejected
 		// else at least one attacker is accepted
@@ -416,16 +451,15 @@ public class CSP_Completion_Solver {
 		return result;
 	}
 	
-	/*
-	 * builds the stable control configuration result of the CSP solution
-	 * for internal use only
+	/**
+	 * builds from the CSP solution (no need of on variables since on is equivalent to accepted)
+	 *  a couple <ControlConfiguration, StableExtension> 
+	 * Stable extensions will be unique, but control configurations are not.
 	 */
-	protected StableControlConfiguration buildResultStable(Map<String, IntVar> accVar, Map<String, IntVar> onVar) {
+	protected Pair<StableControlConfiguration, StableExtension> buildStableExtension(Map<String, IntVar> accVar) {
 		StableControlConfiguration scc = new StableControlConfiguration();
-		Set<String> argNames = accVar.keySet();
-		Iterator<String> iterNames = argNames.iterator();
-		while(iterNames.hasNext()) {
-			String argName = iterNames.next();
+		StableExtension se = new StableExtension();
+		for(String argName : accVar.keySet()) {
 			IntVar accCurrent = accVar.get(argName);
 			// all arguments must be accepted or rejected
 			if(accCurrent.getValue() ==1) {
@@ -433,17 +467,15 @@ public class CSP_Completion_Solver {
 				if(currentArg == null) {
 					throw new UnknownArgumentError("weird, argument " + argName + " is accepted but cannot be found in the CAF");
 				} else {
+					se.addAccepted(currentArg);
 					// here check if control argument and add on (since accepted and on are equal for control arguments)
 					if(currentArg.getType() == CArgument.Type.CONTROL) {
 						scc.addOnControl(currentArg);
 					}
-					// add the argument as accepted
-					scc.addAccepted(currentArg);
 				}
 			}
 		}
-		
-		return scc;
+		return new Pair<StableControlConfiguration, StableExtension>(scc,se);
 	}
-	
+
 }

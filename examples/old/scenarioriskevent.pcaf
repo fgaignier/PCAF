@@ -1,0 +1,16 @@
+f_arg(go).
+u_arg(SC1) : 0.2
+u_arg(SC2) : 0.6
+u_arg(SC3) : 0.8
+u_arg(E1) : 0.3
+c_arg(H1).
+att(SC3,go).
+att(SC3,SC1).
+att(SC3,SC2).
+att(SC1,SC3).
+att(SC2,SC3).
+u_att(SC2,SC1) : 0.3
+u_att(SC2,go) : 0.4 
+att(H1,SC3).
+att(E1, H1).
+target(go).

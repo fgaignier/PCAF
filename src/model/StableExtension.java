@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * data structure to store a stable extension
+ * consists of a set of accepted arguments
+ */
 public class StableExtension {
 	protected Set<Argument> accepted;
 	

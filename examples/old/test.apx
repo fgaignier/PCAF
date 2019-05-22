@@ -1,0 +1,11 @@
+f_arg(SC1).
+f_arg(SC7).
+f_arg(A).
+f_arg(B).
+att(SC1,SC7).
+att(SC7,SC1).
+att(SC1,A).
+att(SC7,B).
+att(A,B).
+att(B,A).
+target(B).
