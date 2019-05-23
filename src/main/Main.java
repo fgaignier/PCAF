@@ -27,7 +27,7 @@ public class Main {
 		 * Test CAF
 		 */
 		
-		
+		/*
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
 		ControlAF CAF = caftest.getCAF();
@@ -43,21 +43,22 @@ public class Main {
 		System.out.println("##########################################");
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
-
+	*/
 		
 		
 		/**
 		 * Test PCAFs
 		 */
 		
-		
+		/*
 		PControlAF PCAF = new PControlAF(CAF);
 		test_PCAF pcaftest = new test_PCAF(PCAF);
+		*/
 		
-		/*
 		test_PCAF pcaftest = new test_PCAF();
 		pcaftest.load_PCAF_from_file(path+file_name);
-		*/
+		
+		/*
 		System.out.println();
 		System.out.println();
 		System.out.println();
@@ -67,6 +68,7 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		System.out.println();
+		*/
 		
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
