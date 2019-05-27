@@ -15,6 +15,12 @@ import model.ArgumentFramework;
 import model.StableExtension;
 import model.UnknownArgumentError;
 
+/**
+ * This class enables the determination of stables extensions
+ * of the Argument Framework passed at construction.
+ * @author Fabrice
+ *
+ */
 public class CSP_AF_Solver {
 	
 	protected ArgumentFramework af;
@@ -32,8 +38,14 @@ public class CSP_AF_Solver {
 		this.af = af;
 	}
 	
-	/*
+	/**
 	 * returns the set of solutions (stable sets) for the AF
+	 * solved with a Constraint Satisfaction Constraints solver
+	 * one variable per argument (accepted or not)
+	 * Constraints:
+	 * all attackers of an argument x have accepted=0 and accepted(x) = 1
+	 * or
+	 *  at least on atacker of x has accepted = 1 and accepted(x) = 0
 	 */
 	public Set<StableExtension> getStableSets() {
 
@@ -114,7 +126,7 @@ public class CSP_AF_Solver {
         return result;
 	}
 	
-	/*
+	/**
 	 * protected internal use only
 	 * toString method for an array of IntVar
 	 */
@@ -127,7 +139,7 @@ public class CSP_AF_Solver {
 		return result;
 	}
 	
-	/*
+	/**
 	 * builds the stable control configuration result of the CSP solution
 	 * for internal use only
 	 */

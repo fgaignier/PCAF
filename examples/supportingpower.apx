@@ -8,11 +8,12 @@ f_arg(SC4).
 f_arg(SC5).
 f_arg(SC6).
 f_arg(SC7).
-u_arg(E1) : 0.3
-u_arg(E2) : 0.05
-u_arg(E3) : 0.8
-u_arg(E4) : 0.1
-u_arg(E5) : 0.2
+u_arg(E1).
+u_arg(E2).
+u_arg(E3).
+u_arg(E4).
+u_arg(E5).
+f_arg(E6).
 c_arg(M1).
 c_arg(M2).
 c_arg(M3).
@@ -85,12 +86,13 @@ att(E5, SC2).
 att(E5, SC4).
 att(E5, SC6).
 att(E5, SC7).
-u_att(SC2,SC4) : 0.5
-u_att(SC2,SC6) : 0.5
-u_att(SC3,SC4) : 0.5
-u_att(SC3,SC6) : 0.5
-u_att(SC7,SC4) : 0.5
-u_att(SC7,SC6) : 0.5
+att(E6, SC2).
+u_att(SC2,SC4).
+u_att(SC2,SC6).
+u_att(SC3,SC4).
+u_att(SC3,SC6).
+u_att(SC7,SC4).
+u_att(SC7,SC6).
 att(M1,E1).
 att(M1,E3).
 att(M2,E2).

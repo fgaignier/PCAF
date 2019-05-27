@@ -30,6 +30,10 @@ public class QDIMACSConverter {
 		
 	}
 	
+	/**
+	 * returns the QDIMACS encoding
+	 * @return
+	 */
 	public String toQDimacs() {
 		StringBuilder result = new StringBuilder();
 		StringBuilder comment = new StringBuilder();
@@ -75,11 +79,11 @@ public class QDIMACSConverter {
 		return result.toString();
 	}
 	
-	public String getHeaderQDIMACS() {
+	private String getHeaderQDIMACS() {
 		return "p cnf " + this.build.getNbVar() + " " + this.build.getNbClause() + "\n";
 	}
 	
-	public String quantifierToQDIMACS(Quantifier q) {
+	private String quantifierToQDIMACS(Quantifier q) {
 		StringBuilder result = new StringBuilder();
 		Set<Atom> variables = q.getVariables();
 		if(q instanceof Free) {
@@ -104,7 +108,7 @@ public class QDIMACSConverter {
 		return result.toString();
 	}
 	
-	public String additionalQuantifierQDIMACS() {
+	private String additionalQuantifierQDIMACS() {
 		StringBuilder result = new StringBuilder();
 		Collection<Integer> vars = build.getAdditionalVars().values();
 		for(Integer i: vars) {
@@ -114,7 +118,7 @@ public class QDIMACSConverter {
 		return result.toString();
 	}
 	
-	public String getCommentQDIMACS() {
+	private String getCommentQDIMACS() {
 		StringBuilder result = new StringBuilder();
 		Map<String, Integer> vars = build.getVars();
 		for(String s : vars.keySet()) {

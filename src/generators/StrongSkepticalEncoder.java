@@ -22,6 +22,13 @@ import logic.qbf.Free;
 import logic.qbf.QBFFormula;
 import logic.qbf.Quantifier;
 
+/**
+ * From a CAF creates a QBF formula to solve the Skeptical controllability of the CAF
+ * Then this QBF Formula can be converted to QCIR (directly calling method toQCIR of the formula) 
+ * or QDIMACS using a QDIMACSConverter object
+ * @author Fabrice
+ *
+ */
 public class StrongSkepticalEncoder extends ControllabilityEncoder {
 	
 	public StrongSkepticalEncoder(ControlAF instance) {

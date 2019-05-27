@@ -22,12 +22,24 @@ import logic.qbf.Free;
 import logic.qbf.QBFFormula;
 import logic.qbf.Quantifier;
 
+/**
+ * From a CAF returns the QBF formula attached 
+ * once solved, this QBF formula gives the control configurations
+ * @author Fabrice
+ *
+ */
 public class StrongQBFEncoder extends ControllabilityEncoder {
 	
 	public StrongQBFEncoder(ControlAF instance) {
 		this.instance = instance;
 	}
 
+	/**
+	 * encodes according to the type:
+	 *  ControllabilityEncoder.CREDULOUS
+	 *  or
+	 *  ControllabilityEncoder.SKEPTICAL
+	 */
 	@Override
 	public QBFFormula encode(int type) {
 		
@@ -56,8 +68,7 @@ public class StrongQBFEncoder extends ControllabilityEncoder {
 		Disjunction main = new Disjunction("main");
 		if(type == ControllabilityEncoder.CREDULOUS) {
 			main.addSubformula(phiStCr);
-		}
-		else {
+		}	else {
 			main.addSubformula(phiStSk);
 		}
 	

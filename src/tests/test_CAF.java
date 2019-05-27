@@ -55,7 +55,7 @@ public class test_CAF {
 		QBFFormula qbf = encoder.encode(type);
 		
 		try {
-			Util.saveToFile(qbf.toString(), file);
+			Util.saveToFile(qbf.toQCIR(), file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -15,21 +15,21 @@ public class StableExtension {
 		this.accepted = new HashSet<Argument>();
 	}
 	
-	/*
+	/**
 	 * add an accepted argument
 	 */
 	public void addAccepted(Argument a) {
 		accepted.add(a);
 	}
 		
-	/*
+	/**
 	 * returns the arguments accepted
 	 */
 	public Set<Argument> getAccepted() {
 		return accepted;
 	}
 	
-	/*
+	/**
 	 * return true if both are equal
 	 * it is enough to check that the accepted sets are the same
 	 */
@@ -44,9 +44,9 @@ public class StableExtension {
 		return true;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * Override toString
+	 * returns a string representation of stable extension
 	 */
 	public String toString() {
 		String result = new String();

@@ -11,6 +11,9 @@ import util.RandomGen;
 /**
  * Given an argument framework, this class will generate 
  * CAFs according to the proportion of uncertain and undirected elements given.
+ * Proportion of control arguments = 1 - pArgF - pArgU
+ * Proportion of undirected attacks = 1 - pAttF - pAttU
+ *  
  * @author Fabrice
  *
  */
@@ -35,6 +38,7 @@ public class CAFGenerator {
 
 	/**
 	 * ALL IN % INTEGER VALUES
+	 * Control arguments and undirected attacks will be deduced from the other probabilities 
 	 * @param af the original argument framework
 	 * @param pArgF proportion of fixed argument
 	 * @param pArgU proportion of uncertain argument

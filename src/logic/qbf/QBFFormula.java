@@ -4,6 +4,12 @@ import java.util.List;
 
 import logic.pl.Formula;
 
+/**
+ * Class to represent a QBF Formula
+ * built with quantifiers and a Formula
+ * @author Fabrice
+ *
+ */
 public class QBFFormula {
 	private List<Quantifier> quantifiers ;
 	private Formula matrix ;
@@ -13,7 +19,11 @@ public class QBFFormula {
 		this.matrix = matrix;
 	}
 	
-	public String toString() {
+	/**
+	 * returns the QCIR encoding of the formula
+	 * @return String QCIR encoding 
+	 */
+	public String toQCIR() {
 		StringBuilder build = new StringBuilder("#QCIR-14\n");
 		for(int i = 0 ; i < quantifiers.size() ; i++) {
 			build.append(quantifiers.get(i).toString() + "\n");

@@ -30,8 +30,8 @@ public class test_AF {
 	}
 	
 	public void load_af_from_file(String file) {
-		AFParser af_parser = new AFParser(file);		
-		ArgumentFramework af = af_parser.parse();
+		//AFParser af_parser = new AFParser(file);		
+		ArgumentFramework af = AFParser.parse(file);
 		System.out.println(af.toString());
 		this.af = af;
 	}

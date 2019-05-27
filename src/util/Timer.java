@@ -1,5 +1,10 @@
 package util;
 
+/**
+ * simple timer. Used to benchmark calculations
+ * @author Fabrice
+ *
+ */
 public class Timer {
 	protected long startTime;
 

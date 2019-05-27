@@ -7,11 +7,28 @@ import tests.test_CAF;
 import tests.test_PCAF;
 
 public class Main {
+
+	public static int QDIMACS = 0;
+	public static int QCIR = 1;
+	
+	public static String ext_qcir = ".qcir";
+	public static String ext_qdimacs = ".qdimacs";
+	
+	public static String changeFileExt(String fileName, int type) {
+		String[] splt = fileName.split("\\.");
+		StringBuffer result = new StringBuffer();
+		result.append(splt[0]);
+		if(type == QDIMACS) {
+			result.append(ext_qdimacs);
+		} else {
+			result.append(ext_qcir);
+		}
+		System.out.println(result.toString());
+		return result.toString();
+	}
 	
 	public static void main(String[] args) {
-		//long startTime = System.currentTimeMillis();
 		if (args.length < 2) {
-			//printHelp();
 			System.out.println("usage: path, file name");
 			System.exit(1);
 		}
@@ -27,9 +44,14 @@ public class Main {
 		 * Test CAF
 		 */
 		
-		/*
+		
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
+		
+		caftest.saveQCIRToFile(path + changeFileExt(file_name, QCIR), ControllabilityEncoder.SKEPTICAL);
+		caftest.saveQDIMACSToFile(path + changeFileExt(file_name, QDIMACS), ControllabilityEncoder.SKEPTICAL);
+		
+		/*
 		ControlAF CAF = caftest.getCAF();
 		
 		System.out.println("##########################################");
@@ -55,10 +77,12 @@ public class Main {
 		test_PCAF pcaftest = new test_PCAF(PCAF);
 		*/
 		
+		/*
 		test_PCAF pcaftest = new test_PCAF();
 		pcaftest.load_PCAF_from_file(path+file_name);
 		
-		/*
+		
+		
 		System.out.println();
 		System.out.println();
 		System.out.println();
@@ -68,7 +92,7 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		*/
+		
 		
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
@@ -81,7 +105,7 @@ public class Main {
 		System.out.println("##########################################");
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.CREDULOUS);
-		
+		*/
 		
 		//pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();

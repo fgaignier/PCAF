@@ -11,23 +11,30 @@ import model.Attack;
 import model.ArgumentFramework;
 import model.UnknownArgumentError;
 
+/**
+ * reads an Argument Framework from a file
+ * 
+ * @author Fabrice
+ *
+ */
 public class AFParser {
 	public static String ARG = "arg";
 	public static String ATT = "att";
 			
+	/*
 	private String filename;
 
 	public AFParser(String string) {
 		filename = string;
 	}
-
-	/*
+*/
+	/**
 	 * This method will load an Argument Framework from a file and return an instance of the AF
 	 * The syntax of the file is described below.
 	 * all ARGUMENTS must be defined first, else the attacks cannot be constructed
 	 */
-	public ArgumentFramework parse() {
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+	public static ArgumentFramework parse(String file) {
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			ArgumentFramework instance = new ArgumentFramework();
 			String currentLine;
 			Argument arg;
