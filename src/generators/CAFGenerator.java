@@ -2,6 +2,9 @@ package generators;
 
 import model.ArgumentFramework;
 import model.ControlAF;
+
+import java.util.Set;
+
 import model.Argument;
 import model.CArgument;
 import model.Attack;
@@ -108,6 +111,25 @@ public class CAFGenerator {
 			}
 			caf.addAttack(catt);
 		}
+		CArgument target = this.getUniqueTraget(caf);
+		if(target != null) {
+			caf.addTarget(target);
+		}
 		return caf;
+	}
+	
+	/**
+	 * selects randomly one fixed argument as a target
+	 * it is more complex if we want to add several arguments as target since they must be conflict free 
+	 */
+	private CArgument getUniqueTraget(ControlAF caf) {
+		Set<CArgument> fixed = caf.getArgumentsByType(CArgument.Type.FIXED);
+		CArgument[] array = fixed.toArray(new CArgument[0]);
+		int max = array.length;
+		if(max == 0) {
+			return null;
+		}
+		int random_pos = util.RandomGen.randInt(0, max-1);
+		return array[random_pos];
 	}
 }

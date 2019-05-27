@@ -328,21 +328,6 @@ public class ControlAF {
 	
 		
 	/**
-	 * Returns true if no arguments from AU U AF are attacking argumets from AC
-	 */
-	/*
-	public boolean isHardestRootCompletionCompatible() {
-		Set<CAttack> control = this.getAttacksByType(CAttack.Type.CONTROL);
-		for(CAttack att : control) {
-			CArgument from = this.getArgumentByName(att.getFrom().getName());
-			if(from.getType() == CArgument.Type.FIXED || from.getType() == CArgument.Type.UNCERTAIN) {
-				return false;
-			}
-		}
-		return true;
-	}
-	*/
-	/**
 	 * According to a given completion
 	 * for a given argument (any type), returns the set of arguments attacking this argument via a control attack
 	 * if the argument is a control argument, the attackers can be in AC, AU, AF 
@@ -357,7 +342,6 @@ public class ControlAF {
 		
 		for(CAttack current : attacks) {
 			CArgument from = this.getArgumentByName(current.getFrom().getName());
-			//CArgument to = this.getArgumentByName(current.getTo().getName());
 			if(current.getTo().equals(a)) {
 				if(completion.containsArgument(from)|| from.getType() == CArgument.Type.CONTROL) {
 					result.add(current.getFrom());
@@ -391,41 +375,6 @@ public class ControlAF {
 		return internal;
 	}
 	
-	/**
-	 * Calculates free uncertain arguments for minimal move purposes as in Definition8 of the report
-	 * iterate over uncertain attacks and check if it is present in the af.
-	 * If yes, removing From and To from the list of free arguments
-	 * If no, keeping in the list the list
-	 *
-	 * iterate over undirected attacks and check if both sides are present in the af.
-	 * If yes, removing From and To from the list of free arguments
-	 * If no, keeping in the list the list
-	 *
-	 */
-	/*
-	public Set<CArgument> getFreeUncertainArguments(ArgumentFramework af) {
-		// add all uncertain arguments to result
-		Set<CArgument> result = new HashSet<CArgument>(this.getArgumentsByType(CArgument.Type.UNCERTAIN)); 
-		Set<CAttack> uncertain = this.getAttacksByType(CAttack.Type.UNCERTAIN);
-		Set<CAttack> undirected = this.getAttacksByType(CAttack.Type.UNDIRECTED);
-		
-		for(CAttack catt : uncertain) {
-			if(af.containsAttack(catt)) {
-				result.remove(catt.getFrom());
-				result.remove(catt.getTo());
-			}
-		}
-			
-		for(CAttack catt : undirected) {
-			CAttack reverse = new CAttack(catt.getTo(), catt.getFrom(), CAttack.Type.UNDIRECTED);
-			if(af.containsAttack(catt) && af.containsAttack(reverse)) {
-				result.remove(catt.getFrom());
-				result.remove(catt.getTo());
-			}
-		}
-		return result;
-	}
-	*/
 	/**
 	 * String representation of CAF according to apx file format
 	 */

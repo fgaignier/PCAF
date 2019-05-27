@@ -5,16 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import generators.CAFGenerator;
 import model.ArgumentFramework;
 import model.ControlAF;
-import model.StableExtension;
 import parser.AFParser;
-import solvers.CSP_AF_Solver;
 
 public class Caf_builder { 
 
@@ -39,30 +35,34 @@ public class Caf_builder {
 		result.append(no_ext[0]);
 		result.append(".");
 		result.append(ext);
-		System.out.println(result.toString());
+		//System.out.println(result.toString());
 		return result.toString();
 	}
 	
 	public static void build_CAF_from_AF(String path, int pArgF, int pArgU, int pAttF, int pAttU) {
-		StringBuffer log = new StringBuffer();
 		try {
 			Stream<Path> names = Files.list(Paths.get(path))
 					.filter(Files::isRegularFile);
 			names.forEach(n-> {
+
+				StringBuffer log = new StringBuffer();
 				ArgumentFramework af = AFParser.parse(n.toString());
+
 				CAFGenerator generator = new CAFGenerator(af, pArgF, pArgU, pAttF, pAttU);
 				ControlAF caf = generator.generate();
-				System.out.println("caf generated");
+				//System.out.println("caf generated");
 				log.append(caf.toString());
 				try {
 					util.Util.saveToFile(log.toString(), convertToApx(n.toString()));
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-							});
+
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
+
 	}
 
 	public static void main(String[] args) {
