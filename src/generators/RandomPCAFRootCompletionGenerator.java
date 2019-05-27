@@ -22,10 +22,22 @@ public class RandomPCAFRootCompletionGenerator {
 		this.PCAF = PCAF;
 	}
 	
+	/**
+	 * for uncertain arguments and uncertain attacks
+	 * returns a value between 0 and 1
+	 * @return
+	 */
 	public double getUncertain() {
 		return RandomGen.randomDouble(0.0, 1.0);
 	}
 	
+	/**
+	 * for undirected attacks. Returns 2 values between 0 and 1 (t3 and t4)
+	 * but t3+t4 < 1
+	 * Therefore we choose randomly before the first value to be drawn: t3 or t4
+	 * For more information, refer to the report
+	 * @return
+	 */
 	public double[] getUndirected() {
 		double t3 = 0;
 		double t4 = 0;
@@ -43,6 +55,10 @@ public class RandomPCAFRootCompletionGenerator {
 		return result;
 	}
 	
+	/**
+	 * deprecated. We do not want to get 4 values each time
+	 * @return
+	 */
 	public double[] getRandomThresholds() {
 		double t1 = RandomGen.randomDouble(0.0, 1.0);
 		double t2 = RandomGen.randomDouble(0.0, 1.0);
@@ -64,9 +80,12 @@ public class RandomPCAFRootCompletionGenerator {
 		return result;
 	}
 	
-	
+	/**
+	 * returns a random root completion
+	 * according to the PCAF root completions probability distribution
+	 * @return
+	 */
 	public ArgumentFramework getRandomRootCompletion() {
-		//double[] t = getRandomThresholds();
 		ArgumentFramework af = new ArgumentFramework();
 		this.addFixedArguments(af);
 		this.addUncertainArguments(af);

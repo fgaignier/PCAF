@@ -13,7 +13,9 @@ import util.RandomGen;
 
 /**
  * Returns root completions for a CAF (with no probability distribution)
- * Therefore the random part is purely random
+ * Therefore the random part is purely random:
+ * p=1/2 for uncertain elements
+ * p=1/3 for undirected elements
  * @author Fabrice
  *
  */
