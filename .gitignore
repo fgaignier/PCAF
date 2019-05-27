@@ -1,1 +1,5 @@
+#ignore compiled classes
 /bin/
+
+#ignore all the test files (too many)
+/tests/

@@ -21,13 +21,7 @@ public class AFParser {
 	public static String ARG = "arg";
 	public static String ATT = "att";
 			
-	/*
-	private String filename;
 
-	public AFParser(String string) {
-		filename = string;
-	}
-*/
 	/**
 	 * This method will load an Argument Framework from a file and return an instance of the AF
 	 * The syntax of the file is described below.

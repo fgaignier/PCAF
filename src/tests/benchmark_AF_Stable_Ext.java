@@ -45,7 +45,7 @@ public class benchmark_AF_Stable_Ext {
 	}
 
 	public static void main(String[] args) {
-		claculate_stable_extensions("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\20000");
+		claculate_stable_extensions("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\2500");
 		
 	}
 }

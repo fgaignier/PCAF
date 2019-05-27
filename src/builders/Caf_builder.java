@@ -52,6 +52,7 @@ public class Caf_builder {
 				ArgumentFramework af = AFParser.parse(n.toString());
 				CAFGenerator generator = new CAFGenerator(af, pArgF, pArgU, pAttF, pAttU);
 				ControlAF caf = generator.generate();
+				System.out.println("caf generated");
 				log.append(caf.toString());
 				try {
 					util.Util.saveToFile(log.toString(), convertToApx(n.toString()));
@@ -65,7 +66,7 @@ public class Caf_builder {
 	}
 
 	public static void main(String[] args) {
-		build_CAF_from_AF("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\20000", 50, 30, 40, 30);
+		build_CAF_from_AF("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\30", 50, 30, 40, 30);
 		
 	}
 }
