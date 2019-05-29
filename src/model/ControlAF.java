@@ -376,6 +376,25 @@ public class ControlAF {
 	}
 	
 	/**
+	 * given an argument, returns the set of potential fixed arguments attacking this argument
+	 * even for uncertain attacks
+	 * @param a the argument considered
+	 * @return a set of fixed arguments
+	 */
+	
+	public Set<CArgument> getPotentialFixedAttackers(CArgument a) {
+		Set<CArgument> result = new HashSet<CArgument>();
+		Set<CArgument> fixed = this.getArgumentsByType(CArgument.Type.FIXED);
+		for(CArgument other : fixed) {
+			Attack att = new Attack(other, a);
+			if(this.containsAttack(att)) {
+				result.add(other);
+			}
+		}
+		return result;
+	}
+
+	/**
 	 * String representation of CAF according to apx file format
 	 */
 	public String toString() {

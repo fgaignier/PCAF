@@ -64,9 +64,9 @@ public class test_AF {
 	 * @param pAttU proportion of uncertain attacks
 	 * @param file output file
 	 */
-	public void generateCAFToFile(int pArgF, int pArgU, int pAttF, int pAttU, String file) {
+	public void generateCAFToFile(int pArgF, int pArgU, int pAttF, int pAttU, String file, int target_size) {
 		CAFGenerator gen = new CAFGenerator(this.af, pArgF, pArgU, pAttF, pAttU);
-		ControlAF caf = gen.generate();
+		ControlAF caf = gen.generate(target_size);
 		try {
 			Util.saveToFile(caf.toString(), file);
 		} catch (Exception e) {

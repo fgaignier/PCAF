@@ -1,10 +1,8 @@
 package main;
 
 import generators.ControllabilityEncoder;
-import model.ControlAF;
-import model.PControlAF;
 import tests.test_CAF;
-import tests.test_PCAF;
+
 
 public class Main {
 

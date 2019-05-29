@@ -12,6 +12,11 @@ import model.ArgumentFramework;
 import model.ControlAF;
 import parser.AFParser;
 
+/**
+ * mass production of CAF from regular Argument Framework database
+ * @author Fabrice
+ *
+ */
 public class Caf_builder { 
 
 	public static String ext = "apx";
@@ -39,7 +44,7 @@ public class Caf_builder {
 		return result.toString();
 	}
 	
-	public static void build_CAF_from_AF(String path, int pArgF, int pArgU, int pAttF, int pAttU) {
+	public static void build_CAF_from_AF(String path, int pArgF, int pArgU, int pAttF, int pAttU, int target_size) {
 		try {
 			Stream<Path> names = Files.list(Paths.get(path))
 					.filter(Files::isRegularFile);
@@ -49,13 +54,17 @@ public class Caf_builder {
 				ArgumentFramework af = AFParser.parse(n.toString());
 
 				CAFGenerator generator = new CAFGenerator(af, pArgF, pArgU, pAttF, pAttU);
-				ControlAF caf = generator.generate();
-				//System.out.println("caf generated");
-				log.append(caf.toString());
-				try {
-					util.Util.saveToFile(log.toString(), convertToApx(n.toString()));
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+				ControlAF caf = generator.generate(target_size);
+				if(caf == null) {
+					System.out.println("could not build CAF from file:");
+					System.out.println(n.toString());
+				} else {
+					log.append(caf.toString());
+					try {
+						util.Util.saveToFile(log.toString(), convertToApx(n.toString()));
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
 
 			});
@@ -65,8 +74,18 @@ public class Caf_builder {
 
 	}
 
+	/**
+	 * need the location directory of AF files as parameter
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		build_CAF_from_AF("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\30", 50, 30, 40, 30);
+		if(args.length <2) {
+			System.out.println("need to give the directory where AF files are located and the target size");
+			System.exit(1);
+		}
+		String directory = args[0];
+		int target_size = Integer.parseInt(args[1]);
+		build_CAF_from_AF(directory, 50, 30, 40, 30, target_size);
 		
 	}
 }
