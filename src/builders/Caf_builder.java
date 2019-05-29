@@ -28,7 +28,7 @@ public class Caf_builder {
 	 * @param filename
 	 * @return
 	 */
-	public static String convertToApx(String filename) {
+	public static String convertToApx(String filename, int target_size) {
 		StringBuffer result = new StringBuffer();
 		String[] path = filename.split("\\\\");
 		String name = path[path.length-1];
@@ -38,6 +38,8 @@ public class Caf_builder {
 		result.append(subfolder);
 		result.append("\\");
 		result.append(no_ext[0]);
+		result.append("_T");
+		result.append(target_size);
 		result.append(".");
 		result.append(ext);
 		//System.out.println(result.toString());
@@ -61,7 +63,7 @@ public class Caf_builder {
 				} else {
 					log.append(caf.toString());
 					try {
-						util.Util.saveToFile(log.toString(), convertToApx(n.toString()));
+						util.Util.saveToFile(log.toString(), convertToApx(n.toString(), target_size));
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
