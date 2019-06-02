@@ -45,7 +45,11 @@ public class benchmark_AF_Stable_Ext {
 	}
 
 	public static void main(String[] args) {
-		claculate_stable_extensions("C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\tests\\barabasi\\2500");
+		if(args.length < 1) {
+			System.out.println("must give the target directory as parameter");
+			System.exit(1);
+		}
+		claculate_stable_extensions(args[0]);
 		
 	}
 }

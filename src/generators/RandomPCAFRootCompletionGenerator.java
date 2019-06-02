@@ -50,8 +50,8 @@ public class RandomPCAFRootCompletionGenerator {
 			t3 = RandomGen.randomDouble(0.0, 1-t4);
 		}
 		double[] result = new double[2];
-		result[2] = t3;
-		result[3] = t4;
+		result[0] = t3;
+		result[1] = t4;
 		return result;
 	}
 	

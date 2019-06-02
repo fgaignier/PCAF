@@ -32,8 +32,8 @@ public class test_CAF {
 	}
 	
 	public void load_CAF_from_file(String file) {
-		CAFParser parser = new CAFParser(file);
-		this.CAF = parser.parse();
+		//CAFParser parser = new CAFParser(file);
+		this.CAF = CAFParser.parse(file);
 	}
 	
 	public void saveQDIMACSToFile(String file, int type) {

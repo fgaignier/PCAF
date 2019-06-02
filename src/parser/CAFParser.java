@@ -23,18 +23,20 @@ public class CAFParser {
 	public static String CONTROL_ATT = "att";
 	public static String TARGET = "target";
 	
+	/*
 	private String filename;
 
 	public CAFParser(String string) {
 		filename = string;
 	}
-
+	*/
+	
 	/**
 	 * This method will load a CAF from a file and return an instance of CAF
 	 * The syntax of the file is described below.
 	 * all ARGUMENTS must be defined first, else the attacks cannot be constructed
 	 */
-	public ControlAF parse() {
+	public static ControlAF parse(String filename) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			ControlAF instance = new ControlAF();
 			String currentLine;
