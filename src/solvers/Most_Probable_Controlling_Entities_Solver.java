@@ -25,6 +25,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 	private PControlAF PCAF;
 	private RandomPCAFRootCompletionGenerator generator; 
 	private double controllingPower;
+	private int total_simulations;
 	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
 	private double min_interval;
 	private double max_interval;
@@ -33,9 +34,14 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.PCAF = PCAF;
 		this.generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		this.controllingPower = -1;
+		this.total_simulations = 0;
 		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 		this.min_interval = 0;
 		this.max_interval = 0;
+	}
+	
+	public int getNumberSimu() {
+		return this.total_simulations;
 	}
 	
 	public double getControllingPower() {
@@ -116,6 +122,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 			}
 		}
 		this.setControllingPower(result);
+		this.total_simulations = N;
 		Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 		this.controllingPower = this.controllingPower/N;
 		this.min_interval = this.controllingPower - this.getConfidenceInterval(N);
@@ -186,9 +193,9 @@ public class Most_Probable_Controlling_Entities_Solver {
 				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 			}
 
-			System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
+			//System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
 			this.controllingPower = current_max;
-			
+			this.total_simulations = current_simu;
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 			this.controllingPower = current_max/current_simu;
 

@@ -102,12 +102,19 @@ public class ControlAF {
 	
 	/**
 	 * returns the set of arguments to protect
-	 * @return
+	 * @return target
 	 */
 	public Set<CArgument> getTarget() {
 		return target;
 	}
 	
+	/**
+	 * returns the size of the target
+	 * @return target size
+	 */
+	public int getTargetSize() {
+		return this.target.size();
+	}
 
 	/**
 	 * true if arg is a fixed argument

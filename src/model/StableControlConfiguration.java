@@ -52,10 +52,14 @@ public class StableControlConfiguration {
 	 */
 	public String toString() {
 		StringBuffer result = new StringBuffer();
+		if(this.onControl.isEmpty()) {
+			result.append("empty control configuration");
+		}
 		for(CArgument arg : this.onControl) {
 				result.append("control argument on: ");
 				result.append(arg.getName());
-				result.append("\n");
+				//result.append("\n");
+				result.append(System.getProperty("line.separator"));
 		}  
 		return result.toString();
 	}

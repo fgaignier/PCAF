@@ -26,12 +26,18 @@ public class Monte_Carlo_CAF_Solver {
 	private RandomCAFRootCompletionGenerator generator; 
 	private double controllingPower;
 	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
+	private int total_simulations;
 	
 	public Monte_Carlo_CAF_Solver(ControlAF CAF) {
 		this.CAF = CAF;
 		this.generator = new RandomCAFRootCompletionGenerator(this.CAF);
 		this.controllingPower = -1;
 		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+		this.total_simulations = 0;
+	}
+	
+	public int getNumberSimu() {
+		return this.total_simulations;
 	}
 	
 	public double getControllingPower() {
@@ -93,7 +99,7 @@ public class Monte_Carlo_CAF_Solver {
 	 private Set<StableControlConfiguration> getControlConfigurations(int N, int type) {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
-
+		
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
@@ -127,7 +133,7 @@ public class Monte_Carlo_CAF_Solver {
 		}
 		
 		this.setControllingPower(result);
-		//System.out.println("controlling power = " + this.controllingPower);
+		this.total_simulations = N;
 		Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 		this.controllingPower = this.controllingPower/N;
 		if(controllingPower < 1) {
@@ -223,9 +229,9 @@ public class Monte_Carlo_CAF_Solver {
 				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 			}
 			
-			System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
+			//System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
 			this.setControllingPower(result);
-			//System.out.println("controlling power = " + this.controllingPower);
+			this.total_simulations = current_simu;
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
 			this.controllingPower = this.controllingPower/N;
 			if(controllingPower < 1) {
