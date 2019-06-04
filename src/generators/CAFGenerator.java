@@ -106,7 +106,7 @@ public class CAFGenerator {
 			CArgument from = caf.getArgumentByName(att.getFrom().getName());
 			CArgument to = caf.getArgumentByName(att.getTo().getName());
 			CAttack  catt = null;
-			if(from.getType() == CArgument.Type.CONTROL|| from.getType() == CArgument.Type.CONTROL) {
+			if(from.getType() == CArgument.Type.CONTROL || to.getType() == CArgument.Type.CONTROL) {
 				catt = new CAttack(from, to, CAttack.Type.CONTROL);
 			}else {
 				int val = RandomGen.getProba();

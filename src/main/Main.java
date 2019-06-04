@@ -1,11 +1,15 @@
 package main;
 
 import generators.ControllabilityEncoder;
+import model.ControlAF;
+import model.PControlAF;
 import tests.test_CAF;
+import tests.test_PCAF;
 
 
 public class Main {
 
+	
 	public static int QDIMACS = 0;
 	public static int QCIR = 1;
 	
@@ -45,11 +49,11 @@ public class Main {
 		
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
-		
+	/*	
 		caftest.saveQCIRToFile(path + changeFileExt(file_name, QCIR), ControllabilityEncoder.SKEPTICAL);
 		caftest.saveQDIMACSToFile(path + changeFileExt(file_name, QDIMACS), ControllabilityEncoder.SKEPTICAL);
+		*/
 		
-		/*
 		ControlAF CAF = caftest.getCAF();
 		
 		System.out.println("##########################################");
@@ -63,22 +67,22 @@ public class Main {
 		System.out.println("##########################################");
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
-	*/
+
 		
 		
 		/**
 		 * Test PCAFs
 		 */
 		
-		/*
+		
 		PControlAF PCAF = new PControlAF(CAF);
 		test_PCAF pcaftest = new test_PCAF(PCAF);
-		*/
+		
 		
 		/*
 		test_PCAF pcaftest = new test_PCAF();
 		pcaftest.load_PCAF_from_file(path+file_name);
-		
+		*/
 		
 		
 		System.out.println();
@@ -103,7 +107,7 @@ public class Main {
 		System.out.println("##########################################");
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.CREDULOUS);
-		*/
+		
 		
 		//pcaftest.load_PCAF_from_file(path+file_name);
 		//pcaftest.printMaxCompletionProba();

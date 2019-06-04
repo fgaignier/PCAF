@@ -16,8 +16,8 @@ import model.StableExtension;
 /**
  * Use of Monte Carlo simulation to calculate 
  * the control configurations of a CAF
- * in this version you need to give a number of simulations
- * Need to implement with max error of 95% confidence interval
+ * You can give a fixed number of simulations (not recommended)
+ * or give an error level of the confidence interval
  * @author Fabrice
  *
  */
@@ -103,7 +103,7 @@ public class Monte_Carlo_CAF_Solver {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 
-		this.controllingPower = -1;
+		this.controllingPower = INIT_CP;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
 
@@ -135,7 +135,8 @@ public class Monte_Carlo_CAF_Solver {
 			}
 			// here must check if we still have a control entity with controlling power of 1
 			// if not we can stop the simulation at this point
-			if(!this.hasPotentialControlEntity(result, i)) {
+
+			if(!this.hasPotentialControlEntity(result, i+1)) {
 				this.controllingPower = NO_CC;
 				this.total_simulations = i;
 				break;
@@ -143,11 +144,13 @@ public class Monte_Carlo_CAF_Solver {
 
 		}
 
-		if(this.controllingPower > -2) {
+		if(this.controllingPower > NO_CC) {
 			this.setControllingPower(result);
 			this.total_simulations = N;
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
+			//System.out.println("controlling power = " + this.controllingPower + "/" + N + "=");
 			this.controllingPower = this.controllingPower/N;
+			//System.out.println("=" + this.controllingPower);
 			if(controllingPower < 1) {
 				this.recorders = null;
 				return null;
@@ -191,11 +194,14 @@ public class Monte_Carlo_CAF_Solver {
 				this.controllingPower = (double)value;
 			}
 		}
+		//System.out.println("controlling power = " + this.controllingPower);
 	}
 
 	private boolean hasPotentialControlEntity(Map<StableControlConfiguration, Integer> imput, int nbSimu) {
 		for(StableControlConfiguration scc : imput.keySet()) {
 			int value = imput.get(scc).intValue();
+			//System.out.println("value of cc=" + value);
+			//System.out.println("nbSimu=" + nbSimu);
 			if(nbSimu == value) {
 				return true;
 			}
@@ -215,7 +221,7 @@ public class Monte_Carlo_CAF_Solver {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 
-		this.controllingPower = -1;
+		this.controllingPower = INIT_CP;
 		double current_max = 0;
 		int N = Util.MINIMUM_SIMULATION;
 		int current_simu = 0;
@@ -233,9 +239,10 @@ public class Monte_Carlo_CAF_Solver {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
 			cc_list = solutions.keySet();
+			
 			if(cc_list.isEmpty()) {
 				System.out.println("no solution found by solver");
-			}
+			} 
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -266,11 +273,13 @@ public class Monte_Carlo_CAF_Solver {
 			N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 		}
 
-		if(this.controllingPower > -2) {
+		if(this.controllingPower > NO_CC) {
 			this.setControllingPower(result);
 			this.total_simulations = current_simu;
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
-			this.controllingPower = this.controllingPower/N;
+			//System.out.println("controlling power = " + this.controllingPower + "/" + current_simu + "=");
+			this.controllingPower = this.controllingPower/current_simu;
+			//System.out.println("=" + this.controllingPower);
 			if(controllingPower < 1) {
 				this.recorders = null;
 				return null;

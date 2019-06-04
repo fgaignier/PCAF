@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import model.ControlAF;
 import model.StableControlConfiguration;
 import parser.CAFParser;
-import solvers.Monte_Carlo_CAF_Solver;
+import solvers.Monte_Carlo_CAF_Solver_Heuristic;
 
 /**
  * must indicate the error level
@@ -18,13 +18,13 @@ import solvers.Monte_Carlo_CAF_Solver;
  * @author Fabrice
  *
  */
-public class benchmark_CAF_Cred_Controllability {
-	public static String log_file = "controllability.txt";
-	public static String stats_file = "controllability_stats.csv";
+public class benchmark_CAF_Cred_Controllability_Heuristic {
+	public static String log_file = "controllabilityH.txt";
+	public static String stats_file = "controllabilityH_stats.csv";
 	public static double error = 0.01;
 	public static String csv_sep = ";";
 
-	public static void claculate_mpce(String path) {
+	public static void claculate_cc(String path) {
 		StringBuffer log = new StringBuffer();
 		StringBuffer stats_csv = new StringBuffer();
 		stats_csv.append(getHeader());
@@ -39,10 +39,9 @@ public class benchmark_CAF_Cred_Controllability {
 				stats_csv.append(n.toString());
 				stats_csv.append(csv_sep);
 				ControlAF caf = CAFParser.parse(n.toString());
-				//System.out.println(caf.toString());
 				// here we just check controllability of CAF. Controlling power will therefore
 				// be 1 (if success) or -2 (fail)
-				Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(caf);
+				Monte_Carlo_CAF_Solver_Heuristic solver = new Monte_Carlo_CAF_Solver_Heuristic(caf);
 				//STARTS THE TIMER JUST BEFORE CALCULATION
 				timer.start();
 				Set<StableControlConfiguration> ccs = solver.getCredulousControlConfigurations(error);
@@ -74,7 +73,6 @@ public class benchmark_CAF_Cred_Controllability {
 					logControlConfigurations(ccs, log);
 				} else {
 					log.append("not controllable");
-					log.append(System.getProperty("line.separator"));
 				}
 				log.append("####################");
 				log.append(System.getProperty("line.separator"));
@@ -116,7 +114,7 @@ public class benchmark_CAF_Cred_Controllability {
 			System.out.println("must give the target directory as parameter");
 			System.exit(1);
 		}
-		claculate_mpce(args[0]);
+		claculate_cc(args[0]);
 		
 	}
 }
