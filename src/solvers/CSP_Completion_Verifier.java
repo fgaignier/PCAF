@@ -11,20 +11,24 @@ import java.util.Set;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.solver.constraints.*;
 
 /**
- * Class to find a control configuration via a solver
+ * This class enables to check if a control entity is in control of a given completion
+ * This is useful in two cases:
+ * 1) solve the controllability of a CAF. Since a cc is the intersection of all cc for all completions
+ * 2) For section 6.3 of the report
  */
 public class CSP_Completion_Verifier {
 
 	protected ControlAF CAF;
 	protected ArgumentFramework completion;
-	
-	
+
+
 	public CSP_Completion_Verifier(ControlAF CAF, ArgumentFramework completion) {
 		this.CAF = CAF;
 		this.completion = completion;
@@ -38,7 +42,7 @@ public class CSP_Completion_Verifier {
 	public void setCAF(ControlAF cAF) {
 		CAF = cAF;
 	}
-	
+
 	/**
 	 * returns true if cc skeptically controls the CAF
 	 * according to the protected element list
@@ -46,11 +50,28 @@ public class CSP_Completion_Verifier {
 	public boolean isSkepticalControlConfigurations(StableControlConfiguration cc) {
 		boolean isCredulousCC = this.isCredulousControlConfigurations(cc);
 		if(isScepticallyAccepted(cc) && isCredulousCC) {
-				return true;
+			return true;
 		}
 		return false;
 	}
-	
+
+	/**
+	 * builds the list of elements of cc attacking the argument a
+	 * @param a considered argument
+	 * @param cc control configuration
+	 * @return set of attacking arguments for a in cc
+	 */
+	private Set<Argument> getControlAttackers(Argument a, StableControlConfiguration cc) {
+		Set<Argument> result = new HashSet<Argument>();
+		Set<Argument> attackers = this.CAF.getControlAttackers(a, this.completion);
+		for(Argument arg : attackers) {
+			if(cc.contains(arg)) {
+				result.add(arg);
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * returns true if cc credulously controls the CAF
 	 * according to the protected element list
@@ -61,107 +82,75 @@ public class CSP_Completion_Verifier {
 		// acc variables and on variables
 		Map<String, IntVar> accVar = new HashMap<String, IntVar>();
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
-		
+
 		// 1. Create the CSP Model
-		Model model = new Model("Credulous CAF Solver");
-		
-        // 2. Create variables
+		Model model = new Model("Credulous cc verifyer");
+
+		// 2. Create variables
 		// one for each argument in the completion (root completion)
 		// accepted or not
 		Set<Argument> args = this.completion.getAllArguments();
-		Iterator<Argument> iter = args.iterator();
-		while(iter.hasNext()) {
-			Argument arg = iter.next();
+		for(Argument arg : args) {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
 			//System.out.println("adding variable " + acc.getName());
 		}
-		
-		// two for each control argument
+
+		// two for each control argument in the cc
 		// accepted (acc) and on 
-		Set<CArgument> controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> iterC = controlArgs.iterator();
-		while(iterC.hasNext()) {
-			CArgument carg = iterC.next();
+		Set<CArgument> controlArgs = cc.getOnControl();
+		for(CArgument carg : controlArgs) {
 			String cargName = carg.getName();
-			String onCarg = cargName;
 			IntVar acc = model.intVar("acc_" + cargName,new int[]{0,1});
-			IntVar on = model.intVar("on_" + onCarg, new int[]{0,1});
+			IntVar on = model.intVar("on_" + cargName, new int[]{0,1});
 			accVar.put(cargName, acc);
 			onVar.put(cargName, on);
 			//System.out.println("adding variable " + acc.getName());
 			//System.out.println("adding variable " + on.getName());
 		}
-		
+
 		/*
 		 * Constraints
 		 */
 		// arguments to be protected are accepted (by definition)
 		Set<CArgument> T = CAF.getTarget();
-		Iterator<CArgument> toP = T.iterator();
-		while(toP.hasNext()) {
-			CArgument carg = toP.next();
+		for(CArgument carg : T) {
 			IntVar acc = accVar.get(carg.getName());
 			model.arithm(acc, "=", 1).post();
 			//System.out.println("adding constraint: " + acc.getName() + "=1");
 		}
-		
-		// accepted control arguments must be on and vice versa
-		Set<String> on = onVar.keySet();
-		Iterator<String> onArg = on.iterator();
-		while(onArg.hasNext()) {
-			String argName = onArg.next();
+
+		// elements of cc must be on and accepted
+		for(CArgument carg : controlArgs) {
+			String argName = carg.getName();
 			IntVar onIt = onVar.get(argName);
 			IntVar accIt = accVar.get(argName);
-			model.arithm(onIt, "-", accIt, "=",0).post();
-			//System.out.println("adding constraint: " + onIt.getName() + " - " + accIt.getName() + " =0");
+			model.arithm(onIt,"=",1).post();
+			model.arithm(accIt,"=",1).post();
 		}
-				
-		// the control arguments in cc are bot on and accepted
-		Set<CArgument> controlConf = cc.getOnControl();
-		for(CArgument arg : controlConf) {
-			String argName = arg.getName();
-			IntVar onIt = onVar.get(argName);
-			IntVar accIt = accVar.get(argName);
-			model.arithm(onIt, "=", 1).post();
-			model.arithm(accIt, "=", 1).post();
-			//System.out.println("adding constraint: " + onIt.getName() + " =1");
-			//System.out.println("adding constraint: " + accIt.getName() + " =1");
-		}
-		
+
 		// no two arguments attacking each other in the solution
 		// if an argument is accepted (from the root completion or control), all its attackers are rejected
 		// else at least one attacker is accepted
 		// first we iterate through the root Completion arguments
-		Set<Argument> compArgs = this.completion.getAllArguments();
-		Iterator<Argument> compArgsIter = compArgs.iterator();
-		while(compArgsIter.hasNext()) {
-			// the considered argument
-			Argument current = compArgsIter.next();
-			// corresponding variable
-			IntVar accCurrent = accVar.get(current.getName());
+		for(Argument arg : args) {
+			IntVar accCurrent = accVar.get(arg.getName());
 			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getArgumentAttackers(this.completion, current);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
-			IntVar accAtt = null;
+			// here we must build in two steps (completion arguments and control arguments of cc)
+			Set<Argument> attackers = completion.getAttackingArguments(arg);
+			Set<Argument> control_attackers = this.getControlAttackers(arg, cc);
+			attackers.addAll(control_attackers);
 			IntVar[] sum = new IntVar[attackers.size()];
 			int i = 0;
-			//System.out.println("for argument : " + current.getName() + " attackers: " + attackers.size());
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
-				accAtt = accVar.get(attacker.getName());
+			for(Argument attacker : attackers) {
+				IntVar accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
 			}
 			// if there are no attackers, accCurrent=1
 			if(attackers.size()==0) {
 				model.arithm(accCurrent, "=", 1).post();
-				//System.out.println("no attackers for argument " + current.getName());
-				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
-				
 			} else {
 				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
 				Constraint sumNull = model.sum(sum, "=", 0);
@@ -169,32 +158,18 @@ public class CSP_Completion_Verifier {
 				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
 				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
 				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//		"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
 			}
-			
+
 		}
-		
+
 		// same thing but on the control arguments
-		Set<CArgument> controlArguments = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> controlIter = controlArguments.iterator();
-		while(controlIter.hasNext()) {
-			// the considered argument
-			Argument current = controlIter.next();
-			// corresponding variables (need acc and on)
-			IntVar accCurrent = accVar.get(current.getName());
-			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getControlAttackers(current, this.completion);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
-			IntVar accAtt = null;
+		for(CArgument carg : controlArgs) {
+			IntVar accCurrent = accVar.get(carg.getName());
+			Set<Argument> attackers = CAF.getControlAttackers(carg, this.completion);
 			IntVar[] sum = new IntVar[attackers.size()];
 			int i = 0;
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
-				//System.out.println(" look variable for " + attacker.getName());
-				accAtt = accVar.get(attacker.getName());
+			for(Argument attacker : attackers) {
+				IntVar accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
 			}
@@ -212,13 +187,12 @@ public class CSP_Completion_Verifier {
 				//					"=1] or [sum(" + this.fromTabToString(sum) + ") !=0  and " + accCurrent.getName() + "=0]");
 			}
 		}
-		
+
 		// 4. Solve the problem and return the set of solutions
 		if(model.getSolver().solve()) {
 			return true;
 		} 
-
-        return false;
+		return false;
 	}
 
 	/*
@@ -234,11 +208,11 @@ public class CSP_Completion_Verifier {
 		// acc variables and on variables
 		Map<String, IntVar> accVar = new HashMap<String, IntVar>();
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
-		
+
 		// 1. Create the CSP Model
 		Model model = new Model("Skeptical CAF Solver");
-		
-        // 2. Create variables
+
+		// 2. Create variables
 		// one for each argument in the completion (root completion)
 		// accepted or not
 		Set<Argument> args = this.completion.getAllArguments();
@@ -250,7 +224,7 @@ public class CSP_Completion_Verifier {
 			accVar.put(argName,  acc);
 			//System.out.println("adding variable " + acc.getName());
 		}
-		
+
 		// two for each control argument
 		// accepted (acc) and on 
 		Set<CArgument> controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
@@ -266,7 +240,7 @@ public class CSP_Completion_Verifier {
 			//System.out.println("adding variable " + acc.getName());
 			//System.out.println("adding variable " + on.getName());
 		}
-		
+
 		/*
 		 * Constraints
 		 */
@@ -285,7 +259,7 @@ public class CSP_Completion_Verifier {
 		model.sum(protectedSum, "<", T.size()).post();
 		//System.out.println("adding constraint: " + this.fromTabToString(protectedSum) + "< " + T.size());
 
-		
+
 		// accepted control arguments must be on and vice versa
 		Set<String> on = onVar.keySet();
 		Iterator<String> onArg = on.iterator();
@@ -338,7 +312,7 @@ public class CSP_Completion_Verifier {
 			if(attackers.size()==0) {
 				model.arithm(accCurrent, "=", 1).post();
 				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
-				
+
 			} else {
 				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
 				Constraint sumNull = model.sum(sum, "=", 0);
@@ -349,9 +323,9 @@ public class CSP_Completion_Verifier {
 				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
 				//		"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
 			}
-			
+
 		}
-		
+
 		// same thing but on the control arguments
 		Set<CArgument> controlArguments = CAF.getArgumentsByType(CArgument.Type.CONTROL);
 		Iterator<CArgument> controlIter = controlArguments.iterator();
@@ -388,9 +362,9 @@ public class CSP_Completion_Verifier {
 				//					"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
 			}
 		}
-		
+
 		// 4. Solve the problem and return the set of solutions
-		
+
 		if(model.getSolver().solve()) {
 			return false;
 		}  else {
@@ -399,7 +373,7 @@ public class CSP_Completion_Verifier {
 
 	}
 
-	
+
 	/**
 	 * protected internal use only
 	 * toString method for an array of IntVar
@@ -409,10 +383,10 @@ public class CSP_Completion_Verifier {
 		for(int i = 0; i<tab.length; i++) {
 			result = result + tab[i].getName() + " , ";
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * builds the stable control configuration result of the CSP solution
 	 * for internal use only
@@ -436,5 +410,5 @@ public class CSP_Completion_Verifier {
 		}		
 		return scc;
 	}
-	
+
 }

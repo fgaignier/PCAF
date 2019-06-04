@@ -161,6 +161,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 				Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 				Set<StableControlConfiguration> cc_list = null;
 				Set<StableExtension> stables = null;
+				//System.out.println("nbr of simulations: " + current_simu);
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					solutions = solver.getCredulousControlConfigurations();
 				} else {
@@ -191,6 +192,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 				}
 				current_simu++;
 				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
+				//System.out.println("nbr of simulations needed: " + N);
 			}
 
 			//System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);

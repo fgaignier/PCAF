@@ -22,32 +22,35 @@ import model.StableExtension;
  *
  */
 public class Monte_Carlo_CAF_Solver {
+	public static int INIT_CP = -1;
+	public static int NO_CC = -2;
+
 	private ControlAF CAF;
 	private RandomCAFRootCompletionGenerator generator; 
 	private double controllingPower;
 	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
 	private int total_simulations;
-	
+
 	public Monte_Carlo_CAF_Solver(ControlAF CAF) {
 		this.CAF = CAF;
 		this.generator = new RandomCAFRootCompletionGenerator(this.CAF);
-		this.controllingPower = -1;
+		this.controllingPower = INIT_CP;
 		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 		this.total_simulations = 0;
 	}
-	
+
 	public int getNumberSimu() {
 		return this.total_simulations;
 	}
-	
+
 	public double getControllingPower() {
 		return this.controllingPower;
 	}
-	
+
 	public Map<StableControlConfiguration, SupportingPowerRecorder> getSupportingPowerRecorders() {
 		return this.recorders;
 	}
-	
+
 	/**
 	 * returns the set of credulous control configurations
 	 * with fixed number of simulations
@@ -57,7 +60,7 @@ public class Monte_Carlo_CAF_Solver {
 	public Set<StableControlConfiguration> getCredulousControlConfigurations(int N) {
 		return this.getControlConfigurations(N, ControllabilityEncoder.CREDULOUS);
 	}
-	
+
 	/**
 	 * returns the set of skeptical control configurations
 	 * with fixed number of simulations
@@ -67,7 +70,7 @@ public class Monte_Carlo_CAF_Solver {
 	public Set<StableControlConfiguration> getSkepticalControlConfigurations(int N) {
 		return this.getControlConfigurations(N, ControllabilityEncoder.SKEPTICAL);
 	}
-	
+
 	/**
 	 * returns the set of credulous control configurations
 	 * number of simulations is calculated according to error level in confidence interval
@@ -77,7 +80,7 @@ public class Monte_Carlo_CAF_Solver {
 	public Set<StableControlConfiguration> getCredulousControlConfigurations(double error) {
 		return this.getControlConfigurations(error, ControllabilityEncoder.CREDULOUS);
 	}
-	
+
 	/**
 	 * returns the set of skeptical control configurations
 	 * number of simulations is calculated according to error level in confidence interval
@@ -87,7 +90,7 @@ public class Monte_Carlo_CAF_Solver {
 	public Set<StableControlConfiguration> getSkepticalControlConfigurations(double error) {
 		return this.getControlConfigurations(error, ControllabilityEncoder.SKEPTICAL);
 	}
-	
+
 	/**
 	 * returns the control configurations if they exist
 	 * use of a CSP_Completion_Solver to get Credulous/Skeptical Set<StableControlConfiguration>
@@ -96,14 +99,14 @@ public class Monte_Carlo_CAF_Solver {
 	 * @param type, ControllabilityEncoder.CREDULOUS or ControllabilityEncoder.SKEPTICAL
 	 * @return
 	 */
-	 private Set<StableControlConfiguration> getControlConfigurations(int N, int type) {
+	private Set<StableControlConfiguration> getControlConfigurations(int N, int type) {
 		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
-		
+
 		this.controllingPower = -1;
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
-			
+
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
 			Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 			Set<StableControlConfiguration> cc_list = null;
@@ -130,106 +133,140 @@ public class Monte_Carlo_CAF_Solver {
 					temp_recorders.put(scc,  recorder);
 				}
 			}
+			// here must check if we still have a control entity with controlling power of 1
+			// if not we can stop the simulation at this point
+			if(!this.hasPotentialControlEntity(result, i)) {
+				this.controllingPower = NO_CC;
+				this.total_simulations = i;
+				break;
+			}
+
 		}
-		
-		this.setControllingPower(result);
-		this.total_simulations = N;
-		Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
-		this.controllingPower = this.controllingPower/N;
-		if(controllingPower < 1) {
-			this.recorders = null;
-			return null;
+
+		if(this.controllingPower > -2) {
+			this.setControllingPower(result);
+			this.total_simulations = N;
+			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
+			this.controllingPower = this.controllingPower/N;
+			if(controllingPower < 1) {
+				this.recorders = null;
+				return null;
+			} else {
+				return selection;
+			}
 		} else {
-			return selection;
+			return null;
 		}
 	}
-	 
-	 
-	 /**
-	  * isolate the most probable controlling entities from
-	  * all found control entities
-	  * @param imput
-	  * @return
-	  */
-	 private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput, Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders) {
-		 Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
-		 this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
-		 for(StableControlConfiguration scc : imput.keySet()) {
-			 Integer value = imput.get(scc);
-			 double val = (double)value.intValue();
-			 if(val == this.controllingPower) {
-				 result.put(scc, value);
-				 this.recorders.put(scc, temp_recorders.get(scc));
-			 }
-		 }
-		 return result;
-	 }
-	 
-	 /**
-	  * Once done, controlling power is set
-	  * @param imput
-	  */
-	 private void setControllingPower(Map<StableControlConfiguration, Integer> imput) {		 
-		 for(StableControlConfiguration scc : imput.keySet()) {
-			 int value = imput.get(scc).intValue();
-			 if(value >= this.controllingPower) {
-				 this.controllingPower = (double)value;
-			 }
-		 }
-		
-	 }
-	 
-	 	/**
-		 * returns the control configurations if they exist
-		 * use of a CSP_Completion_Solver to get Credulous/Skeptical Set<StableControlConfiguration>
-		 * stored in a Map
-		 * @param error, width of confidence interval at 95%
-		 * @param type, ControllabilityEncoder.CREDULOUS or ControllabilityEncoder.SKEPTICAL
-		 * @return
-		 */
-		 private Set<StableControlConfiguration> getControlConfigurations(double error, int type) {
-			Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
-			Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 
-			this.controllingPower = -1;
-			double current_max = 0;
-			int N = Util.MINIMUM_SIMULATION;
-			int current_simu = 0;
-			
-			while(current_simu < N || current_simu < util.Util.MINIMUM_SIMULATION) {
-				ArgumentFramework af = this.generator.getRandomRootCompletion();
-				
-				CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
-				Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
-				Set<StableControlConfiguration> cc_list = null;
-				Set<StableExtension> stables = null;
-				if(type == ControllabilityEncoder.CREDULOUS) {
-					solutions = solver.getCredulousControlConfigurations();
-				} else {
-					solutions = solver.getSkepticalControlConfigurations();
-				}
-				cc_list = solutions.keySet();
-				for(StableControlConfiguration scc : cc_list) {
-					stables = solutions.get(scc);
-					StableControlConfiguration present = util.Util.find(result.keySet(), scc);
-					if(present != null) {
-						Integer count = result.get(present);
-						Integer newVal = new Integer(count.intValue()+1);
-						result.put(present, newVal);
-						SupportingPowerRecorder recorder = temp_recorders.get(present);
-						recorder.updateOccurencesList(stables);
-					} else {
-						result.put(scc, new Integer(1));
-						SupportingPowerRecorder recorder = new SupportingPowerRecorder();
-						recorder.updateOccurencesList(stables);
-						temp_recorders.put(scc,  recorder);
-					}
-				}
-				current_simu++;
-				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
+
+	/**
+	 * isolate the most probable controlling entities from
+	 * all found control entities
+	 * @param imput
+	 * @return
+	 */
+	private Map<StableControlConfiguration, Integer> takeMax(Map<StableControlConfiguration, Integer> imput, Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders) {
+		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
+		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+		for(StableControlConfiguration scc : imput.keySet()) {
+			Integer value = imput.get(scc);
+			double val = (double)value.intValue();
+			if(val == this.controllingPower) {
+				result.put(scc, value);
+				this.recorders.put(scc, temp_recorders.get(scc));
 			}
-			
-			//System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
+		}
+		return result;
+	}
+
+	/**
+	 * Once done, controlling power is set
+	 * @param imput
+	 */
+	private void setControllingPower(Map<StableControlConfiguration, Integer> imput) {		 
+		for(StableControlConfiguration scc : imput.keySet()) {
+			int value = imput.get(scc).intValue();
+			if(value >= this.controllingPower) {
+				this.controllingPower = (double)value;
+			}
+		}
+	}
+
+	private boolean hasPotentialControlEntity(Map<StableControlConfiguration, Integer> imput, int nbSimu) {
+		for(StableControlConfiguration scc : imput.keySet()) {
+			int value = imput.get(scc).intValue();
+			if(nbSimu == value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * returns the control configurations if they exist
+	 * use of a CSP_Completion_Solver to get Credulous/Skeptical Set<StableControlConfiguration>
+	 * stored in a Map
+	 * @param error, width of confidence interval at 95%
+	 * @param type, ControllabilityEncoder.CREDULOUS or ControllabilityEncoder.SKEPTICAL
+	 * @return
+	 */
+	private Set<StableControlConfiguration> getControlConfigurations(double error, int type) {
+		Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
+		Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
+
+		this.controllingPower = -1;
+		double current_max = 0;
+		int N = Util.MINIMUM_SIMULATION;
+		int current_simu = 0;
+
+		while(current_simu < N || current_simu < util.Util.MINIMUM_SIMULATION) {
+			ArgumentFramework af = this.generator.getRandomRootCompletion();
+
+			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
+			Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
+			Set<StableControlConfiguration> cc_list = null;
+			Set<StableExtension> stables = null;
+			if(type == ControllabilityEncoder.CREDULOUS) {
+				solutions = solver.getCredulousControlConfigurations();
+			} else {
+				solutions = solver.getSkepticalControlConfigurations();
+			}
+			cc_list = solutions.keySet();
+			if(cc_list.isEmpty()) {
+				System.out.println("no solution found by solver");
+			}
+			for(StableControlConfiguration scc : cc_list) {
+				stables = solutions.get(scc);
+				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
+				if(present != null) {
+					Integer count = result.get(present);
+					Integer newVal = new Integer(count.intValue()+1);
+					result.put(present, newVal);
+					SupportingPowerRecorder recorder = temp_recorders.get(present);
+					recorder.updateOccurencesList(stables);
+				} else {
+					result.put(scc, new Integer(1));
+					SupportingPowerRecorder recorder = new SupportingPowerRecorder();
+					recorder.updateOccurencesList(stables);
+					temp_recorders.put(scc,  recorder);
+				}
+			}
+			// increase the number of simulations
+			current_simu++;
+
+			// here must check if we still have a control entity with controlling power of 1
+			// if not we can stop the simulation at this point
+			if(!this.hasPotentialControlEntity(result, current_simu)) {
+				this.controllingPower = NO_CC;
+				this.total_simulations = current_simu;
+				break;
+			}
+
+			N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
+		}
+
+		if(this.controllingPower > -2) {
 			this.setControllingPower(result);
 			this.total_simulations = current_simu;
 			Set<StableControlConfiguration> selection = this.takeMax(result, temp_recorders).keySet();
@@ -240,5 +277,8 @@ public class Monte_Carlo_CAF_Solver {
 			} else {
 				return selection;
 			}
+		} else {
+			return null;
 		}
+	}
 }

@@ -10,12 +10,12 @@ import java.util.Iterator;
  * @author Fabrice
  *
  */
-public class HardestRootCompletionGenerator {
+public class HardRootCompletionGenerator {
 	
 	protected ControlAF CAF;
 	protected RandomCAFRootCompletionGenerator gen;
 	
-	public HardestRootCompletionGenerator(ControlAF CAF) {
+	public HardRootCompletionGenerator(ControlAF CAF) {
 		this.CAF = CAF;
 		this.gen = new RandomCAFRootCompletionGenerator(CAF);
 	}
@@ -44,9 +44,10 @@ public class HardestRootCompletionGenerator {
 	 * uncertain argument
 	 */
 	public WeightedArgumentFramework getHardestRootCompletionWRT(Argument target) {
+		/*
 		if(! this.CAF.isHardestRootCompletionCompatible()) {
 			throw new UnsupportedOperationException("Calculation cannot be made. There are attacks from AU or AF to AC");
-		}
+		}*/
 		//WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getRandomMaxRootCompletion());
 		WeightedArgumentFramework waf = new WeightedArgumentFramework(gen.getMaxRootCompletion());
 		// test the change of direction of undirected attacks

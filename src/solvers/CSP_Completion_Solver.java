@@ -226,9 +226,12 @@ public class CSP_Completion_Solver {
 		// 4. Solve the problem and return the set of solutions
 		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
 		Set<StableExtension> extensions = null;
+		
+		//System.out.println("CSP encoding finihed, will solve");
 		while(model.getSolver().solve()) {
 			Pair<StableControlConfiguration, StableExtension> solution = this.buildStableExtension(accVar);
 			StableControlConfiguration scc = util.Util.find(result.keySet(), solution.getKey());
+			//System.out.println(solution.getKey().toString());
 			if( scc == null) {
 				extensions = new HashSet<StableExtension>();
 				extensions.add(solution.getValue());
@@ -237,6 +240,7 @@ public class CSP_Completion_Solver {
 				extensions = result.get(scc);
 				extensions.add(solution.getValue());
 			}
+			
 		} 
         return result;
 	}

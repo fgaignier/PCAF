@@ -4,7 +4,7 @@ import java.util.*;
 
 import parser.CAFParser;
 
-/*
+/**
  * Argument Framework Dung style.
  * Simply a graph represented as a HashMap(Argument, attacked)
  * And another graph represented as a HashMap(Argument, attackers)
@@ -27,7 +27,7 @@ public class ArgumentFramework {
 		 graph_attacking = new HashMap<Argument, Set<Argument>>();
 	}
 	
-	/*
+	/**
 	 * clone an AF (never duplicates the arguments)
 	 */
 	public ArgumentFramework clone() {
@@ -37,7 +37,7 @@ public class ArgumentFramework {
 		return result;
 	}
 	
-	/*
+	/**
 	 * add a new argument
 	 * attacks must be added later
 	 * @param the new argument
@@ -50,7 +50,7 @@ public class ArgumentFramework {
 		graph_attacking.put(a, attacking);
 	}
 	
-	/*
+	/**
 	 * remove an existing argument and all the linked attacks
 	 *  returns UnknownArgumentError if argument not present 
 	 */
@@ -87,7 +87,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * add all arguments from a Set
 	 * attacks must be added later
 	 * @param set of arguments to be added
@@ -100,7 +100,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * add all arguments from a Set
 	 * attacks must be added later
 	 * @param set of arguments to be added
@@ -113,7 +113,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * add an attack
 	 * If the origin or destination argument of the attack is not yet in the graph
 	 * a UnknownArgumentError will be thrown
@@ -131,7 +131,7 @@ public class ArgumentFramework {
 		attackingTo.add(from);
 	}
 	
-	/*
+	/**
 	 * attack (From, To) 
 	 * must remove To in one list and From in the other
 	 */
@@ -140,7 +140,7 @@ public class ArgumentFramework {
 		this.getAttackingArguments(att.getTo()).remove(att.getFrom());
 	}
 	
-	/*
+	/**
 	 * add all attacks to the AF
 	 */
 	public void addAllAttacks(Set<Attack> attacks) {
@@ -150,7 +150,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * add all attacks to the AF
 	 */
 	public void addAllCAttacks(Set<CAttack> attacks) {
@@ -160,7 +160,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * returns all the arguments from the Argument Framework
 	 *
 	 */
@@ -184,7 +184,7 @@ public class ArgumentFramework {
 		return null;
 	}
 	
-	/*
+	/**
 	 * Sorting the arguments according to the number of attackers or arguments attacked
 	 * In order to deal with arguments with the same value, adding a reminder
 	 */
@@ -208,7 +208,7 @@ public class ArgumentFramework {
 		return temp.values();
 	}
 	
-	/*
+	/**
 	 * returns all the attacks from the Argument Framework
 	 */
 	public Set<Attack> getAllAttacks() {
@@ -228,35 +228,35 @@ public class ArgumentFramework {
 		return attacks;
 	}
 	
-	/*
+	/**
 	 * returns the number of arguments attacking one argument
 	 */
 	public int getNumberOfAttackingArgs(Argument a) {
 		return this.getAttackingArguments(a).size();
 	}
 	
-	/*
+	/**
 	 * returns the number of arguments attacked by one argument
 	 */
 	public int getNumberOfAttackedArgs(Argument a) {
 		return this.getAttackedArguments(a).size();
 	}
 	
-	/*
+	/**
 	 * get all the arguments attacked by an argument a
 	 */
 	public Set<Argument> getAttackedArguments(Argument a) {
 		return graph_attacked.get(a);
 	}
 	
-	/*
-	 * get the Set of attacking arguments for a given argument
+	/**
+	 * returns the Set of attacking arguments for a given argument
 	 */
 	public Set<Argument> getAttackingArguments(Argument a) {
 		return graph_attacking.get(a);
 	}
 	
-	/*
+	/**
 	 * returns true if the AF contains the argument a
 	 */
 	public boolean containsArgument(Argument a) {
@@ -268,7 +268,7 @@ public class ArgumentFramework {
 		}
 	}
 	
-	/*
+	/**
 	 * returns true if the AF contains the attack att
 	 */
 	public boolean containsAttack(Attack att) {
@@ -279,7 +279,7 @@ public class ArgumentFramework {
 		return false;
 	}
 	
-	/*
+	/**
 	 * changes the direction of an attack
 	 * @param att
 	 * will modify the AF in changing the direction of att
@@ -292,7 +292,7 @@ public class ArgumentFramework {
 		this.addAttack(new Attack(att.getTo(), att.getFrom()));
 	}
 	
-	/*
+	/**
 	 * returns true if this AF is included in other
 	 * linear time algorithm (in number of arguments + attacks)
 	 * @param other
@@ -317,7 +317,7 @@ public class ArgumentFramework {
 		return true;
 	}
 	
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 * toString to get a representation of the AF

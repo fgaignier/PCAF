@@ -29,6 +29,13 @@ public class StableControlConfiguration {
 		return onControl;
 	}
 	
+	public boolean contains(Argument c) {
+		if(onControl.contains(c)) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * returns true if both contain the same control elements
 	 * false else
