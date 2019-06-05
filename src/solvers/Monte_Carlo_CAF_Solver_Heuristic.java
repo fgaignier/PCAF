@@ -111,6 +111,7 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 		Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 
 		for(CArgument t : target) {
+			System.out.println("target= " + t.getName());
 			ArgumentFramework af = hard_generator.getHardestRootCompletionWRT(t);
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
 			if(type == ControllabilityEncoder.CREDULOUS) {
@@ -124,6 +125,12 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 				result = util.Util.intersect(result, solutions.keySet());
 			}
 		}
+		System.out.println("###########");
+		System.out.println("number of initial solutions: " + result.size());
+		for(StableControlConfiguration scc : result) {
+			System.out.println(scc.toString());
+		}
+		System.out.println("###########");
 		return result;
 	}
 

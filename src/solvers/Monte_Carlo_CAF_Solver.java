@@ -137,6 +137,7 @@ public class Monte_Carlo_CAF_Solver {
 			// if not we can stop the simulation at this point
 
 			if(!this.hasPotentialControlEntity(result, i+1)) {
+				//System.out.println(af.toString());
 				this.controllingPower = NO_CC;
 				this.total_simulations = i;
 				break;
@@ -266,6 +267,7 @@ public class Monte_Carlo_CAF_Solver {
 			// here must check if we still have a control entity with controlling power of 1
 			// if not we can stop the simulation at this point
 			if(!this.hasPotentialControlEntity(result, current_simu)) {
+				//System.out.println(af.toString());
 				this.controllingPower = NO_CC;
 				this.total_simulations = current_simu;
 				break;

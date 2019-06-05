@@ -16,7 +16,6 @@ public class Util {
 	
 	public static Set<StableControlConfiguration> intersect(Set<StableControlConfiguration> set1, Set<StableControlConfiguration> set2) {
 		Set<StableControlConfiguration> result = new HashSet<StableControlConfiguration>();
-		
 		for(StableControlConfiguration scc1 : set1) {
 			for(StableControlConfiguration scc2 : set2) {
 				if(scc2.equals(scc1)) {

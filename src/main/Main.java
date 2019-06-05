@@ -59,13 +59,13 @@ public class Main {
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
 		System.out.println("##########################################");
-		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
+	//	caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.CREDULOUS);
 
 		System.out.println("##########################################");
 		System.out.println("error level");
 		System.out.println("##########################################");
-		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
+	//	caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
 
 		
@@ -99,13 +99,13 @@ public class Main {
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
 		System.out.println("##########################################");
-		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.SKEPTICAL);
+	//	pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.CREDULOUS);
 		
 		System.out.println("##########################################");
 		System.out.println("error level");
 		System.out.println("##########################################");
-		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
+	//	pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(0.01, ControllabilityEncoder.CREDULOUS);
 		
 		

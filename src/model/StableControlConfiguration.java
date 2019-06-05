@@ -37,6 +37,15 @@ public class StableControlConfiguration {
 	}
 	
 	/**
+	 * tells if the control configuration is empty
+	 * no control arguments
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return this.onControl.isEmpty();
+	}
+	
+	/**
 	 * returns true if both contain the same control elements
 	 * false else
 	 * no matter what the accepted elements are
@@ -44,6 +53,9 @@ public class StableControlConfiguration {
 	 * @return
 	 */
 	public boolean equals(StableControlConfiguration other) {
+		if(other.isEmpty() && this.isEmpty()) {
+			return true;
+		}
 		Set<CArgument> otherControl = other.getOnControl();
 		if(!otherControl.containsAll(this.getOnControl())) {
 			return false;
@@ -59,7 +71,7 @@ public class StableControlConfiguration {
 	 */
 	public String toString() {
 		StringBuffer result = new StringBuffer();
-		if(this.onControl.isEmpty()) {
+		if(this.isEmpty()) {
 			result.append("empty control configuration");
 		}
 		for(CArgument arg : this.onControl) {

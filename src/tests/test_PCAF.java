@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import generators.RandomPCAFRootCompletionGenerator;
 import generators.ControllabilityEncoder;
@@ -20,7 +19,6 @@ import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
 import solvers.Prefered_Controlling_Entities_Solver;
-import util.Util;
 
 public class test_PCAF {
 
@@ -126,16 +124,16 @@ public class test_PCAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 
 		} else {
 			result = solver.getSkepticalControlConfigurations(N);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
@@ -149,15 +147,15 @@ public class test_PCAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(error);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
