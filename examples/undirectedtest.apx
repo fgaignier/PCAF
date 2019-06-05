@@ -1,0 +1,12 @@
+f_arg(b).
+f_arg(c).
+f_arg(a).
+c_arg(c1).
+c_arg(c2).
+ud_att(a,b).
+u_att(c,b).
+att(c1,c2).
+att(c2,c1).
+att(c1,a).
+att(c2,c).
+target(b).

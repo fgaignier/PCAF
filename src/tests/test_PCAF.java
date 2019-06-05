@@ -191,6 +191,7 @@ public class test_PCAF {
 	 * it must be uniform between 0 and 1 even for t3 and t4
 	 * @param nb
 	 */
+	/*
 	public void testRandomThresholds(int nb) {
 		RandomPCAFRootCompletionGenerator generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		TreeSet<Double> t1 = new TreeSet<Double>();
@@ -233,7 +234,7 @@ public class test_PCAF {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver solver) {
 		int i = 1;
 		if(solutions == null) {

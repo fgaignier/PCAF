@@ -225,7 +225,7 @@ public class Monte_Carlo_CAF_Solver {
 		double current_max = 0;
 		int N = Util.MINIMUM_SIMULATION;
 		int current_simu = 0;
-
+		
 		while(current_simu < N || current_simu < util.Util.MINIMUM_SIMULATION) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
 
@@ -239,10 +239,11 @@ public class Monte_Carlo_CAF_Solver {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
 			cc_list = solutions.keySet();
-			
+			/*
 			if(cc_list.isEmpty()) {
 				System.out.println("no solution found by solver");
-			} 
+				System.out.println(af.toString());
+			} */
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);

@@ -1,0 +1,59 @@
+f_arg(ADAPTING).
+f_arg(SHAPING).
+f_arg(RTP).
+f_arg(SC1).
+f_arg(SC2).
+f_arg(SC3).
+f_arg(SC4).
+f_arg(SC5).
+f_arg(SC6).
+f_arg(SC7).
+att(ADAPTING, SHAPING).
+att(SHAPING, ADAPTING).
+att(SHAPING, RTP).
+att(RTP, SHAPING).
+att(RTP, ADAPTING).
+att(ADAPTING, RTP).
+att(SC1,SC2).
+att(SC2,SC1).
+att(SC1,SC3).
+att(SC3,SC1).
+att(SC1,SC4).
+att(SC4,SC1).
+att(SC1,SC6).
+att(SC6,SC1).
+att(SC1,SC7).
+att(SC7,SC1).
+att(SC4,SC5).
+att(SC5,SC4).
+att(SC5,SC6).
+att(SC6,SC5).
+att(SC5,SC7).
+att(SC7,SC5).
+att(SC2,SC5).
+att(SC5,SC2).
+att(SC2,SC7).
+att(SC7,SC2).
+att(SC3,SC5).
+att(SC5,SC3).
+att(SC3,SC7).
+att(SC7,SC3).
+att(SC1, SHAPING).
+att(SC1, ADAPTING).
+att(SC2, SHAPING).
+att(SC2, RTP).
+att(SC3, SHAPING).
+att(SC3, RTP).
+att(SC4, RTP).
+att(SC5, SHAPING).
+att(SC5, ADAPTING).
+att(SC6, RTP).
+att(SC7, ADAPTING).
+att(SC7, RTP).
+u_att(SC2,SC4).
+u_att(SC2,SC6).
+u_att(SC3,SC4).
+u_att(SC3,SC6).
+u_att(SC7,SC4).
+u_att(SC7,SC6).
+target(RTP).

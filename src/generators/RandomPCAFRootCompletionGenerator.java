@@ -55,30 +55,6 @@ public class RandomPCAFRootCompletionGenerator {
 		return result;
 	}
 	
-	/**
-	 * deprecated. We do not want to get 4 values each time
-	 * @return
-	 */
-	public double[] getRandomThresholds() {
-		double t1 = RandomGen.randomDouble(0.0, 1.0);
-		double t2 = RandomGen.randomDouble(0.0, 1.0);
-		double t3 = 0;
-		double t4 = 0;
-		boolean first = RandomGen.randomBoolean();
-		if(first) {
-			t3 = RandomGen.randomDouble(0.0, 1.0);
-			t4 = RandomGen.randomDouble(0.0, 1-t3);
-		} else {
-			t4 = RandomGen.randomDouble(0.0, 1.0);
-			t3 = RandomGen.randomDouble(0.0, 1-t4);
-		}
-		double[] result = new double[4];
-		result[0] = t1;
-		result[1] = t2;
-		result[2] = t3;
-		result[3] = t4;
-		return result;
-	}
 	
 	/**
 	 * returns a random root completion

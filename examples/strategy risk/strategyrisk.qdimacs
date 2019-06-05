@@ -1,0 +1,2743 @@
+c VarName 1	: att_E2_RTP
+c VarName 2	: att_SC1_RTP
+c VarName 3	: att_E2_SHAPING
+c VarName 4	: att_RTP_RTP
+c VarName 5	: att_E3_ADAPTING
+c VarName 6	: att_M2_ADAPTING
+c VarName 7	: att_E2_E3
+c VarName 8	: att_E2_E4
+c VarName 9	: att_E5_SHAPING
+c VarName 10	: att_M4_SHAPING
+c VarName 11	: att_E2_E1
+c VarName 12	: att_E2_E2
+c VarName 13	: att_ADAPTING_ADAPTING
+c VarName 14	: att_E2_E5
+c VarName 15	: att_E5_SC5
+c VarName 16	: att_M4_SC6
+c VarName 17	: att_E5_SC6
+c VarName 18	: att_SHAPING_M1
+c VarName 19	: att_M4_SC7
+c VarName 20	: att_E5_SC7
+c VarName 21	: att_SC1_SHAPING
+c VarName 22	: att_E5_M4
+c VarName 23	: att_E5_SC1
+c VarName 24	: att_SHAPING_M4
+c VarName 25	: att_M4_SC2
+c VarName 26	: att_E5_SC2
+c VarName 27	: att_M4_SC3
+c VarName 28	: att_SHAPING_M2
+c VarName 29	: att_E5_SC3
+c VarName 30	: att_M4_SC4
+c VarName 31	: att_E5_SC4
+c VarName 32	: att_SHAPING_M3
+c VarName 33	: att_M4_SC5
+c VarName 34	: att_SC4_ADAPTING
+c VarName 35	: att_M4_SC1
+c VarName 36	: att_E5_M3
+c VarName 37	: att_E5_M2
+c VarName 38	: att_E5_M1
+c VarName 39	: att_SC7_SC5
+c VarName 40	: att_SC7_SC2
+c VarName 41	: att_SC7_SC3
+c VarName 42	: att_SC7_SC1
+c VarName 43	: att_E5_ADAPTING
+c VarName 44	: att_E1_E1
+c VarName 45	: att_M4_RTP
+c VarName 46	: att_E1_E3
+c VarName 47	: att_E1_E2
+c VarName 48	: att_E1_E5
+c VarName 49	: att_E1_E4
+c VarName 50	: att_M4_ADAPTING
+c VarName 51	: att_SC4_RTP
+c VarName 52	: att_E4_M4
+c VarName 53	: att_E4_M3
+c VarName 54	: att_E5_RTP
+c VarName 55	: att_E4_M2
+c VarName 56	: att_E4_M1
+c VarName 57	: att_SC7_SC7
+c VarName 58	: att_M1_SHAPING
+c VarName 59	: att_SC6_M1
+c VarName 60	: att_SC6_ADAPTING
+c VarName 61	: att_SC6_M4
+c VarName 62	: att_SC6_M2
+c VarName 63	: att_SC6_M3
+c VarName 64	: att_E2_SC5
+c VarName 65	: att_E2_SC4
+c VarName 66	: att_E2_SC7
+c VarName 67	: att_E2_SC6
+c VarName 68	: att_M3_E5
+c VarName 69	: att_SC3_E4
+c VarName 70	: att_M3_E4
+c VarName 71	: att_SC3_E3
+c VarName 72	: att_M3_E3
+c VarName 73	: att_SHAPING_SHAPING
+c VarName 74	: att_SC3_E5
+c VarName 75	: att_M3_E2
+c VarName 76	: att_E2_SC1
+c VarName 77	: att_E2_SC3
+c VarName 78	: att_E2_SC2
+c VarName 79	: att_RTP_E1
+c VarName 80	: att_M3_E1
+c VarName 81	: att_RTP_E3
+c VarName 82	: att_RTP_E2
+c VarName 83	: att_SC3_E2
+c VarName 84	: att_RTP_E5
+c VarName 85	: att_SC3_E1
+c VarName 86	: att_RTP_E4
+c VarName 87	: att_SC6_SHAPING
+c VarName 88	: att_E4_SC6
+c VarName 89	: att_E4_SC7
+c VarName 90	: att_E4_SC4
+c VarName 91	: att_E4_SC5
+c VarName 92	: att_E4_SC2
+c VarName 93	: att_E4_SC3
+c VarName 94	: att_E3_E4
+c VarName 95	: att_E3_E5
+c VarName 96	: att_E3_E2
+c VarName 97	: att_SC7_ADAPTING
+c VarName 98	: att_E3_E3
+c VarName 99	: att_SC3_SC1
+c VarName 100	: att_M1_SC3
+c VarName 101	: att_M1_SC4
+c VarName 102	: att_M1_SC1
+c VarName 103	: att_M1_SC2
+c VarName 104	: att_SC3_SC7
+c VarName 105	: att_M1_SC7
+c VarName 106	: att_E4_SC1
+c VarName 107	: att_SC4_M4
+c VarName 108	: att_M1_SC5
+c VarName 109	: att_M4_M4
+c VarName 110	: att_M1_SC6
+c VarName 111	: att_M4_M3
+c VarName 112	: att_SC3_SC3
+c VarName 113	: att_SC3_SC2
+c VarName 114	: att_SC3_SC5
+c VarName 115	: att_SC4_M1
+c VarName 116	: att_M4_M2
+c VarName 117	: att_M4_M1
+c VarName 118	: att_SC4_M3
+c VarName 119	: att_M2_SHAPING
+c VarName 120	: att_SC4_M2
+c VarName 121	: att_SHAPING_ADAPTING
+c VarName 122	: att_M1_E2
+c VarName 123	: att_SC1_E1
+c VarName 124	: att_E1_M1
+c VarName 125	: att_M1_E3
+c VarName 126	: att_SC1_E2
+c VarName 127	: att_SC1_E3
+c VarName 128	: att_E1_M3
+c VarName 129	: att_M1_E1
+c VarName 130	: att_SC1_E4
+c VarName 131	: att_E1_M2
+c VarName 132	: att_SC1_E5
+c VarName 133	: att_E1_M4
+c VarName 134	: att_M1_E4
+c VarName 135	: att_M1_E5
+c VarName 136	: att_SC3_SHAPING
+c VarName 137	: att_ADAPTING_M4
+c VarName 138	: att_M1_ADAPTING
+c VarName 139	: att_SC5_RTP
+c VarName 140	: att_SC5_M3
+c VarName 141	: att_SC5_M4
+c VarName 142	: att_SC5_M1
+c VarName 143	: att_SC5_M2
+c VarName 144	: att_RTP_ADAPTING
+c VarName 145	: att_ADAPTING_M1
+c VarName 146	: att_ADAPTING_M3
+c VarName 147	: att_ADAPTING_M2
+c VarName 148	: att_M2_E3
+c VarName 149	: att_SC2_E3
+c VarName 150	: att_M2_E4
+c VarName 151	: att_SC2_E2
+c VarName 152	: att_M2_E1
+c VarName 153	: att_SC2_E5
+c VarName 154	: att_M2_E2
+c VarName 155	: att_SC2_E4
+c VarName 156	: att_M2_E5
+c VarName 157	: att_SC2_E1
+c VarName 158	: att_M1_RTP
+c VarName 159	: att_SC4_SC5
+c VarName 160	: att_SC4_SC6
+c VarName 161	: att_E4_RTP
+c VarName 162	: att_SC4_SC7
+c VarName 163	: att_SC4_SC1
+c VarName 164	: att_SC4_SC2
+c VarName 165	: att_SC4_SC3
+c VarName 166	: att_SC4_SC4
+c VarName 167	: att_E3_E1
+c VarName 168	: att_SC7_E2
+c VarName 169	: att_SC7_E1
+c VarName 170	: att_SC7_E5
+c VarName 171	: att_SC7_E4
+c VarName 172	: att_SC7_E3
+c VarName 173	: att_SC2_SC2
+c VarName 174	: att_SC2_SC1
+c VarName 175	: att_M3_M1
+c VarName 176	: att_SC3_M2
+c VarName 177	: att_SC3_M1
+c VarName 178	: att_E3_SC2
+c VarName 179	: att_E3_SC1
+c VarName 180	: att_SC2_SC7
+c VarName 181	: att_SC2_SC5
+c VarName 182	: att_SC2_SC3
+c VarName 183	: att_E2_M3
+c VarName 184	: att_E2_M4
+c VarName 185	: att_E2_M1
+c VarName 186	: att_E3_SC7
+c VarName 187	: att_E2_M2
+c VarName 188	: att_E3_SC6
+c VarName 189	: att_E3_SC5
+c VarName 190	: att_E3_SC4
+c VarName 191	: att_E3_SC3
+c VarName 192	: att_RTP_SHAPING
+c VarName 193	: att_SC3_RTP
+c VarName 194	: att_E4_ADAPTING
+c VarName 195	: att_M2_SC1
+c VarName 196	: att_M2_SC2
+c VarName 197	: att_M2_SC3
+c VarName 198	: att_M2_SC4
+c VarName 199	: att_M2_SC5
+c VarName 200	: att_M2_SC6
+c VarName 201	: att_M2_SC7
+c VarName 202	: att_SC3_ADAPTING
+c VarName 203	: att_SC5_E5
+c VarName 204	: att_E5_E3
+c VarName 205	: att_E5_E2
+c VarName 206	: att_E5_E1
+c VarName 207	: att_SHAPING_E1
+c VarName 208	: att_SHAPING_E4
+c VarName 209	: att_SC5_E3
+c VarName 210	: att_SHAPING_E5
+c VarName 211	: att_SC5_E4
+c VarName 212	: att_SHAPING_E2
+c VarName 213	: att_SC5_E1
+c VarName 214	: att_SHAPING_E3
+c VarName 215	: att_SC5_E2
+c VarName 216	: att_SC5_SHAPING
+c VarName 217	: att_E2_ADAPTING
+c VarName 218	: att_M2_RTP
+c VarName 219	: att_E4_E2
+c VarName 220	: att_E4_E1
+c VarName 221	: att_E3_SHAPING
+c VarName 222	: att_SC6_E1
+c VarName 223	: att_SC6_E4
+c VarName 224	: att_SC6_E5
+c VarName 225	: att_SC6_E2
+c VarName 226	: att_SC6_E3
+c VarName 227	: att_E4_E5
+c VarName 228	: att_E4_E4
+c VarName 229	: att_E4_E3
+c VarName 230	: att_RTP_M1
+c VarName 231	: att_RTP_M3
+c VarName 232	: att_RTP_M2
+c VarName 233	: att_SC2_SHAPING
+c VarName 234	: att_SC6_RTP
+c VarName 235	: att_RTP_M4
+c VarName 236	: att_SC5_SC2
+c VarName 237	: att_SC3_M4
+c VarName 238	: att_SC1_ADAPTING
+c VarName 239	: att_SC5_SC3
+c VarName 240	: att_SC3_M3
+c VarName 241	: att_M3_M4
+c VarName 242	: att_M3_M3
+c VarName 243	: att_M3_M2
+c VarName 244	: att_SC5_SC1
+c VarName 245	: att_SC5_SC6
+c VarName 246	: att_E3_RTP
+c VarName 247	: att_SC5_SC7
+c VarName 248	: att_SC5_SC4
+c VarName 249	: att_SC5_SC5
+c VarName 250	: att_SC7_M2
+c VarName 251	: att_SC7_M1
+c VarName 252	: att_ADAPTING_RTP
+c VarName 253	: att_SC7_M4
+c VarName 254	: att_SC7_M3
+c VarName 255	: att_SC4_E5
+c VarName 256	: att_M4_E5
+c VarName 257	: att_SC4_E4
+c VarName 258	: att_M4_E4
+c VarName 259	: att_E1_RTP
+c VarName 260	: att_M4_E3
+c VarName 261	: att_SC4_E1
+c VarName 262	: att_M4_E2
+c VarName 263	: att_M4_E1
+c VarName 264	: att_SC4_E3
+c VarName 265	: att_SC4_E2
+c VarName 266	: att_SHAPING_RTP
+c VarName 267	: att_M3_SC7
+c VarName 268	: att_M3_SC5
+c VarName 269	: att_M3_SC6
+c VarName 270	: att_M3_SC3
+c VarName 271	: att_M3_SC4
+c VarName 272	: att_M3_SC1
+c VarName 273	: att_M3_SC2
+c VarName 274	: att_SC1_SC5
+c VarName 275	: att_SC1_SC4
+c VarName 276	: att_SC1_SC7
+c VarName 277	: att_SC1_SC6
+c VarName 278	: att_SC2_RTP
+c VarName 279	: att_M1_M2
+c VarName 280	: att_SC1_M1
+c VarName 281	: att_M1_M3
+c VarName 282	: att_SC1_M2
+c VarName 283	: att_SC1_M3
+c VarName 284	: att_M1_M1
+c VarName 285	: att_SC1_M4
+c VarName 286	: att_SC1_SC1
+c VarName 287	: att_SC1_SC3
+c VarName 288	: att_M1_M4
+c VarName 289	: att_SC1_SC2
+c VarName 290	: att_SC7_SHAPING
+c VarName 291	: att_ADAPTING_E1
+c VarName 292	: att_ADAPTING_E3
+c VarName 293	: att_ADAPTING_E2
+c VarName 294	: att_SHAPING_SC7
+c VarName 295	: att_SHAPING_SC6
+c VarName 296	: att_SHAPING_SC5
+c VarName 297	: att_SC6_SC1
+c VarName 298	: att_E5_E5
+c VarName 299	: att_SHAPING_SC4
+c VarName 300	: att_E5_E4
+c VarName 301	: att_SC6_SC2
+c VarName 302	: att_SHAPING_SC3
+c VarName 303	: att_SC6_SC3
+c VarName 304	: att_SHAPING_SC2
+c VarName 305	: att_SC6_SC4
+c VarName 306	: att_SHAPING_SC1
+c VarName 307	: att_SC6_SC5
+c VarName 308	: att_SC6_SC6
+c VarName 309	: att_SC6_SC7
+c VarName 310	: att_SC5_ADAPTING
+c VarName 311	: att_SC2_ADAPTING
+c VarName 312	: att_M2_M3
+c VarName 313	: att_ADAPTING_E5
+c VarName 314	: att_SC2_M3
+c VarName 315	: att_M2_M4
+c VarName 316	: att_ADAPTING_E4
+c VarName 317	: att_SC2_M2
+c VarName 318	: att_M2_M1
+c VarName 319	: att_M2_M2
+c VarName 320	: att_SC2_M4
+c VarName 321	: att_E1_SHAPING
+c VarName 322	: att_M3_RTP
+c VarName 323	: att_E1_SC4
+c VarName 324	: att_E1_SC3
+c VarName 325	: att_E1_SC2
+c VarName 326	: att_E1_ADAPTING
+c VarName 327	: att_SC2_M1
+c VarName 328	: att_E1_SC1
+c VarName 329	: att_ADAPTING_SC4
+c VarName 330	: att_ADAPTING_SC3
+c VarName 331	: att_ADAPTING_SC2
+c VarName 332	: att_M3_SHAPING
+c VarName 333	: att_ADAPTING_SC1
+c VarName 334	: att_ADAPTING_SC7
+c VarName 335	: att_ADAPTING_SC6
+c VarName 336	: att_E4_SHAPING
+c VarName 337	: att_ADAPTING_SC5
+c VarName 338	: att_E3_M4
+c VarName 339	: att_RTP_SC7
+c VarName 340	: att_E3_M2
+c VarName 341	: att_E3_M3
+c VarName 342	: att_SC7_RTP
+c VarName 343	: att_M3_ADAPTING
+c VarName 344	: att_ADAPTING_SHAPING
+c VarName 345	: att_RTP_SC1
+c VarName 346	: att_E1_SC7
+c VarName 347	: att_RTP_SC2
+c VarName 348	: att_E1_SC6
+c VarName 349	: att_E1_SC5
+c VarName 350	: att_SC4_SHAPING
+c VarName 351	: att_RTP_SC5
+c VarName 352	: att_RTP_SC6
+c VarName 353	: att_E3_M1
+c VarName 354	: att_RTP_SC3
+c VarName 355	: att_RTP_SC4
+c VarName 356	: on_M4
+c VarName 357	: on_M3
+c VarName 358	: on_M2
+c VarName 359	: on_M1
+c VarName 360	: on_E4
+c VarName 361	: att_SC7_SC4
+c VarName 362	: on_E3
+c VarName 363	: on_E2
+c VarName 364	: on_E1
+c VarName 365	: att_SC3_SC6
+c VarName 366	: att_SC2_SC6
+c VarName 367	: att_SC2_SC4
+c VarName 368	: att_SC7_SC6
+c VarName 369	: on_E5
+c VarName 370	: att_SC3_SC4
+c VarName 371	: acc_M4
+c VarName 372	: acc_SC7
+c VarName 373	: acc_SC6
+c VarName 374	: acc_M3
+c VarName 375	: acc_M2
+c VarName 376	: acc_ADAPTING
+c VarName 377	: acc_M1
+c VarName 378	: acc_SC1
+c VarName 379	: acc_E5
+c VarName 380	: acc_E4
+c VarName 381	: acc_E3
+c VarName 382	: acc_SC5
+c VarName 383	: acc_E2
+c VarName 384	: acc_E1
+c VarName 385	: acc_SC4
+c VarName 386	: acc_SC3
+c VarName 387	: acc_SC2
+c VarName 388	: acc_SHAPING
+c VarName 389	: acc_RTP
+c VarName 390	: main
+c VarName 391	: phiStSk
+c VarName 392	: phiStIf
+c VarName 393	: structure
+c VarName 394	: semantics
+c VarName 395	: fixed
+c VarName 396	: equiv_SC1
+c VarName 397	: conjImpl_SC1
+c VarName 398	: impl_SC1_M2
+c VarName 399	: impl_SC1_M1
+c VarName 400	: impl_SC1_SC1
+c VarName 401	: impl_SC1_SC3
+c VarName 402	: impl_SC1_E5
+c VarName 403	: impl_SC1_SC6
+c VarName 404	: impl_SC1_RTP
+c VarName 405	: impl_SC1_ADAPTING
+c VarName 406	: impl_SC1_E1
+c VarName 407	: impl_SC1_E4
+c VarName 408	: impl_SC1_M3
+c VarName 409	: impl_SC1_SHAPING
+c VarName 410	: impl_SC1_SC5
+c VarName 411	: impl_SC1_SC4
+c VarName 412	: impl_SC1_E3
+c VarName 413	: impl_SC1_M4
+c VarName 414	: impl_SC1_SC7
+c VarName 415	: impl_SC1_SC2
+c VarName 416	: impl_SC1_E2
+c VarName 417	: equiv_SC3
+c VarName 418	: conjImpl_SC3
+c VarName 419	: impl_SC3_M2
+c VarName 420	: impl_SC3_M1
+c VarName 421	: impl_SC3_SC1
+c VarName 422	: impl_SC3_SC3
+c VarName 423	: impl_SC3_E5
+c VarName 424	: impl_SC3_SC6
+c VarName 425	: impl_SC3_RTP
+c VarName 426	: impl_SC3_ADAPTING
+c VarName 427	: impl_SC3_E1
+c VarName 428	: impl_SC3_E4
+c VarName 429	: impl_SC3_M3
+c VarName 430	: impl_SC3_SHAPING
+c VarName 431	: impl_SC3_SC5
+c VarName 432	: impl_SC3_SC4
+c VarName 433	: impl_SC3_E3
+c VarName 434	: impl_SC3_M4
+c VarName 435	: impl_SC3_SC7
+c VarName 436	: impl_SC3_SC2
+c VarName 437	: impl_SC3_E2
+c VarName 438	: equiv_SC6
+c VarName 439	: conjImpl_SC6
+c VarName 440	: impl_SC6_M2
+c VarName 441	: impl_SC6_M1
+c VarName 442	: impl_SC6_SC1
+c VarName 443	: impl_SC6_SC3
+c VarName 444	: impl_SC6_E5
+c VarName 445	: impl_SC6_SC6
+c VarName 446	: impl_SC6_RTP
+c VarName 447	: impl_SC6_ADAPTING
+c VarName 448	: impl_SC6_E1
+c VarName 449	: impl_SC6_E4
+c VarName 450	: impl_SC6_M3
+c VarName 451	: impl_SC6_SHAPING
+c VarName 452	: impl_SC6_SC5
+c VarName 453	: impl_SC6_SC4
+c VarName 454	: impl_SC6_E3
+c VarName 455	: impl_SC6_M4
+c VarName 456	: impl_SC6_SC7
+c VarName 457	: impl_SC6_SC2
+c VarName 458	: impl_SC6_E2
+c VarName 459	: equiv_RTP
+c VarName 460	: conjImpl_RTP
+c VarName 461	: impl_RTP_M2
+c VarName 462	: impl_RTP_M1
+c VarName 463	: impl_RTP_SC1
+c VarName 464	: impl_RTP_SC3
+c VarName 465	: impl_RTP_E5
+c VarName 466	: impl_RTP_SC6
+c VarName 467	: impl_RTP_RTP
+c VarName 468	: impl_RTP_ADAPTING
+c VarName 469	: impl_RTP_E1
+c VarName 470	: impl_RTP_E4
+c VarName 471	: impl_RTP_M3
+c VarName 472	: impl_RTP_SHAPING
+c VarName 473	: impl_RTP_SC5
+c VarName 474	: impl_RTP_SC4
+c VarName 475	: impl_RTP_E3
+c VarName 476	: impl_RTP_M4
+c VarName 477	: impl_RTP_SC7
+c VarName 478	: impl_RTP_SC2
+c VarName 479	: impl_RTP_E2
+c VarName 480	: equiv_ADAPTING
+c VarName 481	: conjImpl_ADAPTING
+c VarName 482	: impl_ADAPTING_M2
+c VarName 483	: impl_ADAPTING_M1
+c VarName 484	: impl_ADAPTING_SC1
+c VarName 485	: impl_ADAPTING_SC3
+c VarName 486	: impl_ADAPTING_E5
+c VarName 487	: impl_ADAPTING_SC6
+c VarName 488	: impl_ADAPTING_RTP
+c VarName 489	: impl_ADAPTING_ADAPTING
+c VarName 490	: impl_ADAPTING_E1
+c VarName 491	: impl_ADAPTING_E4
+c VarName 492	: impl_ADAPTING_M3
+c VarName 493	: impl_ADAPTING_SHAPING
+c VarName 494	: impl_ADAPTING_SC5
+c VarName 495	: impl_ADAPTING_SC4
+c VarName 496	: impl_ADAPTING_E3
+c VarName 497	: impl_ADAPTING_M4
+c VarName 498	: impl_ADAPTING_SC7
+c VarName 499	: impl_ADAPTING_SC2
+c VarName 500	: impl_ADAPTING_E2
+c VarName 501	: equiv_SHAPING
+c VarName 502	: conjImpl_SHAPING
+c VarName 503	: impl_SHAPING_M2
+c VarName 504	: impl_SHAPING_M1
+c VarName 505	: impl_SHAPING_SC1
+c VarName 506	: impl_SHAPING_SC3
+c VarName 507	: impl_SHAPING_E5
+c VarName 508	: impl_SHAPING_SC6
+c VarName 509	: impl_SHAPING_RTP
+c VarName 510	: impl_SHAPING_ADAPTING
+c VarName 511	: impl_SHAPING_E1
+c VarName 512	: impl_SHAPING_E4
+c VarName 513	: impl_SHAPING_M3
+c VarName 514	: impl_SHAPING_SHAPING
+c VarName 515	: impl_SHAPING_SC5
+c VarName 516	: impl_SHAPING_SC4
+c VarName 517	: impl_SHAPING_E3
+c VarName 518	: impl_SHAPING_M4
+c VarName 519	: impl_SHAPING_SC7
+c VarName 520	: impl_SHAPING_SC2
+c VarName 521	: impl_SHAPING_E2
+c VarName 522	: equiv_SC5
+c VarName 523	: conjImpl_SC5
+c VarName 524	: impl_SC5_M2
+c VarName 525	: impl_SC5_M1
+c VarName 526	: impl_SC5_SC1
+c VarName 527	: impl_SC5_SC3
+c VarName 528	: impl_SC5_E5
+c VarName 529	: impl_SC5_SC6
+c VarName 530	: impl_SC5_RTP
+c VarName 531	: impl_SC5_ADAPTING
+c VarName 532	: impl_SC5_E1
+c VarName 533	: impl_SC5_E4
+c VarName 534	: impl_SC5_M3
+c VarName 535	: impl_SC5_SHAPING
+c VarName 536	: impl_SC5_SC5
+c VarName 537	: impl_SC5_SC4
+c VarName 538	: impl_SC5_E3
+c VarName 539	: impl_SC5_M4
+c VarName 540	: impl_SC5_SC7
+c VarName 541	: impl_SC5_SC2
+c VarName 542	: impl_SC5_E2
+c VarName 543	: equiv_SC7
+c VarName 544	: conjImpl_SC7
+c VarName 545	: impl_SC7_M2
+c VarName 546	: impl_SC7_M1
+c VarName 547	: impl_SC7_SC1
+c VarName 548	: impl_SC7_SC3
+c VarName 549	: impl_SC7_E5
+c VarName 550	: impl_SC7_SC6
+c VarName 551	: impl_SC7_RTP
+c VarName 552	: impl_SC7_ADAPTING
+c VarName 553	: impl_SC7_E1
+c VarName 554	: impl_SC7_E4
+c VarName 555	: impl_SC7_M3
+c VarName 556	: impl_SC7_SHAPING
+c VarName 557	: impl_SC7_SC5
+c VarName 558	: impl_SC7_SC4
+c VarName 559	: impl_SC7_E3
+c VarName 560	: impl_SC7_M4
+c VarName 561	: impl_SC7_SC7
+c VarName 562	: impl_SC7_SC2
+c VarName 563	: impl_SC7_E2
+c VarName 564	: equiv_SC2
+c VarName 565	: conjImpl_SC2
+c VarName 566	: impl_SC2_M2
+c VarName 567	: impl_SC2_M1
+c VarName 568	: impl_SC2_SC1
+c VarName 569	: impl_SC2_SC3
+c VarName 570	: impl_SC2_E5
+c VarName 571	: impl_SC2_SC6
+c VarName 572	: impl_SC2_RTP
+c VarName 573	: impl_SC2_ADAPTING
+c VarName 574	: impl_SC2_E1
+c VarName 575	: impl_SC2_E4
+c VarName 576	: impl_SC2_M3
+c VarName 577	: impl_SC2_SHAPING
+c VarName 578	: impl_SC2_SC5
+c VarName 579	: impl_SC2_SC4
+c VarName 580	: impl_SC2_E3
+c VarName 581	: impl_SC2_M4
+c VarName 582	: impl_SC2_SC7
+c VarName 583	: impl_SC2_SC2
+c VarName 584	: impl_SC2_E2
+c VarName 585	: equiv_SC4
+c VarName 586	: conjImpl_SC4
+c VarName 587	: impl_SC4_M2
+c VarName 588	: impl_SC4_M1
+c VarName 589	: impl_SC4_SC1
+c VarName 590	: impl_SC4_SC3
+c VarName 591	: impl_SC4_E5
+c VarName 592	: impl_SC4_SC6
+c VarName 593	: impl_SC4_RTP
+c VarName 594	: impl_SC4_ADAPTING
+c VarName 595	: impl_SC4_E1
+c VarName 596	: impl_SC4_E4
+c VarName 597	: impl_SC4_M3
+c VarName 598	: impl_SC4_SHAPING
+c VarName 599	: impl_SC4_SC5
+c VarName 600	: impl_SC4_SC4
+c VarName 601	: impl_SC4_E3
+c VarName 602	: impl_SC4_M4
+c VarName 603	: impl_SC4_SC7
+c VarName 604	: impl_SC4_SC2
+c VarName 605	: impl_SC4_E2
+c VarName 606	: control
+c VarName 607	: equiv_M2
+c VarName 608	: conjImpl_M2
+c VarName 609	: impl_M2_M2
+c VarName 610	: impl_M2_M1
+c VarName 611	: impl_M2_SC1
+c VarName 612	: impl_M2_SC3
+c VarName 613	: impl_M2_E5
+c VarName 614	: impl_M2_SC6
+c VarName 615	: impl_M2_RTP
+c VarName 616	: impl_M2_ADAPTING
+c VarName 617	: impl_M2_E1
+c VarName 618	: impl_M2_E4
+c VarName 619	: impl_M2_M3
+c VarName 620	: impl_M2_SHAPING
+c VarName 621	: impl_M2_SC5
+c VarName 622	: impl_M2_SC4
+c VarName 623	: impl_M2_E3
+c VarName 624	: impl_M2_M4
+c VarName 625	: impl_M2_SC7
+c VarName 626	: impl_M2_SC2
+c VarName 627	: impl_M2_E2
+c VarName 628	: equiv_M1
+c VarName 629	: conjImpl_M1
+c VarName 630	: impl_M1_M2
+c VarName 631	: impl_M1_M1
+c VarName 632	: impl_M1_SC1
+c VarName 633	: impl_M1_SC3
+c VarName 634	: impl_M1_E5
+c VarName 635	: impl_M1_SC6
+c VarName 636	: impl_M1_RTP
+c VarName 637	: impl_M1_ADAPTING
+c VarName 638	: impl_M1_E1
+c VarName 639	: impl_M1_E4
+c VarName 640	: impl_M1_M3
+c VarName 641	: impl_M1_SHAPING
+c VarName 642	: impl_M1_SC5
+c VarName 643	: impl_M1_SC4
+c VarName 644	: impl_M1_E3
+c VarName 645	: impl_M1_M4
+c VarName 646	: impl_M1_SC7
+c VarName 647	: impl_M1_SC2
+c VarName 648	: impl_M1_E2
+c VarName 649	: equiv_M4
+c VarName 650	: conjImpl_M4
+c VarName 651	: impl_M4_M2
+c VarName 652	: impl_M4_M1
+c VarName 653	: impl_M4_SC1
+c VarName 654	: impl_M4_SC3
+c VarName 655	: impl_M4_E5
+c VarName 656	: impl_M4_SC6
+c VarName 657	: impl_M4_RTP
+c VarName 658	: impl_M4_ADAPTING
+c VarName 659	: impl_M4_E1
+c VarName 660	: impl_M4_E4
+c VarName 661	: impl_M4_M3
+c VarName 662	: impl_M4_SHAPING
+c VarName 663	: impl_M4_SC5
+c VarName 664	: impl_M4_SC4
+c VarName 665	: impl_M4_E3
+c VarName 666	: impl_M4_M4
+c VarName 667	: impl_M4_SC7
+c VarName 668	: impl_M4_SC2
+c VarName 669	: impl_M4_E2
+c VarName 670	: equiv_M3
+c VarName 671	: conjImpl_M3
+c VarName 672	: impl_M3_M2
+c VarName 673	: impl_M3_M1
+c VarName 674	: impl_M3_SC1
+c VarName 675	: impl_M3_SC3
+c VarName 676	: impl_M3_E5
+c VarName 677	: impl_M3_SC6
+c VarName 678	: impl_M3_RTP
+c VarName 679	: impl_M3_ADAPTING
+c VarName 680	: impl_M3_E1
+c VarName 681	: impl_M3_E4
+c VarName 682	: impl_M3_M3
+c VarName 683	: impl_M3_SHAPING
+c VarName 684	: impl_M3_SC5
+c VarName 685	: impl_M3_SC4
+c VarName 686	: impl_M3_E3
+c VarName 687	: impl_M3_M4
+c VarName 688	: impl_M3_SC7
+c VarName 689	: impl_M3_SC2
+c VarName 690	: impl_M3_E2
+c VarName 691	: uncertain
+c VarName 692	: equiv_E3
+c VarName 693	: conjImpl_E3
+c VarName 694	: impl_E3_M2
+c VarName 695	: impl_E3_M1
+c VarName 696	: impl_E3_SC1
+c VarName 697	: impl_E3_SC3
+c VarName 698	: impl_E3_E5
+c VarName 699	: impl_E3_SC6
+c VarName 700	: impl_E3_RTP
+c VarName 701	: impl_E3_ADAPTING
+c VarName 702	: impl_E3_E1
+c VarName 703	: impl_E3_E4
+c VarName 704	: impl_E3_M3
+c VarName 705	: impl_E3_SHAPING
+c VarName 706	: impl_E3_SC5
+c VarName 707	: impl_E3_SC4
+c VarName 708	: impl_E3_E3
+c VarName 709	: impl_E3_M4
+c VarName 710	: impl_E3_SC7
+c VarName 711	: impl_E3_SC2
+c VarName 712	: impl_E3_E2
+c VarName 713	: equiv_E5
+c VarName 714	: conjImpl_E5
+c VarName 715	: impl_E5_M2
+c VarName 716	: impl_E5_M1
+c VarName 717	: impl_E5_SC1
+c VarName 718	: impl_E5_SC3
+c VarName 719	: impl_E5_E5
+c VarName 720	: impl_E5_SC6
+c VarName 721	: impl_E5_RTP
+c VarName 722	: impl_E5_ADAPTING
+c VarName 723	: impl_E5_E1
+c VarName 724	: impl_E5_E4
+c VarName 725	: impl_E5_M3
+c VarName 726	: impl_E5_SHAPING
+c VarName 727	: impl_E5_SC5
+c VarName 728	: impl_E5_SC4
+c VarName 729	: impl_E5_E3
+c VarName 730	: impl_E5_M4
+c VarName 731	: impl_E5_SC7
+c VarName 732	: impl_E5_SC2
+c VarName 733	: impl_E5_E2
+c VarName 734	: equiv_E1
+c VarName 735	: conjImpl_E1
+c VarName 736	: impl_E1_M2
+c VarName 737	: impl_E1_M1
+c VarName 738	: impl_E1_SC1
+c VarName 739	: impl_E1_SC3
+c VarName 740	: impl_E1_E5
+c VarName 741	: impl_E1_SC6
+c VarName 742	: impl_E1_RTP
+c VarName 743	: impl_E1_ADAPTING
+c VarName 744	: impl_E1_E1
+c VarName 745	: impl_E1_E4
+c VarName 746	: impl_E1_M3
+c VarName 747	: impl_E1_SHAPING
+c VarName 748	: impl_E1_SC5
+c VarName 749	: impl_E1_SC4
+c VarName 750	: impl_E1_E3
+c VarName 751	: impl_E1_M4
+c VarName 752	: impl_E1_SC7
+c VarName 753	: impl_E1_SC2
+c VarName 754	: impl_E1_E2
+c VarName 755	: equiv_E4
+c VarName 756	: conjImpl_E4
+c VarName 757	: impl_E4_M2
+c VarName 758	: impl_E4_M1
+c VarName 759	: impl_E4_SC1
+c VarName 760	: impl_E4_SC3
+c VarName 761	: impl_E4_E5
+c VarName 762	: impl_E4_SC6
+c VarName 763	: impl_E4_RTP
+c VarName 764	: impl_E4_ADAPTING
+c VarName 765	: impl_E4_E1
+c VarName 766	: impl_E4_E4
+c VarName 767	: impl_E4_M3
+c VarName 768	: impl_E4_SHAPING
+c VarName 769	: impl_E4_SC5
+c VarName 770	: impl_E4_SC4
+c VarName 771	: impl_E4_E3
+c VarName 772	: impl_E4_M4
+c VarName 773	: impl_E4_SC7
+c VarName 774	: impl_E4_SC2
+c VarName 775	: impl_E4_E2
+c VarName 776	: equiv_E2
+c VarName 777	: conjImpl_E2
+c VarName 778	: impl_E2_M2
+c VarName 779	: impl_E2_M1
+c VarName 780	: impl_E2_SC1
+c VarName 781	: impl_E2_SC3
+c VarName 782	: impl_E2_E5
+c VarName 783	: impl_E2_SC6
+c VarName 784	: impl_E2_RTP
+c VarName 785	: impl_E2_ADAPTING
+c VarName 786	: impl_E2_E1
+c VarName 787	: impl_E2_E4
+c VarName 788	: impl_E2_M3
+c VarName 789	: impl_E2_SHAPING
+c VarName 790	: impl_E2_SC5
+c VarName 791	: impl_E2_SC4
+c VarName 792	: impl_E2_E3
+c VarName 793	: impl_E2_M4
+c VarName 794	: impl_E2_SC7
+c VarName 795	: impl_E2_SC2
+c VarName 796	: impl_E2_E2
+c VarName 797	: target
+p cnf 797 1941
+e 356 357 358 359 0
+a 360 361 362 363 364 365 366 367 368 369 370 0
+e 371 372 373 374 375 376 377 378 379 380 381 382 383 384 385 386 387 388 389 390 391 392 393 394 395 396 397 398 399 400 401 402 403 404 405 406 407 408 409 410 411 412 413 414 415 416 417 418 419 420 421 422 423 424 425 426 427 428 429 430 431 432 433 434 435 436 437 438 439 440 441 442 443 444 445 446 447 448 449 450 451 452 453 454 455 456 457 458 459 460 461 462 463 464 465 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 482 483 484 485 486 487 488 489 490 491 492 493 494 495 496 497 498 499 500 501 502 503 504 505 506 507 508 509 510 511 512 513 514 515 516 517 518 519 520 521 522 523 524 525 526 527 528 529 530 531 532 533 534 535 536 537 538 539 540 541 542 543 544 545 546 547 548 549 550 551 552 553 554 555 556 557 558 559 560 561 562 563 564 565 566 567 568 569 570 571 572 573 574 575 576 577 578 579 580 581 582 583 584 585 586 587 588 589 590 591 592 593 594 595 596 597 598 599 600 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620 621 622 623 624 625 626 627 628 629 630 631 632 633 634 635 636 637 638 639 640 641 642 643 644 645 646 647 648 649 650 651 652 653 654 655 656 657 658 659 660 661 662 663 664 665 666 667 668 669 670 671 672 673 674 675 676 677 678 679 680 681 682 683 684 685 686 687 688 689 690 691 692 693 694 695 696 697 698 699 700 701 702 703 704 705 706 707 708 709 710 711 712 713 714 715 716 717 718 719 720 721 722 723 724 725 726 727 728 729 730 731 732 733 734 735 736 737 738 739 740 741 742 743 744 745 746 747 748 749 750 751 752 753 754 755 756 757 758 759 760 761 762 763 764 765 766 767 768 769 770 771 772 773 774 775 776 777 778 779 780 781 782 783 784 785 786 787 788 789 790 791 792 793 794 795 796 797 0
+390 0
+-393 287 0
+-393 186 0
+-393 344 0
+-393 236 0
+-393 204 0
+-393 247 0
+-393 181 0
+-393 277 0
+-393 342 0
+-393 276 0
+-393 346 0
+-393 193 0
+-393 307 0
+-393 144 0
+-393 310 0
+-393 191 0
+-393 39 0
+-393 94 0
+-393 41 0
+-393 106 0
+-393 26 0
+-393 289 0
+-393 325 0
+-393 174 0
+-393 188 0
+-393 180 0
+-393 20 0
+-393 163 0
+-393 216 0
+-393 278 0
+-393 7 0
+-393 92 0
+-393 23 0
+-393 252 0
+-393 114 0
+-393 67 0
+-393 99 0
+-393 104 0
+-393 42 0
+-393 96 0
+-393 17 0
+-393 190 0
+-393 229 0
+-393 238 0
+-393 297 0
+-393 121 0
+-393 21 0
+-393 89 0
+-393 97 0
+-393 189 0
+-393 66 0
+-393 266 0
+-393 31 0
+-393 78 0
+-393 348 0
+-393 234 0
+-393 65 0
+-393 239 0
+-393 51 0
+-393 95 0
+-393 233 0
+-393 192 0
+-393 245 0
+-393 159 0
+-393 40 0
+-393 248 0
+-393 136 0
+-393 275 0
+-393 154 0
+-393 148 0
+-393 68 0
+-393 146 0
+-393 263 0
+-393 231 0
+-393 256 0
+-393 28 0
+-393 235 0
+-393 18 0
+-393 125 0
+-393 129 0
+-393 80 0
+-393 147 0
+-393 70 0
+-393 230 0
+-393 258 0
+-393 319 0
+-393 318 0
+-393 195 0
+-393 197 0
+-393 156 0
+-393 200 0
+-393 218 0
+-393 6 0
+-393 152 0
+-393 150 0
+-393 312 0
+-393 119 0
+-393 199 0
+-393 198 0
+-393 315 0
+-393 201 0
+-393 196 0
+-393 279 0
+-393 284 0
+-393 102 0
+-393 100 0
+-393 135 0
+-393 110 0
+-393 158 0
+-393 138 0
+-393 134 0
+-393 281 0
+-393 58 0
+-393 108 0
+-393 101 0
+-393 288 0
+-393 105 0
+-393 103 0
+-393 122 0
+-393 282 0
+-393 280 0
+-393 286 0
+-393 132 0
+-393 2 0
+-393 123 0
+-393 130 0
+-393 283 0
+-393 274 0
+-393 127 0
+-393 285 0
+-393 126 0
+-393 176 0
+-393 177 0
+-393 112 0
+-393 74 0
+-393 202 0
+-393 85 0
+-393 69 0
+-393 240 0
+-393 71 0
+-393 237 0
+-393 113 0
+-393 83 0
+-393 37 0
+-393 38 0
+-393 29 0
+-393 298 0
+-393 54 0
+-393 43 0
+-393 206 0
+-393 300 0
+-393 36 0
+-393 9 0
+-393 15 0
+-393 22 0
+-393 205 0
+-393 62 0
+-393 59 0
+-393 303 0
+-393 224 0
+-393 308 0
+-393 60 0
+-393 222 0
+-393 223 0
+-393 63 0
+-393 87 0
+-393 305 0
+-393 226 0
+-393 61 0
+-393 309 0
+-393 301 0
+-393 225 0
+-393 232 0
+-393 345 0
+-393 354 0
+-393 84 0
+-393 352 0
+-393 4 0
+-393 79 0
+-393 86 0
+-393 351 0
+-393 355 0
+-393 81 0
+-393 339 0
+-393 347 0
+-393 82 0
+-393 145 0
+-393 333 0
+-393 330 0
+-393 313 0
+-393 335 0
+-393 13 0
+-393 291 0
+-393 316 0
+-393 337 0
+-393 329 0
+-393 292 0
+-393 137 0
+-393 334 0
+-393 331 0
+-393 293 0
+-393 131 0
+-393 124 0
+-393 328 0
+-393 324 0
+-393 48 0
+-393 259 0
+-393 326 0
+-393 44 0
+-393 49 0
+-393 128 0
+-393 321 0
+-393 349 0
+-393 323 0
+-393 46 0
+-393 133 0
+-393 47 0
+-393 55 0
+-393 56 0
+-393 93 0
+-393 227 0
+-393 88 0
+-393 161 0
+-393 194 0
+-393 220 0
+-393 228 0
+-393 53 0
+-393 336 0
+-393 91 0
+-393 90 0
+-393 52 0
+-393 219 0
+-393 243 0
+-393 175 0
+-393 272 0
+-393 270 0
+-393 269 0
+-393 322 0
+-393 343 0
+-393 242 0
+-393 332 0
+-393 268 0
+-393 271 0
+-393 72 0
+-393 241 0
+-393 267 0
+-393 273 0
+-393 75 0
+-393 306 0
+-393 302 0
+-393 210 0
+-393 295 0
+-393 207 0
+-393 208 0
+-393 32 0
+-393 73 0
+-393 296 0
+-393 299 0
+-393 214 0
+-393 24 0
+-393 294 0
+-393 304 0
+-393 212 0
+-393 143 0
+-393 142 0
+-393 244 0
+-393 203 0
+-393 139 0
+-393 213 0
+-393 211 0
+-393 140 0
+-393 249 0
+-393 209 0
+-393 141 0
+-393 215 0
+-393 120 0
+-393 115 0
+-393 165 0
+-393 255 0
+-393 160 0
+-393 34 0
+-393 261 0
+-393 257 0
+-393 118 0
+-393 350 0
+-393 166 0
+-393 264 0
+-393 107 0
+-393 162 0
+-393 164 0
+-393 265 0
+-393 340 0
+-393 353 0
+-393 179 0
+-393 246 0
+-393 5 0
+-393 167 0
+-393 341 0
+-393 221 0
+-393 98 0
+-393 338 0
+-393 178 0
+-393 116 0
+-393 117 0
+-393 35 0
+-393 27 0
+-393 16 0
+-393 45 0
+-393 50 0
+-393 111 0
+-393 10 0
+-393 33 0
+-393 30 0
+-393 260 0
+-393 109 0
+-393 19 0
+-393 25 0
+-393 262 0
+-393 250 0
+-393 251 0
+-393 170 0
+-393 169 0
+-393 171 0
+-393 254 0
+-393 290 0
+-393 172 0
+-393 253 0
+-393 57 0
+-393 168 0
+-393 317 0
+-393 327 0
+-393 182 0
+-393 153 0
+-393 311 0
+-393 157 0
+-393 155 0
+-393 314 0
+-393 149 0
+-393 320 0
+-393 173 0
+-393 151 0
+-393 187 0
+-393 185 0
+-393 76 0
+-393 77 0
+-393 14 0
+-393 1 0
+-393 217 0
+-393 11 0
+-393 8 0
+-393 183 0
+-393 3 0
+-393 64 0
+-393 184 0
+-393 12 0
+393 -287 -186 -344 -236 -204 -247 -181 -277 -342 -276 -346 -193 -307 -144 -310 -191 -39 -94 -41 -106 -26 -289 -325 -174 -188 -180 -20 -163 -216 -278 -7 -92 -23 -252 -114 -67 -99 -104 -42 -96 -17 -190 -229 -238 -297 -121 -21 -89 -97 -189 -66 -266 -31 -78 -348 -234 -65 -239 -51 -95 -233 -192 -245 -159 -40 -248 -136 -275 -154 -148 -68 -146 -263 -231 -256 -28 -235 -18 -125 -129 -80 -147 -70 -230 -258 -319 -318 -195 -197 -156 -200 -218 -6 -152 -150 -312 -119 -199 -198 -315 -201 -196 -279 -284 -102 -100 -135 -110 -158 -138 -134 -281 -58 -108 -101 -288 -105 -103 -122 -282 -280 -286 -132 -2 -123 -130 -283 -274 -127 -285 -126 -176 -177 -112 -74 -202 -85 -69 -240 -71 -237 -113 -83 -37 -38 -29 -298 -54 -43 -206 -300 -36 -9 -15 -22 -205 -62 -59 -303 -224 -308 -60 -222 -223 -63 -87 -305 -226 -61 -309 -301 -225 -232 -345 -354 -84 -352 -4 -79 -86 -351 -355 -81 -339 -347 -82 -145 -333 -330 -313 -335 -13 -291 -316 -337 -329 -292 -137 -334 -331 -293 -131 -124 -328 -324 -48 -259 -326 -44 -49 -128 -321 -349 -323 -46 -133 -47 -55 -56 -93 -227 -88 -161 -194 -220 -228 -53 -336 -91 -90 -52 -219 -243 -175 -272 -270 -269 -322 -343 -242 -332 -268 -271 -72 -241 -267 -273 -75 -306 -302 -210 -295 -207 -208 -32 -73 -296 -299 -214 -24 -294 -304 -212 -143 -142 -244 -203 -139 -213 -211 -140 -249 -209 -141 -215 -120 -115 -165 -255 -160 -34 -261 -257 -118 -350 -166 -264 -107 -162 -164 -265 -340 -353 -179 -246 -5 -167 -341 -221 -98 -338 -178 -116 -117 -35 -27 -16 -45 -50 -111 -10 -33 -30 -260 -109 -19 -25 -262 -250 -251 -170 -169 -171 -254 -290 -172 -253 -57 -168 -317 -327 -182 -153 -311 -157 -155 -314 -149 -320 -173 -151 -187 -185 -76 -77 -14 -1 -217 -11 -8 -183 -3 -64 -184 -12 0
+-195 375 -398 0
+195 398 0
+-375 398 0
+-102 377 -399 0
+102 399 0
+-377 399 0
+-286 378 -400 0
+286 400 0
+-378 400 0
+-99 386 -401 0
+99 401 0
+-386 401 0
+-23 379 -402 0
+23 402 0
+-379 402 0
+-297 373 -403 0
+297 403 0
+-373 403 0
+-345 389 -404 0
+345 404 0
+-389 404 0
+-333 376 -405 0
+333 405 0
+-376 405 0
+-328 384 -406 0
+328 406 0
+-384 406 0
+-106 380 -407 0
+106 407 0
+-380 407 0
+-272 374 -408 0
+272 408 0
+-374 408 0
+-306 388 -409 0
+306 409 0
+-388 409 0
+-244 382 -410 0
+244 410 0
+-382 410 0
+-163 385 -411 0
+163 411 0
+-385 411 0
+-179 381 -412 0
+179 412 0
+-381 412 0
+-35 371 -413 0
+35 413 0
+-371 413 0
+-42 372 -414 0
+42 414 0
+-372 414 0
+-174 387 -415 0
+174 415 0
+-387 415 0
+-76 383 -416 0
+76 416 0
+-383 416 0
+-397 398 0
+-397 399 0
+-397 400 0
+-397 401 0
+-397 402 0
+-397 403 0
+-397 404 0
+-397 405 0
+-397 406 0
+-397 407 0
+-397 408 0
+-397 409 0
+-397 410 0
+-397 411 0
+-397 412 0
+-397 413 0
+-397 414 0
+-397 415 0
+-397 416 0
+397 -398 -399 -400 -401 -402 -403 -404 -405 -406 -407 -408 -409 -410 -411 -412 -413 -414 -415 -416 0
+378 -397 -396 0
+-378 397 -396 0
+-378 -397 396 0
+378 397 396 0
+-197 375 -419 0
+197 419 0
+-375 419 0
+-100 377 -420 0
+100 420 0
+-377 420 0
+-287 378 -421 0
+287 421 0
+-378 421 0
+-112 386 -422 0
+112 422 0
+-386 422 0
+-29 379 -423 0
+29 423 0
+-379 423 0
+-303 373 -424 0
+303 424 0
+-373 424 0
+-354 389 -425 0
+354 425 0
+-389 425 0
+-330 376 -426 0
+330 426 0
+-376 426 0
+-324 384 -427 0
+324 427 0
+-384 427 0
+-93 380 -428 0
+93 428 0
+-380 428 0
+-270 374 -429 0
+270 429 0
+-374 429 0
+-302 388 -430 0
+302 430 0
+-388 430 0
+-239 382 -431 0
+239 431 0
+-382 431 0
+-165 385 -432 0
+165 432 0
+-385 432 0
+-191 381 -433 0
+191 433 0
+-381 433 0
+-27 371 -434 0
+27 434 0
+-371 434 0
+-41 372 -435 0
+41 435 0
+-372 435 0
+-182 387 -436 0
+182 436 0
+-387 436 0
+-77 383 -437 0
+77 437 0
+-383 437 0
+-418 419 0
+-418 420 0
+-418 421 0
+-418 422 0
+-418 423 0
+-418 424 0
+-418 425 0
+-418 426 0
+-418 427 0
+-418 428 0
+-418 429 0
+-418 430 0
+-418 431 0
+-418 432 0
+-418 433 0
+-418 434 0
+-418 435 0
+-418 436 0
+-418 437 0
+418 -419 -420 -421 -422 -423 -424 -425 -426 -427 -428 -429 -430 -431 -432 -433 -434 -435 -436 -437 0
+386 -418 -417 0
+-386 418 -417 0
+-386 -418 417 0
+386 418 417 0
+-200 375 -440 0
+200 440 0
+-375 440 0
+-110 377 -441 0
+110 441 0
+-377 441 0
+-277 378 -442 0
+277 442 0
+-378 442 0
+-365 386 -443 0
+365 443 0
+-386 443 0
+-17 379 -444 0
+17 444 0
+-379 444 0
+-308 373 -445 0
+308 445 0
+-373 445 0
+-352 389 -446 0
+352 446 0
+-389 446 0
+-335 376 -447 0
+335 447 0
+-376 447 0
+-348 384 -448 0
+348 448 0
+-384 448 0
+-88 380 -449 0
+88 449 0
+-380 449 0
+-269 374 -450 0
+269 450 0
+-374 450 0
+-295 388 -451 0
+295 451 0
+-388 451 0
+-245 382 -452 0
+245 452 0
+-382 452 0
+-160 385 -453 0
+160 453 0
+-385 453 0
+-188 381 -454 0
+188 454 0
+-381 454 0
+-16 371 -455 0
+16 455 0
+-371 455 0
+-368 372 -456 0
+368 456 0
+-372 456 0
+-366 387 -457 0
+366 457 0
+-387 457 0
+-67 383 -458 0
+67 458 0
+-383 458 0
+-439 440 0
+-439 441 0
+-439 442 0
+-439 443 0
+-439 444 0
+-439 445 0
+-439 446 0
+-439 447 0
+-439 448 0
+-439 449 0
+-439 450 0
+-439 451 0
+-439 452 0
+-439 453 0
+-439 454 0
+-439 455 0
+-439 456 0
+-439 457 0
+-439 458 0
+439 -440 -441 -442 -443 -444 -445 -446 -447 -448 -449 -450 -451 -452 -453 -454 -455 -456 -457 -458 0
+373 -439 -438 0
+-373 439 -438 0
+-373 -439 438 0
+373 439 438 0
+-218 375 -461 0
+218 461 0
+-375 461 0
+-158 377 -462 0
+158 462 0
+-377 462 0
+-2 378 -463 0
+2 463 0
+-378 463 0
+-193 386 -464 0
+193 464 0
+-386 464 0
+-54 379 -465 0
+54 465 0
+-379 465 0
+-234 373 -466 0
+234 466 0
+-373 466 0
+-4 389 -467 0
+4 467 0
+-389 467 0
+-252 376 -468 0
+252 468 0
+-376 468 0
+-259 384 -469 0
+259 469 0
+-384 469 0
+-161 380 -470 0
+161 470 0
+-380 470 0
+-322 374 -471 0
+322 471 0
+-374 471 0
+-266 388 -472 0
+266 472 0
+-388 472 0
+-139 382 -473 0
+139 473 0
+-382 473 0
+-51 385 -474 0
+51 474 0
+-385 474 0
+-246 381 -475 0
+246 475 0
+-381 475 0
+-45 371 -476 0
+45 476 0
+-371 476 0
+-342 372 -477 0
+342 477 0
+-372 477 0
+-278 387 -478 0
+278 478 0
+-387 478 0
+-1 383 -479 0
+1 479 0
+-383 479 0
+-460 461 0
+-460 462 0
+-460 463 0
+-460 464 0
+-460 465 0
+-460 466 0
+-460 467 0
+-460 468 0
+-460 469 0
+-460 470 0
+-460 471 0
+-460 472 0
+-460 473 0
+-460 474 0
+-460 475 0
+-460 476 0
+-460 477 0
+-460 478 0
+-460 479 0
+460 -461 -462 -463 -464 -465 -466 -467 -468 -469 -470 -471 -472 -473 -474 -475 -476 -477 -478 -479 0
+389 -460 -459 0
+-389 460 -459 0
+-389 -460 459 0
+389 460 459 0
+-6 375 -482 0
+6 482 0
+-375 482 0
+-138 377 -483 0
+138 483 0
+-377 483 0
+-238 378 -484 0
+238 484 0
+-378 484 0
+-202 386 -485 0
+202 485 0
+-386 485 0
+-43 379 -486 0
+43 486 0
+-379 486 0
+-60 373 -487 0
+60 487 0
+-373 487 0
+-144 389 -488 0
+144 488 0
+-389 488 0
+-13 376 -489 0
+13 489 0
+-376 489 0
+-326 384 -490 0
+326 490 0
+-384 490 0
+-194 380 -491 0
+194 491 0
+-380 491 0
+-343 374 -492 0
+343 492 0
+-374 492 0
+-121 388 -493 0
+121 493 0
+-388 493 0
+-310 382 -494 0
+310 494 0
+-382 494 0
+-34 385 -495 0
+34 495 0
+-385 495 0
+-5 381 -496 0
+5 496 0
+-381 496 0
+-50 371 -497 0
+50 497 0
+-371 497 0
+-97 372 -498 0
+97 498 0
+-372 498 0
+-311 387 -499 0
+311 499 0
+-387 499 0
+-217 383 -500 0
+217 500 0
+-383 500 0
+-481 482 0
+-481 483 0
+-481 484 0
+-481 485 0
+-481 486 0
+-481 487 0
+-481 488 0
+-481 489 0
+-481 490 0
+-481 491 0
+-481 492 0
+-481 493 0
+-481 494 0
+-481 495 0
+-481 496 0
+-481 497 0
+-481 498 0
+-481 499 0
+-481 500 0
+481 -482 -483 -484 -485 -486 -487 -488 -489 -490 -491 -492 -493 -494 -495 -496 -497 -498 -499 -500 0
+376 -481 -480 0
+-376 481 -480 0
+-376 -481 480 0
+376 481 480 0
+-119 375 -503 0
+119 503 0
+-375 503 0
+-58 377 -504 0
+58 504 0
+-377 504 0
+-21 378 -505 0
+21 505 0
+-378 505 0
+-136 386 -506 0
+136 506 0
+-386 506 0
+-9 379 -507 0
+9 507 0
+-379 507 0
+-87 373 -508 0
+87 508 0
+-373 508 0
+-192 389 -509 0
+192 509 0
+-389 509 0
+-344 376 -510 0
+344 510 0
+-376 510 0
+-321 384 -511 0
+321 511 0
+-384 511 0
+-336 380 -512 0
+336 512 0
+-380 512 0
+-332 374 -513 0
+332 513 0
+-374 513 0
+-73 388 -514 0
+73 514 0
+-388 514 0
+-216 382 -515 0
+216 515 0
+-382 515 0
+-350 385 -516 0
+350 516 0
+-385 516 0
+-221 381 -517 0
+221 517 0
+-381 517 0
+-10 371 -518 0
+10 518 0
+-371 518 0
+-290 372 -519 0
+290 519 0
+-372 519 0
+-233 387 -520 0
+233 520 0
+-387 520 0
+-3 383 -521 0
+3 521 0
+-383 521 0
+-502 503 0
+-502 504 0
+-502 505 0
+-502 506 0
+-502 507 0
+-502 508 0
+-502 509 0
+-502 510 0
+-502 511 0
+-502 512 0
+-502 513 0
+-502 514 0
+-502 515 0
+-502 516 0
+-502 517 0
+-502 518 0
+-502 519 0
+-502 520 0
+-502 521 0
+502 -503 -504 -505 -506 -507 -508 -509 -510 -511 -512 -513 -514 -515 -516 -517 -518 -519 -520 -521 0
+388 -502 -501 0
+-388 502 -501 0
+-388 -502 501 0
+388 502 501 0
+-199 375 -524 0
+199 524 0
+-375 524 0
+-108 377 -525 0
+108 525 0
+-377 525 0
+-274 378 -526 0
+274 526 0
+-378 526 0
+-114 386 -527 0
+114 527 0
+-386 527 0
+-15 379 -528 0
+15 528 0
+-379 528 0
+-307 373 -529 0
+307 529 0
+-373 529 0
+-351 389 -530 0
+351 530 0
+-389 530 0
+-337 376 -531 0
+337 531 0
+-376 531 0
+-349 384 -532 0
+349 532 0
+-384 532 0
+-91 380 -533 0
+91 533 0
+-380 533 0
+-268 374 -534 0
+268 534 0
+-374 534 0
+-296 388 -535 0
+296 535 0
+-388 535 0
+-249 382 -536 0
+249 536 0
+-382 536 0
+-159 385 -537 0
+159 537 0
+-385 537 0
+-189 381 -538 0
+189 538 0
+-381 538 0
+-33 371 -539 0
+33 539 0
+-371 539 0
+-39 372 -540 0
+39 540 0
+-372 540 0
+-181 387 -541 0
+181 541 0
+-387 541 0
+-64 383 -542 0
+64 542 0
+-383 542 0
+-523 524 0
+-523 525 0
+-523 526 0
+-523 527 0
+-523 528 0
+-523 529 0
+-523 530 0
+-523 531 0
+-523 532 0
+-523 533 0
+-523 534 0
+-523 535 0
+-523 536 0
+-523 537 0
+-523 538 0
+-523 539 0
+-523 540 0
+-523 541 0
+-523 542 0
+523 -524 -525 -526 -527 -528 -529 -530 -531 -532 -533 -534 -535 -536 -537 -538 -539 -540 -541 -542 0
+382 -523 -522 0
+-382 523 -522 0
+-382 -523 522 0
+382 523 522 0
+-201 375 -545 0
+201 545 0
+-375 545 0
+-105 377 -546 0
+105 546 0
+-377 546 0
+-276 378 -547 0
+276 547 0
+-378 547 0
+-104 386 -548 0
+104 548 0
+-386 548 0
+-20 379 -549 0
+20 549 0
+-379 549 0
+-309 373 -550 0
+309 550 0
+-373 550 0
+-339 389 -551 0
+339 551 0
+-389 551 0
+-334 376 -552 0
+334 552 0
+-376 552 0
+-346 384 -553 0
+346 553 0
+-384 553 0
+-89 380 -554 0
+89 554 0
+-380 554 0
+-267 374 -555 0
+267 555 0
+-374 555 0
+-294 388 -556 0
+294 556 0
+-388 556 0
+-247 382 -557 0
+247 557 0
+-382 557 0
+-162 385 -558 0
+162 558 0
+-385 558 0
+-186 381 -559 0
+186 559 0
+-381 559 0
+-19 371 -560 0
+19 560 0
+-371 560 0
+-57 372 -561 0
+57 561 0
+-372 561 0
+-180 387 -562 0
+180 562 0
+-387 562 0
+-66 383 -563 0
+66 563 0
+-383 563 0
+-544 545 0
+-544 546 0
+-544 547 0
+-544 548 0
+-544 549 0
+-544 550 0
+-544 551 0
+-544 552 0
+-544 553 0
+-544 554 0
+-544 555 0
+-544 556 0
+-544 557 0
+-544 558 0
+-544 559 0
+-544 560 0
+-544 561 0
+-544 562 0
+-544 563 0
+544 -545 -546 -547 -548 -549 -550 -551 -552 -553 -554 -555 -556 -557 -558 -559 -560 -561 -562 -563 0
+372 -544 -543 0
+-372 544 -543 0
+-372 -544 543 0
+372 544 543 0
+-196 375 -566 0
+196 566 0
+-375 566 0
+-103 377 -567 0
+103 567 0
+-377 567 0
+-289 378 -568 0
+289 568 0
+-378 568 0
+-113 386 -569 0
+113 569 0
+-386 569 0
+-26 379 -570 0
+26 570 0
+-379 570 0
+-301 373 -571 0
+301 571 0
+-373 571 0
+-347 389 -572 0
+347 572 0
+-389 572 0
+-331 376 -573 0
+331 573 0
+-376 573 0
+-325 384 -574 0
+325 574 0
+-384 574 0
+-92 380 -575 0
+92 575 0
+-380 575 0
+-273 374 -576 0
+273 576 0
+-374 576 0
+-304 388 -577 0
+304 577 0
+-388 577 0
+-236 382 -578 0
+236 578 0
+-382 578 0
+-164 385 -579 0
+164 579 0
+-385 579 0
+-178 381 -580 0
+178 580 0
+-381 580 0
+-25 371 -581 0
+25 581 0
+-371 581 0
+-40 372 -582 0
+40 582 0
+-372 582 0
+-173 387 -583 0
+173 583 0
+-387 583 0
+-78 383 -584 0
+78 584 0
+-383 584 0
+-565 566 0
+-565 567 0
+-565 568 0
+-565 569 0
+-565 570 0
+-565 571 0
+-565 572 0
+-565 573 0
+-565 574 0
+-565 575 0
+-565 576 0
+-565 577 0
+-565 578 0
+-565 579 0
+-565 580 0
+-565 581 0
+-565 582 0
+-565 583 0
+-565 584 0
+565 -566 -567 -568 -569 -570 -571 -572 -573 -574 -575 -576 -577 -578 -579 -580 -581 -582 -583 -584 0
+387 -565 -564 0
+-387 565 -564 0
+-387 -565 564 0
+387 565 564 0
+-198 375 -587 0
+198 587 0
+-375 587 0
+-101 377 -588 0
+101 588 0
+-377 588 0
+-275 378 -589 0
+275 589 0
+-378 589 0
+-370 386 -590 0
+370 590 0
+-386 590 0
+-31 379 -591 0
+31 591 0
+-379 591 0
+-305 373 -592 0
+305 592 0
+-373 592 0
+-355 389 -593 0
+355 593 0
+-389 593 0
+-329 376 -594 0
+329 594 0
+-376 594 0
+-323 384 -595 0
+323 595 0
+-384 595 0
+-90 380 -596 0
+90 596 0
+-380 596 0
+-271 374 -597 0
+271 597 0
+-374 597 0
+-299 388 -598 0
+299 598 0
+-388 598 0
+-248 382 -599 0
+248 599 0
+-382 599 0
+-166 385 -600 0
+166 600 0
+-385 600 0
+-190 381 -601 0
+190 601 0
+-381 601 0
+-30 371 -602 0
+30 602 0
+-371 602 0
+-361 372 -603 0
+361 603 0
+-372 603 0
+-367 387 -604 0
+367 604 0
+-387 604 0
+-65 383 -605 0
+65 605 0
+-383 605 0
+-586 587 0
+-586 588 0
+-586 589 0
+-586 590 0
+-586 591 0
+-586 592 0
+-586 593 0
+-586 594 0
+-586 595 0
+-586 596 0
+-586 597 0
+-586 598 0
+-586 599 0
+-586 600 0
+-586 601 0
+-586 602 0
+-586 603 0
+-586 604 0
+-586 605 0
+586 -587 -588 -589 -590 -591 -592 -593 -594 -595 -596 -597 -598 -599 -600 -601 -602 -603 -604 -605 0
+385 -586 -585 0
+-385 586 -585 0
+-385 -586 585 0
+385 586 585 0
+-395 396 0
+-395 417 0
+-395 438 0
+-395 459 0
+-395 480 0
+-395 501 0
+-395 522 0
+-395 543 0
+-395 564 0
+-395 585 0
+395 -396 -417 -438 -459 -480 -501 -522 -543 -564 -585 0
+-319 375 -609 0
+319 609 0
+-375 609 0
+-279 377 -610 0
+279 610 0
+-377 610 0
+-282 378 -611 0
+282 611 0
+-378 611 0
+-176 386 -612 0
+176 612 0
+-386 612 0
+-37 379 -613 0
+37 613 0
+-379 613 0
+-62 373 -614 0
+62 614 0
+-373 614 0
+-232 389 -615 0
+232 615 0
+-389 615 0
+-147 376 -616 0
+147 616 0
+-376 616 0
+-131 384 -617 0
+131 617 0
+-384 617 0
+-55 380 -618 0
+55 618 0
+-380 618 0
+-243 374 -619 0
+243 619 0
+-374 619 0
+-28 388 -620 0
+28 620 0
+-388 620 0
+-143 382 -621 0
+143 621 0
+-382 621 0
+-120 385 -622 0
+120 622 0
+-385 622 0
+-340 381 -623 0
+340 623 0
+-381 623 0
+-116 371 -624 0
+116 624 0
+-371 624 0
+-250 372 -625 0
+250 625 0
+-372 625 0
+-317 387 -626 0
+317 626 0
+-387 626 0
+-187 383 -627 0
+187 627 0
+-383 627 0
+-608 609 0
+-608 610 0
+-608 611 0
+-608 612 0
+-608 613 0
+-608 614 0
+-608 615 0
+-608 616 0
+-608 617 0
+-608 618 0
+-608 619 0
+-608 620 0
+-608 621 0
+-608 622 0
+-608 623 0
+-608 624 0
+-608 625 0
+-608 626 0
+-608 627 0
+-608 358 0
+608 -609 -610 -611 -612 -613 -614 -615 -616 -617 -618 -619 -620 -621 -622 -623 -624 -625 -626 -627 -358 0
+375 -608 -607 0
+-375 608 -607 0
+-375 -608 607 0
+375 608 607 0
+-318 375 -630 0
+318 630 0
+-375 630 0
+-284 377 -631 0
+284 631 0
+-377 631 0
+-280 378 -632 0
+280 632 0
+-378 632 0
+-177 386 -633 0
+177 633 0
+-386 633 0
+-38 379 -634 0
+38 634 0
+-379 634 0
+-59 373 -635 0
+59 635 0
+-373 635 0
+-230 389 -636 0
+230 636 0
+-389 636 0
+-145 376 -637 0
+145 637 0
+-376 637 0
+-124 384 -638 0
+124 638 0
+-384 638 0
+-56 380 -639 0
+56 639 0
+-380 639 0
+-175 374 -640 0
+175 640 0
+-374 640 0
+-18 388 -641 0
+18 641 0
+-388 641 0
+-142 382 -642 0
+142 642 0
+-382 642 0
+-115 385 -643 0
+115 643 0
+-385 643 0
+-353 381 -644 0
+353 644 0
+-381 644 0
+-117 371 -645 0
+117 645 0
+-371 645 0
+-251 372 -646 0
+251 646 0
+-372 646 0
+-327 387 -647 0
+327 647 0
+-387 647 0
+-185 383 -648 0
+185 648 0
+-383 648 0
+-629 630 0
+-629 631 0
+-629 632 0
+-629 633 0
+-629 634 0
+-629 635 0
+-629 636 0
+-629 637 0
+-629 638 0
+-629 639 0
+-629 640 0
+-629 641 0
+-629 642 0
+-629 643 0
+-629 644 0
+-629 645 0
+-629 646 0
+-629 647 0
+-629 648 0
+-629 359 0
+629 -630 -631 -632 -633 -634 -635 -636 -637 -638 -639 -640 -641 -642 -643 -644 -645 -646 -647 -648 -359 0
+377 -629 -628 0
+-377 629 -628 0
+-377 -629 628 0
+377 629 628 0
+-315 375 -651 0
+315 651 0
+-375 651 0
+-288 377 -652 0
+288 652 0
+-377 652 0
+-285 378 -653 0
+285 653 0
+-378 653 0
+-237 386 -654 0
+237 654 0
+-386 654 0
+-22 379 -655 0
+22 655 0
+-379 655 0
+-61 373 -656 0
+61 656 0
+-373 656 0
+-235 389 -657 0
+235 657 0
+-389 657 0
+-137 376 -658 0
+137 658 0
+-376 658 0
+-133 384 -659 0
+133 659 0
+-384 659 0
+-52 380 -660 0
+52 660 0
+-380 660 0
+-241 374 -661 0
+241 661 0
+-374 661 0
+-24 388 -662 0
+24 662 0
+-388 662 0
+-141 382 -663 0
+141 663 0
+-382 663 0
+-107 385 -664 0
+107 664 0
+-385 664 0
+-338 381 -665 0
+338 665 0
+-381 665 0
+-109 371 -666 0
+109 666 0
+-371 666 0
+-253 372 -667 0
+253 667 0
+-372 667 0
+-320 387 -668 0
+320 668 0
+-387 668 0
+-184 383 -669 0
+184 669 0
+-383 669 0
+-650 651 0
+-650 652 0
+-650 653 0
+-650 654 0
+-650 655 0
+-650 656 0
+-650 657 0
+-650 658 0
+-650 659 0
+-650 660 0
+-650 661 0
+-650 662 0
+-650 663 0
+-650 664 0
+-650 665 0
+-650 666 0
+-650 667 0
+-650 668 0
+-650 669 0
+-650 356 0
+650 -651 -652 -653 -654 -655 -656 -657 -658 -659 -660 -661 -662 -663 -664 -665 -666 -667 -668 -669 -356 0
+371 -650 -649 0
+-371 650 -649 0
+-371 -650 649 0
+371 650 649 0
+-312 375 -672 0
+312 672 0
+-375 672 0
+-281 377 -673 0
+281 673 0
+-377 673 0
+-283 378 -674 0
+283 674 0
+-378 674 0
+-240 386 -675 0
+240 675 0
+-386 675 0
+-36 379 -676 0
+36 676 0
+-379 676 0
+-63 373 -677 0
+63 677 0
+-373 677 0
+-231 389 -678 0
+231 678 0
+-389 678 0
+-146 376 -679 0
+146 679 0
+-376 679 0
+-128 384 -680 0
+128 680 0
+-384 680 0
+-53 380 -681 0
+53 681 0
+-380 681 0
+-242 374 -682 0
+242 682 0
+-374 682 0
+-32 388 -683 0
+32 683 0
+-388 683 0
+-140 382 -684 0
+140 684 0
+-382 684 0
+-118 385 -685 0
+118 685 0
+-385 685 0
+-341 381 -686 0
+341 686 0
+-381 686 0
+-111 371 -687 0
+111 687 0
+-371 687 0
+-254 372 -688 0
+254 688 0
+-372 688 0
+-314 387 -689 0
+314 689 0
+-387 689 0
+-183 383 -690 0
+183 690 0
+-383 690 0
+-671 672 0
+-671 673 0
+-671 674 0
+-671 675 0
+-671 676 0
+-671 677 0
+-671 678 0
+-671 679 0
+-671 680 0
+-671 681 0
+-671 682 0
+-671 683 0
+-671 684 0
+-671 685 0
+-671 686 0
+-671 687 0
+-671 688 0
+-671 689 0
+-671 690 0
+-671 357 0
+671 -672 -673 -674 -675 -676 -677 -678 -679 -680 -681 -682 -683 -684 -685 -686 -687 -688 -689 -690 -357 0
+374 -671 -670 0
+-374 671 -670 0
+-374 -671 670 0
+374 671 670 0
+-606 607 0
+-606 628 0
+-606 649 0
+-606 670 0
+606 -607 -628 -649 -670 0
+-148 375 -694 0
+148 694 0
+-375 694 0
+-125 377 -695 0
+125 695 0
+-377 695 0
+-127 378 -696 0
+127 696 0
+-378 696 0
+-71 386 -697 0
+71 697 0
+-386 697 0
+-204 379 -698 0
+204 698 0
+-379 698 0
+-226 373 -699 0
+226 699 0
+-373 699 0
+-81 389 -700 0
+81 700 0
+-389 700 0
+-292 376 -701 0
+292 701 0
+-376 701 0
+-46 384 -702 0
+46 702 0
+-384 702 0
+-229 380 -703 0
+229 703 0
+-380 703 0
+-72 374 -704 0
+72 704 0
+-374 704 0
+-214 388 -705 0
+214 705 0
+-388 705 0
+-209 382 -706 0
+209 706 0
+-382 706 0
+-264 385 -707 0
+264 707 0
+-385 707 0
+-98 381 -708 0
+98 708 0
+-381 708 0
+-260 371 -709 0
+260 709 0
+-371 709 0
+-172 372 -710 0
+172 710 0
+-372 710 0
+-149 387 -711 0
+149 711 0
+-387 711 0
+-7 383 -712 0
+7 712 0
+-383 712 0
+-693 694 0
+-693 695 0
+-693 696 0
+-693 697 0
+-693 698 0
+-693 699 0
+-693 700 0
+-693 701 0
+-693 702 0
+-693 703 0
+-693 704 0
+-693 705 0
+-693 706 0
+-693 707 0
+-693 708 0
+-693 709 0
+-693 710 0
+-693 711 0
+-693 712 0
+-693 362 0
+693 -694 -695 -696 -697 -698 -699 -700 -701 -702 -703 -704 -705 -706 -707 -708 -709 -710 -711 -712 -362 0
+381 -693 -692 0
+-381 693 -692 0
+-381 -693 692 0
+381 693 692 0
+-156 375 -715 0
+156 715 0
+-375 715 0
+-135 377 -716 0
+135 716 0
+-377 716 0
+-132 378 -717 0
+132 717 0
+-378 717 0
+-74 386 -718 0
+74 718 0
+-386 718 0
+-298 379 -719 0
+298 719 0
+-379 719 0
+-224 373 -720 0
+224 720 0
+-373 720 0
+-84 389 -721 0
+84 721 0
+-389 721 0
+-313 376 -722 0
+313 722 0
+-376 722 0
+-48 384 -723 0
+48 723 0
+-384 723 0
+-227 380 -724 0
+227 724 0
+-380 724 0
+-68 374 -725 0
+68 725 0
+-374 725 0
+-210 388 -726 0
+210 726 0
+-388 726 0
+-203 382 -727 0
+203 727 0
+-382 727 0
+-255 385 -728 0
+255 728 0
+-385 728 0
+-95 381 -729 0
+95 729 0
+-381 729 0
+-256 371 -730 0
+256 730 0
+-371 730 0
+-170 372 -731 0
+170 731 0
+-372 731 0
+-153 387 -732 0
+153 732 0
+-387 732 0
+-14 383 -733 0
+14 733 0
+-383 733 0
+-714 715 0
+-714 716 0
+-714 717 0
+-714 718 0
+-714 719 0
+-714 720 0
+-714 721 0
+-714 722 0
+-714 723 0
+-714 724 0
+-714 725 0
+-714 726 0
+-714 727 0
+-714 728 0
+-714 729 0
+-714 730 0
+-714 731 0
+-714 732 0
+-714 733 0
+-714 369 0
+714 -715 -716 -717 -718 -719 -720 -721 -722 -723 -724 -725 -726 -727 -728 -729 -730 -731 -732 -733 -369 0
+379 -714 -713 0
+-379 714 -713 0
+-379 -714 713 0
+379 714 713 0
+-152 375 -736 0
+152 736 0
+-375 736 0
+-129 377 -737 0
+129 737 0
+-377 737 0
+-123 378 -738 0
+123 738 0
+-378 738 0
+-85 386 -739 0
+85 739 0
+-386 739 0
+-206 379 -740 0
+206 740 0
+-379 740 0
+-222 373 -741 0
+222 741 0
+-373 741 0
+-79 389 -742 0
+79 742 0
+-389 742 0
+-291 376 -743 0
+291 743 0
+-376 743 0
+-44 384 -744 0
+44 744 0
+-384 744 0
+-220 380 -745 0
+220 745 0
+-380 745 0
+-80 374 -746 0
+80 746 0
+-374 746 0
+-207 388 -747 0
+207 747 0
+-388 747 0
+-213 382 -748 0
+213 748 0
+-382 748 0
+-261 385 -749 0
+261 749 0
+-385 749 0
+-167 381 -750 0
+167 750 0
+-381 750 0
+-263 371 -751 0
+263 751 0
+-371 751 0
+-169 372 -752 0
+169 752 0
+-372 752 0
+-157 387 -753 0
+157 753 0
+-387 753 0
+-11 383 -754 0
+11 754 0
+-383 754 0
+-735 736 0
+-735 737 0
+-735 738 0
+-735 739 0
+-735 740 0
+-735 741 0
+-735 742 0
+-735 743 0
+-735 744 0
+-735 745 0
+-735 746 0
+-735 747 0
+-735 748 0
+-735 749 0
+-735 750 0
+-735 751 0
+-735 752 0
+-735 753 0
+-735 754 0
+-735 364 0
+735 -736 -737 -738 -739 -740 -741 -742 -743 -744 -745 -746 -747 -748 -749 -750 -751 -752 -753 -754 -364 0
+384 -735 -734 0
+-384 735 -734 0
+-384 -735 734 0
+384 735 734 0
+-150 375 -757 0
+150 757 0
+-375 757 0
+-134 377 -758 0
+134 758 0
+-377 758 0
+-130 378 -759 0
+130 759 0
+-378 759 0
+-69 386 -760 0
+69 760 0
+-386 760 0
+-300 379 -761 0
+300 761 0
+-379 761 0
+-223 373 -762 0
+223 762 0
+-373 762 0
+-86 389 -763 0
+86 763 0
+-389 763 0
+-316 376 -764 0
+316 764 0
+-376 764 0
+-49 384 -765 0
+49 765 0
+-384 765 0
+-228 380 -766 0
+228 766 0
+-380 766 0
+-70 374 -767 0
+70 767 0
+-374 767 0
+-208 388 -768 0
+208 768 0
+-388 768 0
+-211 382 -769 0
+211 769 0
+-382 769 0
+-257 385 -770 0
+257 770 0
+-385 770 0
+-94 381 -771 0
+94 771 0
+-381 771 0
+-258 371 -772 0
+258 772 0
+-371 772 0
+-171 372 -773 0
+171 773 0
+-372 773 0
+-155 387 -774 0
+155 774 0
+-387 774 0
+-8 383 -775 0
+8 775 0
+-383 775 0
+-756 757 0
+-756 758 0
+-756 759 0
+-756 760 0
+-756 761 0
+-756 762 0
+-756 763 0
+-756 764 0
+-756 765 0
+-756 766 0
+-756 767 0
+-756 768 0
+-756 769 0
+-756 770 0
+-756 771 0
+-756 772 0
+-756 773 0
+-756 774 0
+-756 775 0
+-756 360 0
+756 -757 -758 -759 -760 -761 -762 -763 -764 -765 -766 -767 -768 -769 -770 -771 -772 -773 -774 -775 -360 0
+380 -756 -755 0
+-380 756 -755 0
+-380 -756 755 0
+380 756 755 0
+-154 375 -778 0
+154 778 0
+-375 778 0
+-122 377 -779 0
+122 779 0
+-377 779 0
+-126 378 -780 0
+126 780 0
+-378 780 0
+-83 386 -781 0
+83 781 0
+-386 781 0
+-205 379 -782 0
+205 782 0
+-379 782 0
+-225 373 -783 0
+225 783 0
+-373 783 0
+-82 389 -784 0
+82 784 0
+-389 784 0
+-293 376 -785 0
+293 785 0
+-376 785 0
+-47 384 -786 0
+47 786 0
+-384 786 0
+-219 380 -787 0
+219 787 0
+-380 787 0
+-75 374 -788 0
+75 788 0
+-374 788 0
+-212 388 -789 0
+212 789 0
+-388 789 0
+-215 382 -790 0
+215 790 0
+-382 790 0
+-265 385 -791 0
+265 791 0
+-385 791 0
+-96 381 -792 0
+96 792 0
+-381 792 0
+-262 371 -793 0
+262 793 0
+-371 793 0
+-168 372 -794 0
+168 794 0
+-372 794 0
+-151 387 -795 0
+151 795 0
+-387 795 0
+-12 383 -796 0
+12 796 0
+-383 796 0
+-777 778 0
+-777 779 0
+-777 780 0
+-777 781 0
+-777 782 0
+-777 783 0
+-777 784 0
+-777 785 0
+-777 786 0
+-777 787 0
+-777 788 0
+-777 789 0
+-777 790 0
+-777 791 0
+-777 792 0
+-777 793 0
+-777 794 0
+-777 795 0
+-777 796 0
+-777 363 0
+777 -778 -779 -780 -781 -782 -783 -784 -785 -786 -787 -788 -789 -790 -791 -792 -793 -794 -795 -796 -363 0
+383 -777 -776 0
+-383 777 -776 0
+-383 -777 776 0
+383 777 776 0
+-691 692 0
+-691 713 0
+-691 734 0
+-691 755 0
+-691 776 0
+691 -692 -713 -734 -755 -776 0
+-394 395 0
+-394 606 0
+-394 691 0
+394 -395 -606 -691 0
+-392 393 0
+-392 394 0
+392 -393 -394 0
+-797 389 0
+797 -389 0
+-392 797 -391 0
+392 391 0
+-797 391 0
+390 -391 0
+-390 391  0
+

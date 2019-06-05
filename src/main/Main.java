@@ -78,7 +78,7 @@ public class Main {
 		PControlAF PCAF = new PControlAF(CAF);
 		test_PCAF pcaftest = new test_PCAF(PCAF);
 		
-		
+//		System.out.println(PCAF.toString());
 		/*
 		test_PCAF pcaftest = new test_PCAF();
 		pcaftest.load_PCAF_from_file(path+file_name);

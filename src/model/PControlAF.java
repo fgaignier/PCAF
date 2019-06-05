@@ -18,6 +18,9 @@ import parser.CAFParser;
  *
  */
 public class PControlAF extends ControlAF {
+	public static double equiproba = 0.5;
+	public static double onethird = 0.333333333;
+	
 	// uncertain arguments
 	protected Map <CArgument, Double> uargProba;
 	// uncertain attacks
@@ -49,7 +52,7 @@ public class PControlAF extends ControlAF {
 		Set<CArgument> args = CAF.getAllArguments();
 		for(CArgument arg : args) {
 			if(arg.getType() == CArgument.Type.UNCERTAIN) {
-				this.addArgument(arg, 0.5);
+				this.addArgument(arg, equiproba);
 			} else {
 				this.addArgument(arg);
 			}
@@ -69,11 +72,11 @@ public class PControlAF extends ControlAF {
 		}
 		//uncertain (proba = 1/2)
 		for(CAttack att : uncertain) {
-			this.addAttack(att, 0.5);
+			this.addAttack(att, equiproba);
 		}
 		//undirected (proba = [1/3, 1/3])
 		for(CAttack att : undirected) {
-			this.addAttack(att, 1/3, 1/3);
+			this.addAttack(att, onethird, onethird);
 		}
 		// sets the target
 		super.setTarget(CAF.getTarget());
