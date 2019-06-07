@@ -22,6 +22,8 @@ import solvers.Monte_Carlo_CAF_Solver_Heuristic;
 public class benchmark_CAF_Controllability_Heuristic {
 	public static String log_file = "controllabilityH.txt";
 	public static String stats_file = "controllabilityH_stats.csv";
+	public static String prefixCred = "CRE";
+	public static String prefixSkep = "SKE";
 	public static double error = 0.01;
 	public static String csv_sep = ";";
 
@@ -84,8 +86,14 @@ public class benchmark_CAF_Controllability_Heuristic {
 				log.append("####################");
 				log.append(System.getProperty("line.separator"));
 			});
-			util.Util.saveToFile(log.toString(), path + "\\" + log_file);
-			util.Util.saveToFile(stats_csv.toString(), path + "\\" + stats_file);
+			if(type == ControllabilityEncoder.CREDULOUS) {
+				util.Util.saveToFile(log.toString(), path + "\\" + prefixCred + log_file);
+				util.Util.saveToFile(stats_csv.toString(), path + "\\" + prefixCred + stats_file);
+			} else {
+				util.Util.saveToFile(log.toString(), path + "\\" + prefixSkep + log_file);
+				util.Util.saveToFile(stats_csv.toString(), path + "\\" + prefixSkep + stats_file);
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,5 @@
 package solvers;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -152,19 +151,12 @@ public class Most_Probable_Controlling_Entities_Solver {
 			Map<StableControlConfiguration, Integer> result = new HashMap<StableControlConfiguration, Integer>();
 			Map<StableControlConfiguration, SupportingPowerRecorder> temp_recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 			
-			// temp
-			StringBuffer completions = new StringBuffer();
-			
 			this.controllingPower = -1;
 			double current_max = 0;
 			int N = Util.MINIMUM_SIMULATION;
 			int current_simu = 0;
 			while(current_simu < N || current_simu < util.Util.MINIMUM_SIMULATION) {
 				ArgumentFramework af = this.generator.getRandomRootCompletion();
-				
-				//temp
-				completions.append(af.toString());
-				//System.out.println(af.toString());
 				
 				CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
 				Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
@@ -204,14 +196,6 @@ public class Most_Probable_Controlling_Entities_Solver {
 				//System.out.println("nbr of simulations needed: " + N);
 			}
 
-			try {
-				util.Util.saveToFile(completions.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\completions.txt");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
 			//System.out.println("number of simulation to reach error level of : " + error + " is: " + current_simu);
 			this.controllingPower = current_max;
 			this.total_simulations = current_simu;
