@@ -7,11 +7,11 @@ import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import generators.ControllabilityEncoder;
 import model.ControlAF;
-import model.PControlAF;
 import model.StableControlConfiguration;
 import parser.CAFParser;
-import solvers.Most_Probable_Controlling_Entities_Solver;
+import solvers.Monte_Carlo_CAF_Solver;
 
 /**
  * must indicate the error level
@@ -19,13 +19,13 @@ import solvers.Most_Probable_Controlling_Entities_Solver;
  * @author Fabrice
  *
  */
-public class benchmark_CAF_Cred_ContPower {
-	public static String log_file = "controllingpower.txt";
-	public static String stats_file = "controllingpower_stats.csv";
+public class benchmark_CAF_Controllability {
+	public static String log_file = "controllability.txt";
+	public static String stats_file = "controllability_stats.csv";
 	public static double error = 0.01;
 	public static String csv_sep = ";";
 
-	public static void claculate_mpce(String path) {
+	public static void claculate_cc(String path, int type) {
 		StringBuffer log = new StringBuffer();
 		StringBuffer stats_csv = new StringBuffer();
 		stats_csv.append(getHeader());
@@ -40,12 +40,19 @@ public class benchmark_CAF_Cred_ContPower {
 				stats_csv.append(n.toString());
 				stats_csv.append(csv_sep);
 				ControlAF caf = CAFParser.parse(n.toString());
-				// direct transformation to pcaf to get the mpce if no cc available
-				PControlAF pcaf = new PControlAF(caf);
-				Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(pcaf);
+				//System.out.println(caf.toString());
+				// here we just check controllability of CAF. Controlling power will therefore
+				// be 1 (if success) or -2 (fail)
+				Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(caf);
+				
+				Set<StableControlConfiguration> ccs = null;
 				//STARTS THE TIMER JUST BEFORE CALCULATION
 				timer.start();
-				Set<StableControlConfiguration> mpces = solver.getCredulousControlConfigurations(error);
+				if(type == ControllabilityEncoder.CREDULOUS) {
+					ccs = solver.getCredulousControlConfigurations(error);
+				} else {
+					ccs = solver.getSkepticalControlConfigurations(error);
+				}
 				// STOPS THE TIMER AND GET CALCULATION TIME
 				long time = timer.stop();
 				
@@ -56,6 +63,7 @@ public class benchmark_CAF_Cred_ContPower {
 				log.append(System.getProperty("line.separator"));
 				log.append("total number of simulations = " + solver.getNumberSimu());
 				System.out.println("controlling power = " + solver.getControllingPower());
+				System.out.println("total number of simulations = " + solver.getNumberSimu());
 				log.append(System.getProperty("line.separator"));
 
 				// stats
@@ -69,13 +77,11 @@ public class benchmark_CAF_Cred_ContPower {
 				stats_csv.append(csv_sep);
 				stats_csv.append(System.getProperty("line.separator"));
 				
-				int i=1;
-				for(StableControlConfiguration mpce : mpces) {
-					log.append("######### mpce " + i + " ###########");
+				if(ccs != null) {
+					logControlConfigurations(ccs, log);
+				} else {
+					log.append("not controllable");
 					log.append(System.getProperty("line.separator"));
-					log.append(mpce.toString());
-					log.append(System.getProperty("line.separator"));
-					i++;
 				}
 				log.append("####################");
 				log.append(System.getProperty("line.separator"));
@@ -87,6 +93,17 @@ public class benchmark_CAF_Cred_ContPower {
 		}
 	}
 
+	public static void logControlConfigurations(Set<StableControlConfiguration> ccs, StringBuffer log) {
+		int i=1;
+		for(StableControlConfiguration cc : ccs) {
+			log.append("######### mpce " + i + " ###########");
+			log.append(System.getProperty("line.separator"));
+			log.append(cc.toString());
+			log.append(System.getProperty("line.separator"));
+			i++;
+		}
+	}
+	
 	public static String getHeader() {
 		StringBuffer result = new StringBuffer();
 		result.append("file");
@@ -102,11 +119,11 @@ public class benchmark_CAF_Cred_ContPower {
 		return result.toString();
 	}
 	public static void main(String[] args) {
-		if(args.length < 1) {
-			System.out.println("must give the target directory as parameter");
+		if(args.length < 2) {
+			System.out.println("parameters: directory type (0=CREDULOUS, 1=SKEPTICAL)");
 			System.exit(1);
 		}
-		claculate_mpce(args[0]);
+		claculate_cc(args[0], Integer.parseInt(args[1]));
 		
 	}
 }

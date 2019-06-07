@@ -2,7 +2,9 @@ package util;
 
 import java.util.Set;
 
+import model.CArgument;
 import model.StableControlConfiguration;
+import model.StableExtension;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

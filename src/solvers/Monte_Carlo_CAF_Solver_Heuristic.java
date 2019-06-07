@@ -22,7 +22,7 @@ import model.StableExtension;
  * You can give a fixed number of simulations (not recommended)
  * or give an error level of the confidence interval
  * HERE WE USE A HEURISTIC (so it should be faster than Monte_Carlo_CAF_Solver):
- * 1) the first completion is not radom, but given by HardRootCompletionGenerator
+ * 1) the first completion is not random, but given by HardRootCompletionGenerator
  * 2) for the other random completions, we do not calculate the control configurations, 
  * but only that check the one we got from the first completion are working (if not, not kept) 
  * @author Fabrice
@@ -111,7 +111,6 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 		Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 
 		for(CArgument t : target) {
-			System.out.println("target= " + t.getName());
 			ArgumentFramework af = hard_generator.getHardestRootCompletionWRT(t);
 			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
 			if(type == ControllabilityEncoder.CREDULOUS) {
@@ -125,12 +124,7 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 				result = util.Util.intersect(result, solutions.keySet());
 			}
 		}
-		System.out.println("###########");
-		System.out.println("number of initial solutions: " + result.size());
-		for(StableControlConfiguration scc : result) {
-			System.out.println(scc.toString());
-		}
-		System.out.println("###########");
+	
 		return result;
 	}
 
@@ -155,6 +149,7 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 			for(StableControlConfiguration cc : cc_list) {
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					if(checker.isCredulousControlConfigurations(cc)) {
+						//System.out.println("cc : " + cc.toString() + " is working");
 						temp.add(cc);
 					}
 				} else {
@@ -203,6 +198,7 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 			for(StableControlConfiguration cc : cc_list) {
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					if(checker.isCredulousControlConfigurations(cc)) {
+						//System.out.println("cc : " + cc.toString() + " is working");
 						temp.add(cc);
 					}
 				} else {

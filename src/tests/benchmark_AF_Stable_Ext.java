@@ -24,6 +24,7 @@ public class benchmark_AF_Stable_Ext {
 					.filter(Files::isRegularFile);
 			names.forEach(n-> {
 				log.append(n.toString());
+				System.out.println(n.toString());
 				log.append(System.getProperty("line.separator"));
 				ArgumentFramework af = AFParser.parse(n.toString());
 				CSP_AF_Solver solver = new CSP_AF_Solver(af);

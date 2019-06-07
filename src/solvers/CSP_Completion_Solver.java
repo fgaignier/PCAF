@@ -10,7 +10,6 @@ import model.UnknownArgumentError;
 
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -29,7 +28,7 @@ public class CSP_Completion_Solver {
 
 	protected ControlAF CAF;
 	protected ArgumentFramework completion;
-	
+
 	public CSP_Completion_Solver(ControlAF CAF, ArgumentFramework completion) {
 		this.CAF = CAF;
 		this.completion = completion;
@@ -71,7 +70,7 @@ public class CSP_Completion_Solver {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * returns a Map of control configurations that credulously control the CAF together
 	 * with all the extensions that correspond to each control configuration
@@ -82,128 +81,112 @@ public class CSP_Completion_Solver {
 		// acc variables and on variables
 		Map<String, IntVar> accVar = new HashMap<String, IntVar>();
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
-		
+
 		// 1. Create the CSP Model
 		Model model = new Model("Credulous CAF Solver");
-		
-        // 2. Create variables
+
+		// 2. Create variables
 		// one for each argument in the completion (root completion)
 		// accepted or not
 		Set<Argument> args = this.completion.getAllArguments();
-		Iterator<Argument> iter = args.iterator();
-		while(iter.hasNext()) {
-			Argument arg = iter.next();
+		for(Argument arg : args) {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
-			//System.out.println("adding variable " + acc.getName());
+			//System.out.println("adding variable " + acc);
 		}
-		
+
 		// two for each control argument
 		// accepted (acc) and on 
+
 		Set<CArgument> controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> iterC = controlArgs.iterator();
-		while(iterC.hasNext()) {
-			CArgument carg = iterC.next();
+		for(Argument carg : controlArgs) {
 			String cargName = carg.getName();
 			String onCarg = cargName;
 			IntVar acc = model.intVar("acc_" + cargName,new int[]{0,1});
 			IntVar on = model.intVar("on_" + onCarg, new int[]{0,1});
 			accVar.put(cargName, acc);
 			onVar.put(cargName, on);
-			//System.out.println("adding variable " + acc.getName());
-			//System.out.println("adding variable " + on.getName());
+			//System.out.println("adding variable " + acc);
+			//System.out.println("adding variable " + on);
 		}
-		
+
 		/*
 		 * Constraints
 		 */
 		// arguments to be protected are accepted (by definition)
 		Set<CArgument> T = CAF.getTarget();
-		Iterator<CArgument> toP = T.iterator();
-		while(toP.hasNext()) {
-			CArgument carg = toP.next();
-			IntVar acc = accVar.get(carg.getName());
-			model.arithm(acc, "=", 1).post();
-			//System.out.println("adding constraint: " + acc.getName() + "=1");
+		for(CArgument t : T) {
+			IntVar acc = accVar.get(t.getName());
+			Constraint constraint = model.arithm(acc, "=", 1);
+			constraint.post();
+			//model.arithm(acc, "=", 1).post();
+			//System.out.println(constraint);
 		}
-		
-		
+
+
 		// accepted control arguments must be on and vice versa
 		Set<String> on = onVar.keySet();
-		Iterator<String> onArg = on.iterator();
-		while(onArg.hasNext()) {
-			String argName = onArg.next();
+		for(String argName : on) {
 			IntVar onIt = onVar.get(argName);
 			IntVar accIt = accVar.get(argName);
-			model.arithm(onIt, "-", accIt, "=",0).post();
-			//System.out.println("adding constraint: " + onIt.getName() + " - " + accIt.getName() + " =0");
+			Constraint constraint = model.arithm(onIt, "-", accIt, "=",0);
+			constraint.post();
+			//System.out.println(constraint);
 		}
-		
+
 		// no two arguments attacking each other in the solution
 		// if an argument is accepted (from the root completion or control), all its attackers are rejected
 		// else at least one attacker is accepted
 		// first we iterate through the root Completion arguments
-		Set<Argument> compArgs = this.completion.getAllArguments();
-		Iterator<Argument> compArgsIter = compArgs.iterator();
-		while(compArgsIter.hasNext()) {
-			// the considered argument
-			Argument current = compArgsIter.next();
-			// corresponding variable
-			IntVar accCurrent = accVar.get(current.getName());
-			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getArgumentAttackers(this.completion, current);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
+		for(Argument arg : args) {
+			IntVar accCurrent = accVar.get(arg.getName());
+			// all its attackers (including AC) : AF, AU, AC
+			Set<Argument> attackers = CAF.getArgumentAttackers(this.completion, arg);
 			IntVar accAtt = null;
 			IntVar[] sum = new IntVar[attackers.size()];
 			int i = 0;
-			//System.out.println("for argument : " + current.getName() + " attackers: " + attackers.size());
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
+			for(Argument attacker : attackers) {
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
 			}
 			// if there are no attackers, accCurrent=1
 			if(attackers.size()==0) {
-				model.arithm(accCurrent, "=", 1).post();
-				//System.out.println("no attackers for argument " + current.getName());
-				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
-				
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
+				Constraint constraint = model.arithm(accCurrent, "=", 1);
+				constraint.post();
+				//System.out.println(constraint);
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
+				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
 				Constraint sumNotNull = model.sum(sum, ">", 0);
 				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
 				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
-				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//		"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
+				Constraint constraint = model.or(andNull, andNotNull);
+				constraint.post();
+				//System.out.println(sumNull);
+				//System.out.println(sumNotNull);
+				//System.out.println(andNull);
+				//System.out.println(andNotNull);
+				//System.out.println(constraint);
+
 			}
-			
+
 		}
-		
+
 		// same thing but on the control arguments
-		Set<CArgument> controlArguments = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> controlIter = controlArguments.iterator();
-		while(controlIter.hasNext()) {
-			// the considered argument
-			Argument current = controlIter.next();
+		for(CArgument arg : controlArgs) {
 			// corresponding variables (need acc and on)
-			IntVar accCurrent = accVar.get(current.getName());
+			IntVar accCurrent = accVar.get(arg.getName());
 			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getControlAttackers(current, this.completion);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
+			// ARGUMENTS IN AU, AF, AC
+			Set<Argument> attackers = CAF.getControlAttackers(arg, this.completion);
 			IntVar accAtt = null;
 			IntVar[] sum = new IntVar[attackers.size()];
 			int i = 0;
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
-				//System.out.println(" look variable for " + attacker.getName());
+			for(Argument attacker : attackers) {
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
@@ -212,26 +195,42 @@ public class CSP_Completion_Solver {
 			if(attackers.size()==0) {
 				//System.out.println("adding no constraint for : " + accCurrent.getName());
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
+				// sumNotNull => accCurrent = 0 <=> sumNull or accCurrent = 0
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
-				Constraint sumNotNull = model.sum(sum, ">", 0);
-				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
-				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
-				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//					"=1] or [sum(" + this.fromTabToString(sum) + ") !=0  and " + accCurrent.getName() + "=0]");
+				Constraint setNull = model.arithm(accCurrent, "=",0);
+				Constraint constraint = model.or(sumNull, setNull);
+				constraint.post();
+				//System.out.println(sumNull);
+				//System.out.println(setNull);
+				//System.out.println(constraint);
 			}
 		}
-		
+
 		// 4. Solve the problem and return the set of solutions
 		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
 		Set<StableExtension> extensions = null;
-		
-		//System.out.println("CSP encoding finihed, will solve");
+		/*
+		StringBuffer temp = new StringBuffer();
+		temp.append("##########################################");
+		temp.append(System.getProperty("line.separator"));
+		temp.append("TARGET:");
+		for(CArgument t : T) {
+			temp.append(t.getName());
+		}
+		temp.append(System.getProperty("line.separator"));
+		temp.append("for completion: "+ completion.toString());
+		temp.append(System.getProperty("line.separator"));
+		*/
 		while(model.getSolver().solve()) {
 			Pair<StableControlConfiguration, StableExtension> solution = this.buildStableExtension(accVar);
 			StableControlConfiguration scc = util.Util.find(result.keySet(), solution.getKey());
-			//System.out.println(solution.getKey().toString());
+			/*
+			temp.append("solution found");
+			temp.append(System.getProperty("line.separator"));
+			temp.append(solution.getKey().toString());
+			temp.append(System.getProperty("line.separator"));
+			*/
 			if( scc == null) {
 				extensions = new HashSet<StableExtension>();
 				extensions.add(solution.getValue());
@@ -240,9 +239,10 @@ public class CSP_Completion_Solver {
 				extensions = result.get(scc);
 				extensions.add(solution.getValue());
 			}
-			
+
 		} 
-        return result;
+		//System.out.println(temp.toString());
+		return result;
 	}
 
 	/**
@@ -258,86 +258,55 @@ public class CSP_Completion_Solver {
 		// acc variables and on variables
 		Map<String, IntVar> accVar = new HashMap<String, IntVar>();
 		Map<String, IntVar> onVar = new HashMap<String, IntVar>();
-		
+
 		// 1. Create the CSP Model
 		Model model = new Model("Skeptical CAF Solver");
-		
-        // 2. Create variables
+
+		// 2. Create variables
 		// one for each argument in the completion (root completion)
 		// accepted or not
 		Set<Argument> args = this.completion.getAllArguments();
-		Iterator<Argument> iter = args.iterator();
-		while(iter.hasNext()) {
-			Argument arg = iter.next();
+		for(Argument arg : args) {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
-			//System.out.println("adding variable " + acc.getName());
+			//System.out.println("adding variable " + acc);
 		}
-		
+
 		// two for each control argument
 		// accepted (acc) and on 
 		Set<CArgument> controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> iterC = controlArgs.iterator();
-		while(iterC.hasNext()) {
-			CArgument carg = iterC.next();
+		for(CArgument carg : controlArgs) {
 			String cargName = carg.getName();
 			String onCarg = cargName;
 			IntVar acc = model.intVar("acc_" + cargName,new int[]{0,1});
 			IntVar on = model.intVar("on_" + onCarg, new int[]{0,1});
 			accVar.put(cargName, acc);
 			onVar.put(cargName, on);
-			//System.out.println("adding variable " + acc.getName());
-			//System.out.println("adding variable " + on.getName());
+			//System.out.println("adding variable " + acc);
+			//System.out.println("adding variable " + on);
+
 		}
-		
+
 		/*
 		 * Constraints
 		 */
 		// arguments to be protected are not all accepted (i.e. the solution is credulous)
 		// Sum(acc < n) with n number of protected arguments
 		Set<CArgument> T = CAF.getTarget();
-		Iterator<CArgument> toP = T.iterator();
 		IntVar[] protectedSum = new IntVar[T.size()];
 		int i = 0;
-		while(toP.hasNext()) {
-			CArgument carg = toP.next();
-			IntVar acc = accVar.get(carg.getName());
+		for(CArgument t : T) {
+			IntVar acc = accVar.get(t.getName());
 			protectedSum[i] = acc;
 			i++;
 		}
 		model.sum(protectedSum, "<", T.size()).post();
-		//System.out.println("adding constraint: " + this.fromTabToString(protectedSum) + "< " + T.size());
 
-		
-		// accepted control arguments must be on and vice versa
-		// BUG FIX: WE DO NOT IMPOSE TO CONTROL ARGUMENTS TO BE ACCEPTED.
-		// SINCE WE ARE LOOKING FOR ANOTHER STABLE EXTENSION
-		/*
-		Set<String> on = onVar.keySet();
-		Iterator<String> onArg = on.iterator();
-		while(onArg.hasNext()) {
-			String argName = onArg.next();
-			IntVar onIt = onVar.get(argName);
-			IntVar accIt = accVar.get(argName);
-			model.arithm(onIt, "-", accIt, "=",0).post();
-			//System.out.println("adding constraint: " + onIt.getName() + " - " + accIt.getName() + " =0");
-		}
-		*/
-		
-		/*
-		// on control arguments of solution remain on
-		Set<CArgument> onArgs = solution.getOnControl();
-		Iterator<CArgument> onArgsIter = onArgs.iterator();
-		while(onArgsIter.hasNext()) {
-			String argName = onArgsIter.next().getName();
-			IntVar onIt = onVar.get(argName);
-			model.arithm(onIt, "=",1).post();
-			//System.out.println("adding constraint: " + onIt.getName() +  " =1");
-		}
-		*/
 		//on control arguments of solution remain on
 		// off control arguments of solution remain off
+		// BUT WE DO NOT IMPOSE THAT on control arguments are accepted
+		// since we are looking for alternative solutions
 		controlArgs = CAF.getArgumentsByType(CArgument.Type.CONTROL);
 		Set<CArgument> onArgs = solution.getOnControl();
 		for(CArgument arg : controlArgs) {
@@ -349,69 +318,60 @@ public class CSP_Completion_Solver {
 				model.arithm(onIt, "=",0).post();
 			}
 		}
-		
+
 		// no two arguments attacking each other in the solution
 		// if an argument is accepted (from the root completion or control), all its attackers are rejected
 		// else at least one attacker is accepted
 		// first we iterate through the root Completion arguments
-		Set<Argument> compArgs = this.completion.getAllArguments();
-		Iterator<Argument> compArgsIter = compArgs.iterator();
-		while(compArgsIter.hasNext()) {
-			// the considered argument
-			Argument current = compArgsIter.next();
-			// corresponding variable
-			IntVar accCurrent = accVar.get(current.getName());
-			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getArgumentAttackers(this.completion, current);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
+		for(Argument arg : args) {
+			IntVar accCurrent = accVar.get(arg.getName());
+			// all its attackers (including AC) : AF, AU, AC
+			Set<Argument> attackers = CAF.getArgumentAttackers(this.completion, arg);
 			IntVar accAtt = null;
 			IntVar[] sum = new IntVar[attackers.size()];
 			i = 0;
-			//System.out.println("for argument : " + current.getName() + " attackers: " + attackers.size());
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
+			for(Argument attacker : attackers) {
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
 			}
 			// if there are no attackers, accCurrent=1
 			if(attackers.size()==0) {
-				model.arithm(accCurrent, "=", 1).post();
-				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
-				
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
+				Constraint constraint = model.arithm(accCurrent, "=", 1);
+				constraint.post();
+				//System.out.println(constraint);
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
+				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
+				System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
 				Constraint sumNotNull = model.sum(sum, ">", 0);
 				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
 				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
-				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//		"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
+				Constraint constraint = model.or(andNull, andNotNull);
+				constraint.post();
+				/*
+				System.out.println(sumNull);
+				System.out.println(sumNotNull);
+				System.out.println(andNull);
+				System.out.println(andNotNull);
+				System.out.println(constraint);
+				*/
 			}
-			
+
 		}
-		
+
 		// same thing but on the control arguments
-		Set<CArgument> controlArguments = CAF.getArgumentsByType(CArgument.Type.CONTROL);
-		Iterator<CArgument> controlIter = controlArguments.iterator();
-		while(controlIter.hasNext()) {
-			// the considered argument
-			Argument current = controlIter.next();
+		for(CArgument arg : controlArgs) {
 			// corresponding variables (need acc and on)
-			IntVar accCurrent = accVar.get(current.getName());
+			IntVar accCurrent = accVar.get(arg.getName());
 			// all its attackers (including AC)
-			Set<Argument> attackers = CAF.getControlAttackers(current, this.completion);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
+			// ARGUMENTS IN AU, AF, AC
+			Set<Argument> attackers = CAF.getControlAttackers(arg, this.completion);
 			IntVar accAtt = null;
 			IntVar[] sum = new IntVar[attackers.size()];
 			i = 0;
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
+			for(Argument attacker : attackers) {
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
@@ -420,19 +380,21 @@ public class CSP_Completion_Solver {
 			if(attackers.size()==0) {
 				//System.out.println("adding no constraint for : " + accCurrent.getName());
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
+				// sumNotNull => accCurrent = 0 <=> sumNull or accCurrent = 0
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
-				Constraint sumNotNull = model.sum(sum, ">", 0);
-				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
-				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
-				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//					"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
+				Constraint setNull = model.arithm(accCurrent, "=",0);
+				Constraint constraint = model.or(sumNull, setNull);
+				constraint.post();
+				//System.out.println(sumNull);
+				//System.out.println(setNull);
+				//System.out.println(constraint);
 			}
 		}
-		
+
+
 		// 4. Solve the problem and return the set of solutions
-		
+
 		if(model.getSolver().solve()) {
 			return false;
 		}  else {
@@ -441,7 +403,7 @@ public class CSP_Completion_Solver {
 
 	}
 
-	
+
 	/**
 	 * protected internal use only
 	 * toString method for an array of IntVar
@@ -451,10 +413,10 @@ public class CSP_Completion_Solver {
 		for(int i = 0; i<tab.length; i++) {
 			result = result + tab[i].getName() + " , ";
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * builds from the CSP solution (no need of on variables since on is equivalent to accepted)
 	 *  a couple <ControlConfiguration, StableExtension> 

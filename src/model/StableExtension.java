@@ -58,4 +58,13 @@ public class StableExtension {
 		}		
 		return result;
 	}
+	
+	public boolean contains(Set<CArgument> target) {
+		for(Argument arg : target) {
+			if(!this.accepted.contains(arg)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

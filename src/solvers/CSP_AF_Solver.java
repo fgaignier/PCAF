@@ -66,7 +66,7 @@ public class CSP_AF_Solver {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
-			//System.out.println("adding variable " + acc.getName());
+			//System.out.println("adding variable " + acc);
 		}
 				
 		/*
@@ -99,18 +99,27 @@ public class CSP_AF_Solver {
 			}
 			// if there are no attackers, accCurrent=1
 			if(attackers.size()==0) {
-				model.arithm(accCurrent, "=", 1).post();
-				//System.out.println("adding constraint : " + accCurrent.getName() + "= 1");
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
+				Constraint constraint = model.arithm(accCurrent, "=", 1);
+				constraint.post();
+				//System.out.println(constraint);
 				
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and xi=0))
+				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
 				Constraint sumNotNull = model.sum(sum, ">", 0);
 				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
 				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
-				model.or(andNull, andNotNull).post();
-				//System.out.println("adding constraint: [sum(" + this.fromTabToString(sum) + ") = 0 and " + accCurrent.getName() + 
-				//		"=1] or [sum(" + this.fromTabToString(sum) + ") !=0 and " + accCurrent.getName() + "=0]");
+				Constraint constraint = model.or(andNull, andNotNull);
+				constraint.post();
+				/*
+				System.out.println(sumNull);
+				System.out.println(sumNotNull);
+				System.out.println(andNull);
+				System.out.println(andNotNull);
+				System.out.println(constraint);
+				*/
 			}
 			
 		}
@@ -118,7 +127,6 @@ public class CSP_AF_Solver {
 		// 4. Solve the problem and return the set of solutions
 		Set<StableExtension> result = new HashSet<StableExtension>();
 		while(model.getSolver().solve()) {
-			//System.out.println("solution has been found !!!!");
 			StableExtension solution = this.buildResultStable(accVar);
 			result.add(solution);
 		} 
