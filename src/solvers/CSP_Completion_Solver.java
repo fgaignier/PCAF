@@ -343,7 +343,7 @@ public class CSP_Completion_Solver {
 				//System.out.println(constraint);
 			} else {
 				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
-				System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
+				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
 				Constraint sumNotNull = model.sum(sum, ">", 0);
 				Constraint andNull = model.and(sumNull, model.arithm(accCurrent, "=",1));
