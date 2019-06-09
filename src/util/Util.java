@@ -11,11 +11,11 @@ import java.util.HashSet;
 public class Util {
 
 	// 95%
-	public static double CONFIDENCE_INT = 1.96;
+//	public static double CONFIDENCE_INT = 1.96;
 	//98%
 //	public static double CONFIDENCE_INT = 2.33;
 	//99%
-//	public static double CONFIDENCE_INT = 2.58;
+	public static double CONFIDENCE_INT = 2.58;
 	
 	public static double STANDARD_ERROR = 0.01;
 	public static int MINIMUM_SIMULATION = 100;

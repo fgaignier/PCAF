@@ -1,18 +1,19 @@
 package model;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * data structure to store a stable extension
  * consists of a set of accepted arguments
  */
 public class StableExtension {
-	protected Set<Argument> accepted;
+	protected SortedSet<Argument> accepted;
 	
 	public StableExtension() {
-		this.accepted = new HashSet<Argument>();
+		this.accepted = new TreeSet<Argument>();
 	}
 	
 	/**

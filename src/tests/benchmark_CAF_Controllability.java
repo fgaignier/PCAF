@@ -77,16 +77,18 @@ public class benchmark_CAF_Controllability {
 				stats_csv.append(csv_sep);
 				stats_csv.append(time);
 				stats_csv.append(csv_sep);
-				stats_csv.append(System.getProperty("line.separator"));
 				
 				if(ccs != null) {
-					logControlConfigurations(ccs, log);
+					logControlConfigurations(ccs, log, stats_csv);
 				} else {
 					log.append("not controllable");
 					log.append(System.getProperty("line.separator"));
 				}
 				log.append("####################");
 				log.append(System.getProperty("line.separator"));
+				
+				stats_csv.append(System.getProperty("line.separator"));
+				
 			});
 			if(type == ControllabilityEncoder.CREDULOUS) {
 				util.Util.saveToFile(log.toString(), path + "\\" + prefixCred + log_file);
@@ -100,13 +102,16 @@ public class benchmark_CAF_Controllability {
 		}
 	}
 
-	public static void logControlConfigurations(Set<StableControlConfiguration> ccs, StringBuffer log) {
+	public static void logControlConfigurations(Set<StableControlConfiguration> ccs, StringBuffer log, StringBuffer stats_csv) {
 		int i=1;
 		for(StableControlConfiguration cc : ccs) {
 			log.append("######### mpce " + i + " ###########");
 			log.append(System.getProperty("line.separator"));
 			log.append(cc.toString());
 			log.append(System.getProperty("line.separator"));
+			
+			stats_csv.append(cc.toString());
+			stats_csv.append(csv_sep);
 			i++;
 		}
 	}

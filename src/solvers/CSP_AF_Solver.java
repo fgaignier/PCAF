@@ -2,7 +2,6 @@ package solvers;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,15 +53,13 @@ public class CSP_AF_Solver {
 		Map<String, IntVar> accVar = new HashMap<String, IntVar>();
 		
 		// 1. Create the CSP Model
-		Model model = new Model("Credulous AF Solver");
+		Model model = new Model("Stable Extension Claculator");
 		
         // 2. Create variables
 		// one for each argument in the completion (root completion)
 		// accepted or not
 		Set<Argument> args = this.af.getAllArguments();
-		Iterator<Argument> iter = args.iterator();
-		while(iter.hasNext()) {
-			Argument arg = iter.next();
+		for(Argument arg : args) {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
@@ -76,23 +73,15 @@ public class CSP_AF_Solver {
 		// no two arguments attacking each other in the solution
 		// if an argument is accepted, all its attackers are rejected
 		// else at least one attacker is accepted
-		iter = args.iterator();
-		while(iter.hasNext()) {
-			// the considered argument
-			Argument current = iter.next();
+		for(Argument current : args) {
 			// corresponding variable
 			IntVar accCurrent = accVar.get(current.getName());
-			// all its attackers (including AC)
+			// all its attackers
 			Set<Argument> attackers = af.getAttackingArguments(current);
-			Iterator<Argument> attackersIter = attackers.iterator();
-			Argument attacker = null;
 			IntVar accAtt = null;
 			IntVar[] sum = new IntVar[attackers.size()];
 			int i = 0;
-			//System.out.println("for argument : " + current.getName() + " attackers: " + attackers.size());
-			while(attackersIter.hasNext()) {
-				// attacker and its corresponding variable
-				attacker = attackersIter.next();
+			for(Argument attacker : attackers) {
 				accAtt = accVar.get(attacker.getName());
 				sum[i] = accAtt;
 				i++;
@@ -105,7 +94,7 @@ public class CSP_AF_Solver {
 				//System.out.println(constraint);
 				
 			} else {
-				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
+				// here add or(and(sum=0, accCurrent=1), (sum>0 and accCurrent=0))
 				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint sumNull = model.sum(sum, "=", 0);
 				Constraint sumNotNull = model.sum(sum, ">", 0);
@@ -154,10 +143,7 @@ public class CSP_AF_Solver {
 	protected StableExtension buildResultStable(Map<String, IntVar> accVar) {
 		StableExtension scc = new StableExtension();
 		Set<String> argNames = accVar.keySet();
-		Iterator<String> iterNames = argNames.iterator();
-		while(iterNames.hasNext()) {
-			String argName = iterNames.next();
-			//System.out.println(argName);
+		for(String argName : argNames) {
 			IntVar accCurrent = accVar.get(argName);
 			// all arguments must be accepted or rejected
 			if(accCurrent.getValue() ==1) {

@@ -1,7 +1,8 @@
 package model;
 
 import java.util.Set;
-import java.util.HashSet;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * data structure to store a control configuration
@@ -9,10 +10,10 @@ import java.util.HashSet;
  */
 public class StableControlConfiguration {
 
-	protected Set<CArgument> onControl;
+	protected SortedSet<CArgument> onControl;
 	
 	public StableControlConfiguration() {
-		this.onControl = new HashSet<CArgument>();
+		this.onControl = new TreeSet<CArgument>();
 	}
 	
 	/**
@@ -71,15 +72,16 @@ public class StableControlConfiguration {
 	 */
 	public String toString() {
 		StringBuffer result = new StringBuffer();
+		result.append("(");
 		if(this.isEmpty()) {
-			result.append("empty control configuration");
+			result.append("empty cc,");
 		}
 		for(CArgument arg : this.onControl) {
-				result.append("control argument on: ");
 				result.append(arg.getName());
-				//result.append("\n");
-				result.append(System.getProperty("line.separator"));
+				result.append(",");
 		}  
+		result.deleteCharAt(result.length() -1);
+		result.append(")");
 		return result.toString();
 	}
 	

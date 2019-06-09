@@ -76,9 +76,13 @@ public class CSP_Completion_Verifier {
 		CSP_AF_Solver solver = new CSP_AF_Solver(af);
 		Set<StableExtension> extensions = solver.getStableSets();
 		Set<CArgument> T = this.CAF.getTarget();
+//		System.out.println("############ Extensions of corresponding CAF ##################");
+//		System.out.println("for cc = " + cc.toString());
 		for(StableExtension ext : extensions) {
-			//System.out.println(ext.toString());
-			if(ext.contains(T)) {
+//			System.out.println("printing extension");
+//			System.out.println(ext.toString());
+			// we check that we find at least one extension that contains T and cc
+			if(ext.contains(T) && ext.contains(cc.getOnControl())) {
 				return true;
 			}
 		}
@@ -97,8 +101,13 @@ public class CSP_Completion_Verifier {
 		CSP_AF_Solver solver = new CSP_AF_Solver(af);
 		Set<StableExtension> extensions = solver.getStableSets();
 		Set<CArgument> T = this.CAF.getTarget();
+//		System.out.println("############ Extensions of corresponding CAF ##################");
+//		System.out.println("for cc = " + cc.toString());
 		for(StableExtension ext : extensions) {
-			if(!ext.contains(T)) {
+//			System.out.println("printing extension");
+//			System.out.println(ext.toString());
+			if(!( ext.contains(T) && ext.contains(cc.getOnControl()) )) {
+//				System.out.println("this one does not contain the Target");
 				return false;
 			}
 		}

@@ -4,7 +4,7 @@ package model;
  * generic Argument.
  * Only composed of a name
  */
-public class Argument {
+public class Argument implements Comparable<Argument> {
 
 	protected String name;
 	
@@ -14,5 +14,10 @@ public class Argument {
 	
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public int compareTo(Argument other) {
+		return this.name.compareTo(other.getName());
 	}
 }

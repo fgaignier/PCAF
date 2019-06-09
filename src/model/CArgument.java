@@ -24,4 +24,5 @@ public class CArgument extends Argument {
 	public Type getType() {
 		return type;
 	}
+
 }

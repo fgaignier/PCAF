@@ -210,6 +210,7 @@ public class CSP_Completion_Solver {
 		// 4. Solve the problem and return the set of solutions
 		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
 		Set<StableExtension> extensions = null;
+		
 		/*
 		StringBuffer temp = new StringBuffer();
 		temp.append("##########################################");
@@ -222,6 +223,7 @@ public class CSP_Completion_Solver {
 		temp.append("for completion: "+ completion.toString());
 		temp.append(System.getProperty("line.separator"));
 		*/
+		
 		while(model.getSolver().solve()) {
 			Pair<StableControlConfiguration, StableExtension> solution = this.buildStableExtension(accVar);
 			StableControlConfiguration scc = util.Util.find(result.keySet(), solution.getKey());
@@ -241,7 +243,7 @@ public class CSP_Completion_Solver {
 			}
 
 		} 
-		//System.out.println(temp.toString());
+//		System.out.println(temp.toString());
 		return result;
 	}
 

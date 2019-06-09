@@ -76,7 +76,6 @@ public class benchmark_CAF_ContPower {
 				stats_csv.append(csv_sep);
 				stats_csv.append(time);
 				stats_csv.append(csv_sep);
-				stats_csv.append(System.getProperty("line.separator"));
 				
 				int i=1;
 				for(StableControlConfiguration mpce : mpces) {
@@ -84,10 +83,17 @@ public class benchmark_CAF_ContPower {
 					log.append(System.getProperty("line.separator"));
 					log.append(mpce.toString());
 					log.append(System.getProperty("line.separator"));
+					
+					stats_csv.append(mpce.toString());
+					stats_csv.append(csv_sep);
+					
 					i++;
 				}
 				log.append("####################");
 				log.append(System.getProperty("line.separator"));
+				
+				stats_csv.append(System.getProperty("line.separator"));
+				
 			});
 			
 			if(type == ControllabilityEncoder.CREDULOUS) {
