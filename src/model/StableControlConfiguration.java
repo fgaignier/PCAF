@@ -72,7 +72,7 @@ public class StableControlConfiguration {
 	 */
 	public String toString() {
 		StringBuffer result = new StringBuffer();
-		result.append("(");
+		//result.append("(");
 		if(this.isEmpty()) {
 			result.append("empty cc,");
 		}
@@ -81,7 +81,7 @@ public class StableControlConfiguration {
 				result.append(",");
 		}  
 		result.deleteCharAt(result.length() -1);
-		result.append(")");
+		//result.append(")");
 		return result.toString();
 	}
 	

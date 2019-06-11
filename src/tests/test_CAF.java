@@ -13,6 +13,7 @@ import model.StableControlConfiguration;
 import model.SupportingPowerRecorder;
 import parser.CAFParser;
 import solvers.Monte_Carlo_CAF_Solver;
+import solvers.Monte_Carlo_CAF_Solver_Heuristic;
 import util.Util;
 
 public class test_CAF {
@@ -73,15 +74,15 @@ public class test_CAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(N);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
@@ -96,15 +97,38 @@ public class test_CAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(error);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
+		}
+	}
+	
+	public void solve_with_heuristic(double error, int type) {
+		Monte_Carlo_CAF_Solver_Heuristic solver = new Monte_Carlo_CAF_Solver_Heuristic(this.CAF);
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getCredulousControlConfigurations(error);
+
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
+		} else {
+			result = solver.getSkepticalControlConfigurations(error);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			printSolutions(result);
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	

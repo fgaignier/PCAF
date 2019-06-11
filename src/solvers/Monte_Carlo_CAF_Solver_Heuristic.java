@@ -118,13 +118,14 @@ public class Monte_Carlo_CAF_Solver_Heuristic {
 			} else {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
+
 			if(result == null) {
 				result = solutions.keySet();
 			} else {
 				result = util.Util.intersect(result, solutions.keySet());
 			}
 		}
-	
+		
 		return result;
 	}
 

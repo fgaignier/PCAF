@@ -3,6 +3,7 @@ package main;
 import generators.ControllabilityEncoder;
 import model.ControlAF;
 import model.PControlAF;
+import tests.test_AF;
 import tests.test_CAF;
 import tests.test_PCAF;
 
@@ -41,6 +42,14 @@ public class Main {
 		/**
 		 * Test AF
 		 */
+		/*
+		test_AF aftest = new test_AF();
+		aftest.load_af_from_file(path+"test.txt");
+		System.out.println("##########################################");
+		System.out.println("AF stable sets");
+		System.out.println("##########################################");
+		aftest.print_stable_extensions();
+		*/
 		
 		/**
 		 * Test CAF
@@ -56,19 +65,24 @@ public class Main {
 		
 		ControlAF CAF = caftest.getCAF();
 		
+		/*
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
 		System.out.println("##########################################");
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.CREDULOUS);
-
+*/
 		System.out.println("##########################################");
 		System.out.println("error level");
 		System.out.println("##########################################");
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
 
-		
+		System.out.println("##########################################");
+		System.out.println("heuristic");
+		System.out.println("##########################################");
+		caftest.solve_with_heuristic(0.01, ControllabilityEncoder.SKEPTICAL);
+		caftest .solve_with_heuristic(0.01, ControllabilityEncoder.CREDULOUS);
 		
 		/**
 		 * Test PCAFs
@@ -95,12 +109,13 @@ public class Main {
 		System.out.println();
 		System.out.println();
 		
-		
+		/*
 		System.out.println("##########################################");
 		System.out.println("fixed number of simulations");
 		System.out.println("##########################################");
 		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.SKEPTICAL);
 		pcaftest.printMostProbableControllingEntities(100, ControllabilityEncoder.CREDULOUS);
+		*/
 		
 		System.out.println("##########################################");
 		System.out.println("error level");

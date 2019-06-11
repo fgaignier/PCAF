@@ -124,16 +124,16 @@ public class test_PCAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 
 		} else {
 			result = solver.getSkepticalControlConfigurations(N);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
@@ -147,15 +147,15 @@ public class test_PCAF {
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(error);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
