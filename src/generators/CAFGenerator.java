@@ -102,9 +102,12 @@ public class CAFGenerator {
 			}
 			caf.addArgument(carg);
 		}
-		for(Attack att : af.getAllAttacks()) {
+		Set<Attack> attacks = af.getAllAttacks(); 
+
+		for(Attack att : attacks) {
 			CArgument from = caf.getArgumentByName(att.getFrom().getName());
 			CArgument to = caf.getArgumentByName(att.getTo().getName());
+			//System.out.println("from: " + from.getName() + " to: " + to.getName());
 			CAttack  catt = null;
 			if(from.getType() == CArgument.Type.CONTROL || to.getType() == CArgument.Type.CONTROL) {
 				catt = new CAttack(from, to, CAttack.Type.CONTROL);
@@ -118,9 +121,12 @@ public class CAFGenerator {
 					catt = new CAttack(from, to, CAttack.Type.UNDIRECTED);
 				}
 			}
+			//System.out.println("add attack");
 			caf.addAttack(catt);
 		}
+		//System.out.println("target");
 		if(target_size == 1) {
+			//System.out.println("target = 1");
 			CArgument target = this.getUniqueTraget(caf);
 			if(target != null) {
 				caf.addTarget(target);

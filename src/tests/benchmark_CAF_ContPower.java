@@ -97,11 +97,11 @@ public class benchmark_CAF_ContPower {
 			});
 			
 			if(type == ControllabilityEncoder.CREDULOUS) {
-				util.Util.saveToFile(log.toString(), path + "\\" + prefixCred + log_file);
-				util.Util.saveToFile(stats_csv.toString(), path + "\\" + prefixCred + stats_file);
+				util.Util.saveToFile(log.toString(), path + "\\result\\" + prefixCred + log_file);
+				util.Util.saveToFile(stats_csv.toString(), path + "\\result\\" + prefixCred + stats_file);
 			} else {
-				util.Util.saveToFile(log.toString(), path + "\\" + prefixSkep + log_file);
-				util.Util.saveToFile(stats_csv.toString(), path + "\\" + prefixSkep + stats_file);
+				util.Util.saveToFile(log.toString(), path + "\\result\\" + prefixSkep + log_file);
+				util.Util.saveToFile(stats_csv.toString(), path + "\\result\\" + prefixSkep + stats_file);
 			}
 
 		} catch (IOException e) {

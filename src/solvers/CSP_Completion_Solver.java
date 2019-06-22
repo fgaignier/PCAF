@@ -64,9 +64,22 @@ public class CSP_Completion_Solver {
 		Map<StableControlConfiguration, Set<StableExtension>> solutions = this.getCredulousControlConfigurations();
 		Map<StableControlConfiguration, Set<StableExtension>> result = new HashMap<StableControlConfiguration, Set<StableExtension>>();
 		for(StableControlConfiguration scc : solutions.keySet()) {
-			if(isScepticallyAccepted(scc)) {
+			// temp for checking only
+			
+			CSP_Completion_Verifier verifier = new CSP_Completion_Verifier(this.CAF, this.completion);
+			if(verifier.isSkepticalControlConfigurations(scc)) {
+				//System.out.println("scc: " + scc.toString() + " is skeptically VERIFIED");
 				result.put(scc, solutions.get(scc));
-			}
+			}  /*else {
+				System.out.println("scc: " + scc.toString() + " is NOT skeptically VERIFIED");
+			} */
+			/*
+			System.out.println(scc.toString());
+			if(isScepticallyAccepted(scc)) {
+				System.out.println("scc: " + scc.toString() + " is skeptically ACCEPTED");
+				result.put(scc, solutions.get(scc));
+			} 
+			*/
 		}
 		return result;
 	}
@@ -272,7 +285,7 @@ public class CSP_Completion_Solver {
 			String argName = arg.getName();
 			IntVar acc = model.intVar("acc_" + argName, new int[]{0,1});
 			accVar.put(argName,  acc);
-			//System.out.println("adding variable " + acc);
+			System.out.println("adding variable " + acc);
 		}
 
 		// two for each control argument
@@ -285,8 +298,8 @@ public class CSP_Completion_Solver {
 			IntVar on = model.intVar("on_" + onCarg, new int[]{0,1});
 			accVar.put(cargName, acc);
 			onVar.put(cargName, on);
-			//System.out.println("adding variable " + acc);
-			//System.out.println("adding variable " + on);
+			System.out.println("adding variable " + acc);
+			System.out.println("adding variable " + on);
 
 		}
 
@@ -303,8 +316,11 @@ public class CSP_Completion_Solver {
 			protectedSum[i] = acc;
 			i++;
 		}
-		model.sum(protectedSum, "<", T.size()).post();
-
+		Constraint sumT = model.sum(protectedSum, "<", T.size());
+		sumT.post();
+		System.out.println("acc_T= " + this.fromTabToString(protectedSum));
+		System.out.println("adding contraint " + sumT);
+		
 		//on control arguments of solution remain on
 		// off control arguments of solution remain off
 		// BUT WE DO NOT IMPOSE THAT on control arguments are accepted
@@ -314,10 +330,19 @@ public class CSP_Completion_Solver {
 		for(CArgument arg : controlArgs) {
 			String argName = arg.getName();
 			IntVar onIt = onVar.get(argName);
+			IntVar acc = accVar.get(argName);
+			System.out.println("evaluating argument: " + arg.getName());
 			if(onArgs.contains(arg)) {
-				model.arithm(onIt, "=",1).post();
+				Constraint onC =model.arithm(onIt, "=",1); 
+				onC.post();
+				System.out.println("adding contraint " + onC);
 			} else {
-				model.arithm(onIt, "=",0).post();
+				Constraint onC = model.arithm(onIt, "=",0);
+				Constraint accC = model.arithm(acc, "=", 0);
+				onC.post();
+				accC.post();
+				System.out.println("adding contraint " + onC);
+				System.out.println("adding contraint " + accC);
 			}
 		}
 
@@ -342,7 +367,7 @@ public class CSP_Completion_Solver {
 				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
 				Constraint constraint = model.arithm(accCurrent, "=", 1);
 				constraint.post();
-				//System.out.println(constraint);
+				System.out.println("adding constraint : " + constraint);
 			} else {
 				// here add or(and(sum=0, accCurrent=1), (sum!=0 and accCurrent=0))
 				//System.out.println("for argument " + accCurrent + " size of attackers = " + attackers.size());
@@ -352,13 +377,13 @@ public class CSP_Completion_Solver {
 				Constraint andNotNull = model.and(sumNotNull, model.arithm(accCurrent, "=",0));
 				Constraint constraint = model.or(andNull, andNotNull);
 				constraint.post();
-				/*
+				
 				System.out.println(sumNull);
 				System.out.println(sumNotNull);
 				System.out.println(andNull);
 				System.out.println(andNotNull);
 				System.out.println(constraint);
-				*/
+				
 			}
 
 		}
@@ -388,9 +413,9 @@ public class CSP_Completion_Solver {
 				Constraint setNull = model.arithm(accCurrent, "=",0);
 				Constraint constraint = model.or(sumNull, setNull);
 				constraint.post();
-				//System.out.println(sumNull);
-				//System.out.println(setNull);
-				//System.out.println(constraint);
+				System.out.println(sumNull);
+				System.out.println(setNull);
+				System.out.println(constraint);
 			}
 		}
 
@@ -398,6 +423,9 @@ public class CSP_Completion_Solver {
 		// 4. Solve the problem and return the set of solutions
 
 		if(model.getSolver().solve()) {
+			Pair<StableControlConfiguration, StableExtension> alternate = this.buildStableExtension(accVar);
+			System.out.println("for solution = " + solution.toString());
+			System.out.println("alternate solution = " + alternate.getKey().toString());
 			return false;
 		}  else {
 			return true;

@@ -32,17 +32,20 @@ public class Caf_builder {
 		StringBuffer result = new StringBuffer();
 		String[] path = filename.split("\\\\");
 		String name = path[path.length-1];
+		//System.out.println("name= " + name);
 		String[] no_ext = name.split("\\.");
 		String root = filename.replaceAll(name, "");
+		//System.out.println("root= " + root);
 		result.append(root);
 		result.append(subfolder);
 		result.append("\\");
-		result.append(no_ext[0]);
+		//System.out.println("no ext= " + no_ext[no_ext.length-2]);
+		result.append(no_ext[no_ext.length-2]);
 		result.append("_T");
 		result.append(target_size);
 		result.append(".");
 		result.append(ext);
-		//System.out.println(result.toString());
+		System.out.println(result.toString());
 		return result.toString();
 	}
 	
@@ -54,7 +57,6 @@ public class Caf_builder {
 
 				StringBuffer log = new StringBuffer();
 				ArgumentFramework af = AFParser.parse(n.toString());
-
 				CAFGenerator generator = new CAFGenerator(af, pArgF, pArgU, pAttF, pAttU);
 				ControlAF caf = generator.generate(target_size);
 				if(caf == null) {
@@ -87,7 +89,7 @@ public class Caf_builder {
 		}
 		String directory = args[0];
 		int target_size = Integer.parseInt(args[1]);
-		build_CAF_from_AF(directory, 50, 40, 50, 40, target_size);
+		build_CAF_from_AF(directory, 50, 45, 50, 40, target_size);
 		
 	}
 }

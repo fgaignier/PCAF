@@ -3,7 +3,7 @@ package main;
 import generators.ControllabilityEncoder;
 import model.ControlAF;
 import model.PControlAF;
-import tests.test_AF;
+//import tests.test_AF;
 import tests.test_CAF;
 import tests.test_PCAF;
 
@@ -78,11 +78,13 @@ public class Main {
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
 
+		/*
 		System.out.println("##########################################");
 		System.out.println("heuristic");
 		System.out.println("##########################################");
 		caftest.solve_with_heuristic(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest .solve_with_heuristic(0.01, ControllabilityEncoder.CREDULOUS);
+		*/
 		
 		/**
 		 * Test PCAFs
