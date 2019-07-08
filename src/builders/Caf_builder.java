@@ -89,7 +89,7 @@ public class Caf_builder {
 		}
 		String directory = args[0];
 		int target_size = Integer.parseInt(args[1]);
-		build_CAF_from_AF(directory, 50, 45, 50, 40, target_size);
+		build_CAF_from_AF(directory, 35, 35, 40, 40, target_size);
 		
 	}
 }

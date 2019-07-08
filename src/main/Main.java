@@ -58,6 +58,7 @@ public class Main {
 		
 		test_CAF caftest = new test_CAF();
 		caftest.load_CAF_from_file(path+file_name);
+		
 	/*	
 		caftest.saveQCIRToFile(path + changeFileExt(file_name, QCIR), ControllabilityEncoder.SKEPTICAL);
 		caftest.saveQDIMACSToFile(path + changeFileExt(file_name, QDIMACS), ControllabilityEncoder.SKEPTICAL);
@@ -72,12 +73,14 @@ public class Main {
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(100, ControllabilityEncoder.CREDULOUS);
 */
+		
 		System.out.println("##########################################");
 		System.out.println("error level");
 		System.out.println("##########################################");
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.SKEPTICAL);
 		caftest.solve_with_monte_carlo(0.01, ControllabilityEncoder.CREDULOUS);
 
+		
 		/*
 		System.out.println("##########################################");
 		System.out.println("heuristic");

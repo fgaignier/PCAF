@@ -17,7 +17,7 @@ import solvers.Most_Probable_Controlling_Entities_Solver;
 /**
  * must indicate the error level
  * must indicate CREDULOUS vs SKEPTICAL
- * @author Fabrice
+ * @author Fabrice Gaignier
  *
  */
 public class benchmark_CAF_ContPower {

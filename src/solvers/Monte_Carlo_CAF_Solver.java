@@ -117,6 +117,7 @@ public class Monte_Carlo_CAF_Solver {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
 			cc_list = solutions.keySet();
+			SupportingPowerRecorder recorder = null;
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -124,13 +125,18 @@ public class Monte_Carlo_CAF_Solver {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
-					SupportingPowerRecorder recorder = temp_recorders.get(present);
-					recorder.updateOccurencesList(stables);
+					recorder = temp_recorders.get(present);
+					//recorder.updateOccurencesList(stables);
 				} else {
 					result.put(scc, new Integer(1));
-					SupportingPowerRecorder recorder = new SupportingPowerRecorder();
-					recorder.updateOccurencesList(stables);
+					recorder = new SupportingPowerRecorder();
+					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
+				}
+				if(type == ControllabilityEncoder.CREDULOUS) {
+					recorder.updateOccurencesListCred(stables);
+				} else {
+					recorder.updateOccurencesListSke(stables);
 				}
 			}
 			// here must check if we still have a control entity with controlling power of 1
@@ -240,11 +246,7 @@ public class Monte_Carlo_CAF_Solver {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
 			cc_list = solutions.keySet();
-			/*
-			if(cc_list.isEmpty()) {
-				System.out.println("no solution found by solver");
-				System.out.println(af.toString());
-			} */
+			SupportingPowerRecorder recorder = null;
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -252,13 +254,18 @@ public class Monte_Carlo_CAF_Solver {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
-					SupportingPowerRecorder recorder = temp_recorders.get(present);
-					recorder.updateOccurencesList(stables);
+					recorder = temp_recorders.get(present);
+					//recorder.updateOccurencesList(stables);
 				} else {
 					result.put(scc, new Integer(1));
-					SupportingPowerRecorder recorder = new SupportingPowerRecorder();
-					recorder.updateOccurencesList(stables);
+					recorder = new SupportingPowerRecorder();
+					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
+				}
+				if(type == ControllabilityEncoder.CREDULOUS) {
+					recorder.updateOccurencesListCred(stables);
+				} else {
+					recorder.updateOccurencesListSke(stables);
 				}
 			}
 			// increase the number of simulations

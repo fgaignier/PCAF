@@ -104,6 +104,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 				solutions = solver.getSkepticalControlConfigurations();
 			}
 			cc_list = solutions.keySet();
+			SupportingPowerRecorder recorder = null;
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -111,13 +112,17 @@ public class Most_Probable_Controlling_Entities_Solver {
 					Integer count = result.get(present);
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
-					SupportingPowerRecorder recorder = temp_recorders.get(present);
-					recorder.updateOccurencesList(stables);
+					recorder = temp_recorders.get(present);
 				} else {
 					result.put(scc, new Integer(1));
-					SupportingPowerRecorder recorder = new SupportingPowerRecorder();
-					recorder.updateOccurencesList(stables);
+					recorder = new SupportingPowerRecorder();
+					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
+				}
+				if(type == ControllabilityEncoder.CREDULOUS) {
+					recorder.updateOccurencesListCred(stables);
+				} else {
+					recorder.updateOccurencesListSke(stables);
 				}
 			}
 		}
@@ -169,6 +174,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 					solutions = solver.getSkepticalControlConfigurations();
 				}
 				cc_list = solutions.keySet();
+				SupportingPowerRecorder recorder = null;
 				for(StableControlConfiguration scc : cc_list) {
 					stables = solutions.get(scc);
 					StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -176,21 +182,27 @@ public class Most_Probable_Controlling_Entities_Solver {
 						Integer count = result.get(present);
 						Integer newVal = new Integer(count.intValue()+1);
 						result.put(present, newVal);
-						SupportingPowerRecorder recorder = temp_recorders.get(present);
-						recorder.updateOccurencesList(stables);
+						recorder = temp_recorders.get(present);
+						//recorder.updateOccurencesList(stables);
 						if(count.intValue() +1 > current_max) {
 							current_max = count.intValue() +1;
 						}
 					} else {
 						result.put(scc, new Integer(1));
-						SupportingPowerRecorder recorder = new SupportingPowerRecorder();
-						recorder.updateOccurencesList(stables);
+						recorder = new SupportingPowerRecorder();
+						//recorder.updateOccurencesList(stables);
 						temp_recorders.put(scc,  recorder);
 						if(current_max <1) {
 							current_max = 1;
 						}
 					}
+					if(type == ControllabilityEncoder.CREDULOUS) {
+						recorder.updateOccurencesListCred(stables);
+					} else {
+						recorder.updateOccurencesListSke(stables);
+					}
 				}
+				
 				current_simu++;
 				N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 				//System.out.println("nbr of simulations needed: " + N);

@@ -402,6 +402,33 @@ public class ControlAF {
 	}
 
 	/**
+	 * builds the AF from a root completion and a control entity cc:
+	 *  adding all the control arguments in cc plus all the possible control attacks (the ones
+	 * for which both arguments are present)
+	 * @param cc
+	 * @return
+	 */
+	public ArgumentFramework buildAF(ArgumentFramework completion, StableControlConfiguration cc) {
+		//clone the completion
+		ArgumentFramework result = completion.clone();
+		// add the control arguments
+		for(CArgument c : cc.getOnControl()) {
+			result.addArgument(c);
+		}
+		// add all the possible control attacks
+		// if one argument is missing, we ignore the attack
+		Set<CAttack> control = this.getAttacksByType(CAttack.Type.CONTROL);
+		for(CAttack att : control) {
+			try {
+				result.addAttack(att);
+			} catch (UnknownArgumentError e) {
+			//	System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * String representation of CAF according to apx file format
 	 */
 	public String toString() {

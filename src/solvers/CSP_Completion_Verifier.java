@@ -43,6 +43,7 @@ public class CSP_Completion_Verifier {
 	 * @param cc
 	 * @return
 	 */
+	/** DEPRECATED. MOVED TO THE CLASS ControlAF
 	protected ArgumentFramework buildAF(StableControlConfiguration cc) {
 		//clone the completion
 		ArgumentFramework result = this.completion.clone();
@@ -62,7 +63,7 @@ public class CSP_Completion_Verifier {
 		}
 		return result;
 	}
-
+	**/
 
 	/**
 	 * checks if cc is a control configuration for credulous acceptance
@@ -72,7 +73,7 @@ public class CSP_Completion_Verifier {
 	 * @return
 	 */
 	public boolean isCredulousControlConfigurations(StableControlConfiguration cc) {
-		ArgumentFramework af = this.buildAF(cc);
+		ArgumentFramework af = this.CAF.buildAF(this.completion, cc);
 		CSP_AF_Solver solver = new CSP_AF_Solver(af);
 		Set<StableExtension> extensions = solver.getStableSets();
 		Set<CArgument> T = this.CAF.getTarget();
@@ -93,7 +94,7 @@ public class CSP_Completion_Verifier {
 	 * @return
 	 */
 	public boolean isSkepticalControlConfigurations(StableControlConfiguration cc) {
-		ArgumentFramework af = this.buildAF(cc);
+		ArgumentFramework af = this.CAF.buildAF(this.completion, cc);
 		CSP_AF_Solver solver = new CSP_AF_Solver(af);
 		Set<StableExtension> extensions = solver.getStableSets();
 		Set<CArgument> T = this.CAF.getTarget();
