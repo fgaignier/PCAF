@@ -22,9 +22,13 @@ public class ArgumentFramework {
 	// neighbors are arguments attacking
 	protected Map<Argument, Set<Argument>> graph_attacking;
 	
+	// signature (sorted list of arguments)
+	protected SortedSet<String> signature;
+	
 	public ArgumentFramework() {
 		 graph_attacked = new HashMap<Argument, Set<Argument>>();
 		 graph_attacking = new HashMap<Argument, Set<Argument>>();
+		 signature = new TreeSet<String>();
 	}
 	
 	/**
@@ -48,6 +52,8 @@ public class ArgumentFramework {
 		
 		graph_attacked.put(a, attacked);
 		graph_attacking.put(a, attacking);
+		
+		signature.add(a.getName());
 	}
 	
 	/**
@@ -61,6 +67,8 @@ public class ArgumentFramework {
 		// removes the argument from the list
 		this.graph_attacked.remove(a);
 		this.graph_attacking.remove(a);
+		this.signature.remove(a.getName());
+		
 		// checks if other arguments attack this argument
 		removeAttacksFrom(a);
 		// checks if other arguments are attacked by this argument
@@ -85,6 +93,25 @@ public class ArgumentFramework {
 			Set<Argument> attacking = this.getAttackingArguments(arg);
 			attacking.remove(a);
 		}
+	}
+	
+	/**
+	 * returns the signature of the AF
+	 * set of arguments ordered by argument name
+	 */
+	public SortedSet<String> getSignature() {
+		return this.signature;
+	}
+	
+	/**
+	 * Compares the signatures of two Argument Frameworks
+	 * This says if they have the same set of arguments or not
+	 */
+	public boolean hasSameSignature(ArgumentFramework af) {
+		if(this.getSignature().containsAll(af.getSignature())) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

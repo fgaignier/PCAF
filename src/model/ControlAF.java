@@ -429,6 +429,57 @@ public class ControlAF {
 	}
 	
 	/**
+	 * print some indications about the CAF:
+	 * number of fixed arguments
+	 * number of uncertain arguments
+	 * number of control arguments
+	 * number of fixed attacks
+	 * number of uncertain attacks
+	 * number of uncertain attacks
+	 * number of undirected attacks
+	 */
+	public void summary() {
+		StringBuffer result = new StringBuffer();
+		// arguments
+		int fixedArgs = this.getArgumentsByType(CArgument.Type.FIXED).size();
+		int uncertainArgs = this.getArgumentsByType(CArgument.Type.UNCERTAIN).size();
+		int controlArgs = this.getArgumentsByType(CArgument.Type.CONTROL).size();
+		int totalArgs = fixedArgs + uncertainArgs + controlArgs;
+		// attacks
+		int fixedAtts = this.getAttacksByType(CAttack.Type.CERTAIN).size();
+		int uncertainAtts = this.getAttacksByType(CAttack.Type.UNCERTAIN).size();
+		int undirectedAtts = this.getAttacksByType(CAttack.Type.UNDIRECTED).size();
+		int controlAtts = this.getAttacksByType(CAttack.Type.CONTROL).size();
+		int totalAtts = fixedAtts + uncertainAtts + undirectedAtts + controlAtts;
+		
+		result.append("number of fixed arguments: " + fixedArgs);
+		result.append(System.getProperty("line.separator"));
+		result.append("number of uncertain arguments: " + uncertainArgs);
+		result.append(System.getProperty("line.separator"));
+		result.append("number of control arguments: " + controlArgs);
+		result.append(System.getProperty("line.separator"));
+		
+		result.append("total number of arguments: " + totalArgs);
+		result.append(System.getProperty("line.separator"));
+		
+		result.append("number of fixed attacks: " + fixedAtts);
+		result.append(System.getProperty("line.separator"));
+		result.append("number of uncertain attacks: " + uncertainAtts);
+		result.append(System.getProperty("line.separator"));
+		result.append("number of undirected attacks: " + undirectedAtts);
+		result.append(System.getProperty("line.separator"));
+		result.append("number of control attacks: " + controlAtts);
+		result.append(System.getProperty("line.separator"));
+		
+		result.append("total number of attacks: " + totalAtts);
+		result.append(System.getProperty("line.separator"));
+		
+		result.append("######################");
+		result.append(System.getProperty("line.separator"));
+		result.append("target size: " + this.getTargetSize());
+		System.out.println(result.toString());
+	}
+	/**
 	 * String representation of CAF according to apx file format
 	 */
 	public String toString() {

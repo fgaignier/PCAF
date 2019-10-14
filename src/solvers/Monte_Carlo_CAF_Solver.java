@@ -118,6 +118,13 @@ public class Monte_Carlo_CAF_Solver {
 			}
 			cc_list = solutions.keySet();
 			SupportingPowerRecorder recorder = null;
+			// if there ever is a root AF with no control configuration
+			// we can stop the search here
+			if(cc_list.isEmpty()) {
+				this.controllingPower = NO_CC;
+				this.total_simulations = i;
+				break;
+			}
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -247,6 +254,13 @@ public class Monte_Carlo_CAF_Solver {
 			}
 			cc_list = solutions.keySet();
 			SupportingPowerRecorder recorder = null;
+			// if there ever is a root AF with no control configuration
+			// we can stop the search here
+			if(cc_list.isEmpty()) {
+				this.controllingPower = NO_CC;
+				this.total_simulations = current_simu;
+				break;
+			}
 			for(StableControlConfiguration scc : cc_list) {
 				stables = solutions.get(scc);
 				StableControlConfiguration present = util.Util.find(result.keySet(), scc);
@@ -255,12 +269,16 @@ public class Monte_Carlo_CAF_Solver {
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
 					recorder = temp_recorders.get(present);
-					//recorder.updateOccurencesList(stables);
+					if(newVal.intValue() > current_max) {
+						current_max = count.intValue() +1;
+					}
 				} else {
 					result.put(scc, new Integer(1));
 					recorder = new SupportingPowerRecorder();
-					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
+					if(current_max <1) {
+						current_max = 1;
+					}
 				}
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					recorder.updateOccurencesListCred(stables);
@@ -274,12 +292,11 @@ public class Monte_Carlo_CAF_Solver {
 			// here must check if we still have a control entity with controlling power of 1
 			// if not we can stop the simulation at this point
 			if(!this.hasPotentialControlEntity(result, current_simu)) {
-				//System.out.println(af.toString());
 				this.controllingPower = NO_CC;
 				this.total_simulations = current_simu;
 				break;
 			}
-
+		
 			N = (int)util.Util.getNewSimulationNumber(current_max, current_simu, error);
 		}
 

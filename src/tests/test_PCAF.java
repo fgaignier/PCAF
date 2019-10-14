@@ -18,6 +18,8 @@ import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
+import solvers.Most_Probable_Controlling_Entities_Solver_Heuristic;
+//import solvers.Most_Probable_Controlling_Entities_Solver_Heuristic2;
 import solvers.Prefered_Controlling_Entities_Solver;
 
 public class test_PCAF {
@@ -146,16 +148,38 @@ public class test_PCAF {
 			result = solver.getCredulousControlConfigurations(error);
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
+			System.out.println("number simulations = " + solver.getNumberSimu());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(error);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
+			System.out.println("number simulations = " + solver.getNumberSimu());
 			printSolutions(result, solver);
-			System.out.println("---------------------- SUPPORTING POWER----------------");
-			printSupportingPower(solver.getSupportingPowerRecorders());
+			//System.out.println("---------------------- SUPPORTING POWER----------------");
+			//printSupportingPower(solver.getSupportingPowerRecorders());
+		}
+	}
+	
+	public void printMostProbableControllingEntitiesHeuristic(double error, int type) {
+		Most_Probable_Controlling_Entities_Solver_Heuristic solver = new Most_Probable_Controlling_Entities_Solver_Heuristic(this.PCAF);
+
+		Set<StableControlConfiguration> result = null;
+
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			result = solver.getCredulousControlConfigurations(error);
+			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			System.out.println("number simulations = " + solver.getNumberSimu());
+			printSolutions(result, solver);
+		} else {
+			result = solver.getSkepticalControlConfigurations(error);
+			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
+			System.out.println("controlling power = " + solver.getControllingPower());
+			System.out.println("number simulations = " + solver.getNumberSimu());
+			printSolutions(result, solver);
 		}
 	}
 	
@@ -183,56 +207,23 @@ public class test_PCAF {
 	}
 	
 	
-	/**
-	 * just a test function to check the distribution generated
-	 * by RandomProbaRootCompletionGenerator
-	 * it must be uniform between 0 and 1 even for t3 and t4
-	 * @param nb
-	 */
-	/*
-	public void testRandomThresholds(int nb) {
-		RandomPCAFRootCompletionGenerator generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
-		TreeSet<Double> t1 = new TreeSet<Double>();
-		TreeSet<Double> t2 = new TreeSet<Double>();
-		TreeSet<Double> t3 = new TreeSet<Double>();
-		TreeSet<Double> t4 = new TreeSet<Double>();
-		for(int i = 0; i<nb;i++) {
-			double[] t = generator.getRandomThresholds();
-			t1.add(new Double(t[0]));
-			t2.add(new Double(t[1]));
-			t3.add(new Double(t[2]));
-			t4.add(new Double(t[3]));
+
+	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver_Heuristic solver) {
+		int i = 1;
+		if(solutions == null) {
+			return;
 		}
-		StringBuilder result = new StringBuilder();
-		
-		for(Double d1 : t1) {
-			result.append(d1.doubleValue());
-			result.append(";");
-		}
-		result.append("\n");
-		for(Double d2 : t2) {
-			result.append(d2.doubleValue());
-			result.append(";");
-		}
-		result.append("\n");
-		for(Double d3 : t3) {
-			result.append(d3.doubleValue());
-			result.append(";");
-		}
-		result.append("\n");
-		for(Double d4 : t4) {
-			result.append(d4.doubleValue());
-			result.append(";");
-		}
-		result.append("\n");
-		System.out.println(result.toString());
-		try {
-			Util.saveToFile(result.toString(), "C:\\Users\\Fabrice\\eclipse-workspace\\PCAF\\examples\\distribution.csv");
-		} catch (Exception e) {
-			e.printStackTrace();
+		Iterator<StableControlConfiguration> iter = solutions.iterator();
+		while(iter.hasNext()) {
+			System.out.println("--------- printing solution " + i + "-----------");
+			System.out.println(iter.next().toString());
+			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
+			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
+			i++;
 		}
 	}
-	*/
+
+	
 	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver solver) {
 		int i = 1;
 		if(solutions == null) {
