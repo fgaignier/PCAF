@@ -44,6 +44,7 @@ public class ArgumentFramework {
 	public boolean equals(ArgumentFramework other) {
 		if(this.hasSameSignature(other)) {
 			for(Attack att : this.getAllAttacks()) {
+				//System.out.println(att.toString());
 				if(!other.containsAttack(att)) {
 					return false;
 				}
@@ -317,6 +318,9 @@ public class ArgumentFramework {
 	 */
 	public boolean containsAttack(Attack att) {
 		Set<Argument> attacked = this.getAttackedArguments(att.getFrom());
+		if(attacked == null) {
+			return false;
+		}
 		if(attacked.contains(att.getTo())) {
 			return true;
 		}
