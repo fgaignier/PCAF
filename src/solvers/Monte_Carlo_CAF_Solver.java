@@ -133,18 +133,18 @@ public class Monte_Carlo_CAF_Solver {
 					Integer newVal = new Integer(count.intValue()+1);
 					result.put(present, newVal);
 					recorder = temp_recorders.get(present);
-					//recorder.updateOccurencesList(stables);
 				} else {
 					result.put(scc, new Integer(1));
 					recorder = new SupportingPowerRecorder();
-					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
 				}
+				recorder.updateOccurencesList(stables, af);
+				/*
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					recorder.updateOccurencesListCred(stables);
 				} else {
-					recorder.updateOccurencesListSke(stables);
-				}
+					recorder.updateOccurencesListSke(stables, af);
+				} */
 			}
 			// here must check if we still have a control entity with controlling power of 1
 			// if not we can stop the simulation at this point
@@ -280,11 +280,13 @@ public class Monte_Carlo_CAF_Solver {
 						current_max = 1;
 					}
 				}
+				recorder.updateOccurencesList(stables, af);
+				/*
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					recorder.updateOccurencesListCred(stables);
 				} else {
-					recorder.updateOccurencesListSke(stables);
-				}
+					recorder.updateOccurencesListSke(stables, af);
+				} */
 			}
 			// increase the number of simulations
 			current_simu++;

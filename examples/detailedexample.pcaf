@@ -1,0 +1,20 @@
+f_arg(t1).
+f_arg(t2).
+f_arg(a).
+f_arg(d).
+f_arg(b).
+c_arg(C1).
+c_arg(C2).
+c_arg(C3).
+att(C1,a).
+att(C1,C3).
+att(C2,C1).
+att(C2,d).
+att(C2,b).
+att(C3,a).
+att(C3,d).
+att(C3,C2).
+att(d,t2).
+u_att(a,t1) : 0.2
+u_att(b,t2) : 0.8
+target(t1).

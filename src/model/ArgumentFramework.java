@@ -41,6 +41,23 @@ public class ArgumentFramework {
 		return result;
 	}
 	
+	public boolean equals(ArgumentFramework other) {
+		if(this.hasSameSignature(other)) {
+			for(Attack att : this.getAllAttacks()) {
+				if(!other.containsAttack(att)) {
+					return false;
+				}
+			}
+			for(Attack att : other.getAllAttacks()) {
+				if(!this.containsAttack(att)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * add a new argument
 	 * attacks must be added later

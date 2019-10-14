@@ -18,8 +18,7 @@ import parser.PCAFParser;
 import solvers.CSP_PCAF_Proba_Solver;
 import solvers.Completion_Proba_Calculator;
 import solvers.Most_Probable_Controlling_Entities_Solver;
-import solvers.Most_Probable_Controlling_Entities_Solver_Heuristic;
-//import solvers.Most_Probable_Controlling_Entities_Solver_Heuristic2;
+
 import solvers.Prefered_Controlling_Entities_Solver;
 
 public class test_PCAF {
@@ -150,19 +149,20 @@ public class test_PCAF {
 			System.out.println("controlling power = " + solver.getControllingPower());
 			System.out.println("number simulations = " + solver.getNumberSimu());
 			printSolutions(result, solver);
-			//System.out.println("---------------------- SUPPORTING POWER----------------");
-			//printSupportingPower(solver.getSupportingPowerRecorders());
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
 		} else {
 			result = solver.getSkepticalControlConfigurations(error);
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
 			System.out.println("controlling power = " + solver.getControllingPower());
 			System.out.println("number simulations = " + solver.getNumberSimu());
 			printSolutions(result, solver);
-			//System.out.println("---------------------- SUPPORTING POWER----------------");
-			//printSupportingPower(solver.getSupportingPowerRecorders());
+			System.out.println("---------------------- SUPPORTING POWER----------------");
+			printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
 	
+	/*
 	public void printMostProbableControllingEntitiesHeuristic(double error, int type) {
 		Most_Probable_Controlling_Entities_Solver_Heuristic solver = new Most_Probable_Controlling_Entities_Solver_Heuristic(this.PCAF);
 
@@ -182,6 +182,7 @@ public class test_PCAF {
 			printSolutions(result, solver);
 		}
 	}
+	*/
 	
 	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference, int type) {
 
@@ -207,7 +208,7 @@ public class test_PCAF {
 	}
 	
 	
-
+/*
 	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver_Heuristic solver) {
 		int i = 1;
 		if(solutions == null) {
@@ -222,7 +223,7 @@ public class test_PCAF {
 			i++;
 		}
 	}
-
+*/
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver solver) {
 		int i = 1;

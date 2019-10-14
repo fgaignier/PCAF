@@ -116,14 +116,15 @@ public class Most_Probable_Controlling_Entities_Solver {
 				} else {
 					result.put(scc, new Integer(1));
 					recorder = new SupportingPowerRecorder();
-					//recorder.updateOccurencesList(stables);
 					temp_recorders.put(scc,  recorder);
 				}
+				recorder.updateOccurencesList(stables, af);
+				/*
 				if(type == ControllabilityEncoder.CREDULOUS) {
 					recorder.updateOccurencesListCred(stables);
 				} else {
-					recorder.updateOccurencesListSke(stables);
-				}
+					recorder.updateOccurencesListSke(stables, af);
+				} */
 			}
 		}
 		this.setControllingPower(result);
@@ -183,24 +184,25 @@ public class Most_Probable_Controlling_Entities_Solver {
 						Integer newVal = new Integer(count.intValue()+1);
 						result.put(present, newVal);
 						recorder = temp_recorders.get(present);
-						//recorder.updateOccurencesList(stables);
 						if(count.intValue() +1 > current_max) {
 							current_max = count.intValue() +1;
 						}
 					} else {
 						result.put(scc, new Integer(1));
 						recorder = new SupportingPowerRecorder();
-						//recorder.updateOccurencesList(stables);
 						temp_recorders.put(scc,  recorder);
 						if(current_max <1) {
 							current_max = 1;
 						}
 					}
+					//System.out.println("stable extensions found for:" + scc.toString() + " = " + stables.size());
+					recorder.updateOccurencesList(stables, af);
+					/*
 					if(type == ControllabilityEncoder.CREDULOUS) {
 						recorder.updateOccurencesListCred(stables);
 					} else {
 						recorder.updateOccurencesListSke(stables);
-					}
+					} */
 				}
 				
 				current_simu++;
