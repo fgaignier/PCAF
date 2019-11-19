@@ -19,12 +19,12 @@ import logic.qbf.Quantifier;
  * @author Fabrice
  *
  */
-public class QDIMACSConverter {
+public class QBFQDIMACSConverter {
 
 	protected QBFFormula qbf;
 	protected QDIMACSBuilder build;
 	
-	public QDIMACSConverter(QBFFormula qbf) {
+	public QBFQDIMACSConverter(QBFFormula qbf) {
 		this.qbf = qbf;
 		this.build = new QDIMACSBuilder();
 		
@@ -42,7 +42,7 @@ public class QDIMACSConverter {
 		StringBuilder encoding = new StringBuilder();
 		StringBuilder output = new StringBuilder();
 
-		// must resset the builder
+		// must reset the builder
 		this.build = new QDIMACSBuilder();
 
 		// first we encode the quantifiers (to get the quantified variables)

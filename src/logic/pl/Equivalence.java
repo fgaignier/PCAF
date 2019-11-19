@@ -16,7 +16,13 @@ public class Equivalence extends Formula {
 	}
 
 	public String toString() {
-		return name + " = xor(-" + left.getName() + ", " + right.getName() + ")";
+		String leftName = null;
+		if(left instanceof Negation) {
+			leftName = ((Negation)left).getAtomName();
+		} else {
+			leftName = "-" + left.getName();
+		}
+		return name + " = xor(" + leftName + ", " + right.getName() + ")";
 	}
 
 	@Override
@@ -79,28 +85,36 @@ public class Equivalence extends Formula {
 			Integer encodeV = build.getVarCode(this.getName());
 			
 			Integer encodeL = null;
+			String encodeLSign = " ";
+			String encodeLNeg = " ";
 			if(this.left instanceof Negation) {
 				Negation neg = (Negation)left;
 				encodeL = build.getVarCode(neg.getAtomName());
+				encodeLSign = " -";
 			} else {
 				encodeL = build.getVarCode(this.left.getName());
+				encodeLNeg = " -";
 			}
 			
 			Integer encodeR = null;
+			String encodeRSign = " ";
+			String encodeRNeg = " ";
 			if(this.right instanceof Negation) {
 				Negation neg = (Negation)right;
 				encodeR = build.getVarCode(neg.getAtomName());
+				encodeRSign = " -";
 			} else {
 				encodeR = build.getVarCode(this.right.getName());
+				encodeRNeg = " -";
 			}
 				
-			result.append(encodeL.toString() + " -" + encodeR.toString() + " -" + encodeV.toString() + " 0\n");
+			result.append(encodeLSign + encodeL.toString() + encodeRNeg + encodeR.toString() + " -" + encodeV.toString() + " 0\n");
 			build.incClause();
-			result.append("-" + encodeL.toString() + " " + encodeR.toString() + " -" + encodeV.toString() + " 0\n");
+			result.append(encodeLNeg + encodeL.toString() + encodeRSign + encodeR.toString() + " -" + encodeV.toString() + " 0\n");
 			build.incClause();
-			result.append("-" + encodeL.toString() + " -" + encodeR.toString() + " " + encodeV.toString() + " 0\n");
+			result.append(encodeLNeg + encodeL.toString() + encodeRNeg + encodeR.toString() + " " + encodeV.toString() + " 0\n");
 			build.incClause();
-			result.append(encodeL.toString() + " " + encodeR.toString() + " " + encodeV.toString() + " 0\n");
+			result.append(encodeLSign + encodeL.toString() + encodeRSign + encodeR.toString() + " " + encodeV.toString() + " 0\n");
 			build.incClause();
 			
 			return result.toString();

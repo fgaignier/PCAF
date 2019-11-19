@@ -39,6 +39,7 @@ public class Negation extends Formula {
 	}
 	
 	public String toQDIMACS(QDIMACSBuilder build) {
-		return "-" + build.getVarCode(this.atom.getName()).toString();
+		throw new UnsupportedOperationException("Cannot get a QDIMACS for a Negation.");
+		//return "-" + build.getVarCode(this.getAtomName()).toString();
 	}
 }

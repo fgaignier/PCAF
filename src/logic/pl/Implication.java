@@ -75,25 +75,33 @@ public class Implication extends Formula {
 		StringBuilder result = new StringBuilder();
 		Integer encodeV = build.getVarCode(this.getName());
 		Integer encodeC = null;
+		String encodeCSign = " ";
+		String encodeCNeg = " ";
 		if(this.formulaIf instanceof Negation) {
 			Negation neg = (Negation)formulaIf;
 			encodeC = build.getVarCode(neg.getAtomName());
+			encodeCSign = " -";
 		} else {
 			encodeC = build.getVarCode(this.formulaIf.getName());
+			encodeCNeg = " -";
 		}
 		Integer encodeT = null;
+		String encodeTSign = " ";
+		String encodeTNeg = " ";
 		if(this.formulaThen instanceof Negation) {
 			Negation neg = (Negation)formulaThen;
 			encodeT = build.getVarCode(neg.getAtomName());
+			encodeTSign = " -";
 		} else {
 			encodeT = build.getVarCode(this.formulaThen.getName());
+			encodeTNeg = " -";
 		}
 		
-		result.append("-" + encodeC.toString() + " " + encodeT.toString() + " -" + encodeV.toString() + " 0\n");
+		result.append(encodeCNeg + encodeC.toString() + encodeTSign + encodeT.toString() + " -" + encodeV.toString() + " 0\n");
 		build.incClause();
-		result.append(encodeC.toString() + " " + encodeV.toString() + " 0\n");
+		result.append(encodeCSign + encodeC.toString() + " " + encodeV.toString() + " 0\n");
 		build.incClause();
-		result.append("-" + encodeT.toString() + " " + encodeV.toString() +  " 0\n");
+		result.append(encodeTNeg + encodeT.toString() + " " + encodeV.toString() +  " 0\n");
 		build.incClause();
 		
 		return result.toString();

@@ -86,15 +86,19 @@ public class Disjunction extends Formula {
 		global.append("-" + encode.toString() + " ");
 		for(Formula f: this.subformulas) {
 			Integer subEncode = null;
+			String subEncodeSign = " ";
+			String subEncodeNeg = " ";
 			if(f instanceof Negation) {
 				Negation neg = (Negation)f;
 				subEncode = build.getVarCode(neg.getAtomName());
+				subEncodeSign = " -";
 			} else {
 				subEncode = build.getVarCode(f.getName());
+				subEncodeNeg = " -";
 			}
 			build.incClause();
-			individual.append(encode.toString() + " -" + subEncode.toString() + " 0\n");
-			global.append(subEncode.toString() + " ");
+			individual.append(encode.toString() + subEncodeNeg + subEncode.toString() + " 0\n");
+			global.append(subEncodeSign + subEncode.toString() + " ");
 		}
 		build.incClause();
 		global.append(" 0\n");

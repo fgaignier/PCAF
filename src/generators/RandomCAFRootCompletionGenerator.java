@@ -82,15 +82,13 @@ public class RandomCAFRootCompletionGenerator {
 	 * No arguments from the control part
 	 * All FIXED and UNCERTAIN arguments
 	 * All the FIXED and UNCERTAIN attacks
-	 * randomly assign a direction to UNDIRECTED attacks
+	 * both directions of undirected attacks
 	 */
 	public ArgumentFramework getMaxRootCompletion() {
 		ArgumentFramework result = this.getSkeletonMaxRootCompletion();
-		// add attacks: unknown direction => here we need to decide randomly the direction
+		// unknown direction => here we set both sides
 		Set<CAttack> undirAtts = CAF.getAttacksByType(CAttack.Type.UNDIRECTED);
-		Iterator<CAttack> itud = undirAtts.iterator();
-		while(itud.hasNext()) {
-			CAttack attud = itud.next();
+		for(CAttack attud : undirAtts) {
 			CArgument from = (CArgument)attud.getFrom();
 			CArgument to = (CArgument)attud.getTo();
 			result.addAttack(new Attack(from,to));

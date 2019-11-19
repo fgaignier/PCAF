@@ -29,7 +29,8 @@ public class Atom extends Formula {
 	}
 
 	public String toQDIMACS(QDIMACSBuilder build) {
-		return build.getVarCode(this.getName()).toString();
+		throw new UnsupportedOperationException("Cannot get QDimacs of an Atom.");
+		//return build.getVarCode(this.getName()).toString();
 	}
 	
 	public boolean equals(Object other) {

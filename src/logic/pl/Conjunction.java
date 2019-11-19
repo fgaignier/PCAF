@@ -26,6 +26,9 @@ public class Conjunction extends Formula {
 	}
 
 	public String toString() {
+		if(subformulas.isEmpty()) {
+			System.out.println("and clause with no operandes: " + name);
+		}
 		return name + " = and(" + Utils.toVarList(subformulas) + ")";
 	}
 
@@ -57,7 +60,6 @@ public class Conjunction extends Formula {
 		StringBuilder result = new StringBuilder();
 		
 		build.addVar(this.getName(), true);
-		//build.incClause();
 		for(Formula f : subformulas) {
 			if(!(f instanceof Atom || f instanceof Negation)) {
 				result.append(f.toQDIMACS(build));
@@ -85,15 +87,19 @@ public class Conjunction extends Formula {
 		global.append(encode.toString());
 		for(Formula f: this.subformulas) {
 			Integer subEncode = null;
+			String subEncodeSign = " ";
+			String subEncodeNeg = " ";
 			if(f instanceof Negation) {
 				Negation neg = (Negation)f;
 				subEncode = build.getVarCode(neg.getAtomName());
+				subEncodeSign = " -";
 			} else {
 				subEncode = build.getVarCode(f.getName());
+				subEncodeNeg = " -";
 			}
 			build.incClause();
-			individual.append("-" + encode.toString() + " " + subEncode.toString() + " 0\n");
-			global.append(" -" + subEncode.toString());
+			individual.append("-" + encode.toString() + subEncodeSign + subEncode.toString() + " 0\n");
+			global.append(subEncodeNeg + subEncode.toString());
 		}
 		build.incClause();
 		global.append(" 0\n");

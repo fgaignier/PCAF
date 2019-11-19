@@ -5,9 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import generators.ControllabilityEncoder;
-import generators.QDIMACSConverter;
+import generators.QBFQDIMACSConverter;
+import generators.SATQDIMACSConverter;
 import generators.StrongQBFEncoder;
+import generators.StrongSATEncoder;
+import logic.pl.SatFormula;
 import logic.qbf.QBFFormula;
+import model.ArgumentFramework;
 import model.ControlAF;
 import model.StableControlConfiguration;
 import model.SupportingPowerRecorder;
@@ -33,7 +37,6 @@ public class test_CAF {
 	}
 
 	public void load_CAF_from_file(String file) {
-		//CAFParser parser = new CAFParser(file);
 		this.CAF = CAFParser.parse(file);
 	}
 
@@ -41,7 +44,7 @@ public class test_CAF {
 		StrongQBFEncoder encoder = new StrongQBFEncoder(this.CAF);
 
 		QBFFormula qbf = encoder.encode(type);
-		QDIMACSConverter converter = new QDIMACSConverter(qbf);
+		QBFQDIMACSConverter converter = new QBFQDIMACSConverter(qbf);
 
 		try {
 			Util.saveToFile(converter.toQDimacs(), file);
@@ -50,6 +53,23 @@ public class test_CAF {
 		}
 	}
 
+	public void saveSATQDIMACSToFile(String file, ArgumentFramework instance) {
+		StrongSATEncoder encoder = new StrongSATEncoder(instance, this.CAF);
+		System.out.println("******** INSTANCE :");
+		System.out.println(instance.toString());
+		System.out.println("******** END INSTANCE :");
+		SatFormula formula = encoder.encode(0);
+		System.out.println("******** START QCIR ENCODING :");
+		System.out.println(formula.getMatrix().toQCir());
+		System.out.println("******** END QCIR ENCODING :");
+		SATQDIMACSConverter converter = new SATQDIMACSConverter(formula);
+		try {
+			Util.saveToFile(converter.toQDimacs(), file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void saveQCIRToFile(String file, int type) {
 		StrongQBFEncoder encoder = new StrongQBFEncoder(this.CAF);
 
