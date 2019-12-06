@@ -28,8 +28,12 @@ public class ConjunctionQDIMACSTest {
 		conj1.addSubformula(new Atom("d"));
 		formula = new SatFormula(variables, conj1);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(conj1.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
 		
 		// with negative atoms
 		Conjunction conj2 = new Conjunction("main");
@@ -39,7 +43,11 @@ public class ConjunctionQDIMACSTest {
 		conj2.addSubformula(new Atom("d"));
 		formula = new SatFormula(variables, conj2);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(conj2.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
 	}
 }

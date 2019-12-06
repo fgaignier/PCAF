@@ -21,25 +21,22 @@ import model.StableExtension;
  * @author Fabrice
  *
  */
-public class Monte_Carlo_CAF_Solver implements I_Monte_Carlo_Solver {
-	
-	private static int INIT_CP = -1;
-	private static int NO_CC = -2;
-	
+public class Monte_Carlo_CAF_CSP_Solver {
+	public static int INIT_CP = -1;
+	public static int NO_CC = -2;
+
 	private ControlAF CAF;
 	private RandomCAFRootCompletionGenerator generator; 
 	private double controllingPower;
 	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
 	private int total_simulations;
-	private int solver_type;
 
-	public Monte_Carlo_CAF_Solver(ControlAF CAF, int solver_type) {
+	public Monte_Carlo_CAF_CSP_Solver(ControlAF CAF) {
 		this.CAF = CAF;
 		this.generator = new RandomCAFRootCompletionGenerator(this.CAF);
 		this.controllingPower = INIT_CP;
 		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 		this.total_simulations = 0;
-		this.solver_type = solver_type;
 	}
 
 	public int getNumberSimu() {
@@ -110,12 +107,7 @@ public class Monte_Carlo_CAF_Solver implements I_Monte_Carlo_Solver {
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
 
-			I_Completion_Solver solver = null;
-			if(this.solver_type == I_Monte_Carlo_Solver.CSP_SOLVER) {
-				solver = new CSP_Completion_Solver(this.CAF, af);
-			} else {
-				solver = new SAT_Completion_Solver(this.CAF, af);
-			}
+			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.CAF, af);
 			Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 			Set<StableControlConfiguration> cc_list = null;
 			Set<StableExtension> stables = null;
@@ -147,6 +139,12 @@ public class Monte_Carlo_CAF_Solver implements I_Monte_Carlo_Solver {
 					temp_recorders.put(scc,  recorder);
 				}
 				recorder.updateOccurencesList(stables, af);
+				/*
+				if(type == ControllabilityEncoder.CREDULOUS) {
+					recorder.updateOccurencesListCred(stables);
+				} else {
+					recorder.updateOccurencesListSke(stables, af);
+				} */
 			}
 			// here must check if we still have a control entity with controlling power of 1
 			// if not we can stop the simulation at this point

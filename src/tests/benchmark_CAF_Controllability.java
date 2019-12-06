@@ -11,7 +11,7 @@ import generators.ControllabilityEncoder;
 import model.ControlAF;
 import model.StableControlConfiguration;
 import parser.CAFParser;
-import solvers.Monte_Carlo_CAF_Solver;
+import solvers.Monte_Carlo_CAF_CSP_Solver;
 
 /**
  * must indicate the error level
@@ -45,7 +45,7 @@ public class benchmark_CAF_Controllability {
 				//System.out.println(caf.toString());
 				// here we just check controllability of CAF. Controlling power will therefore
 				// be 1 (if success) or -2 (fail)
-				Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(caf);
+				Monte_Carlo_CAF_CSP_Solver solver = new Monte_Carlo_CAF_CSP_Solver(caf);
 				
 				Set<StableControlConfiguration> ccs = null;
 				//STARTS THE TIMER JUST BEFORE CALCULATION

@@ -22,27 +22,44 @@ public class EquivalenceQDIMACSTest {
 		Equivalence equiv1 = new Equivalence("main", new Atom("a"), new Atom("b"));
 		formula = new SatFormula(variables, equiv1);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(equiv1.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
 		
 		// with negative atoms
 		Equivalence equiv2 = new Equivalence("main", new Negation(new Atom("a")), new Atom("b"));
 		formula = new SatFormula(variables, equiv2);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(equiv2.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
 		
 		Equivalence equiv3 = new Equivalence("main", new Atom("a"), new Negation(new Atom("b")));
 		formula = new SatFormula(variables, equiv3);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(equiv3.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
 		
 		Equivalence equiv4 = new Equivalence("main", new Negation(new Atom("a")), new Negation(new Atom("b")));
 		formula = new SatFormula(variables, equiv4);
 		converter = new SATQDIMACSConverter(formula);
+		System.out.println("QCIR representation");
 		System.out.println(equiv4.toQCir());
+		System.out.println("QDIMACS original representation");
 		System.out.println(converter.toQDimacs());
+		System.out.println("QDIMACS new representation");
+		System.out.println(converter.toQDimacsList());
+
 
 	}
 }

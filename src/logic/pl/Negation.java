@@ -1,5 +1,6 @@
 package logic.pl;
 
+import java.util.List;
 import java.util.Set;
 
 import generators.QDIMACSBuilder;
@@ -41,5 +42,10 @@ public class Negation extends Formula {
 	public String toQDIMACS(QDIMACSBuilder build) {
 		throw new UnsupportedOperationException("Cannot get a QDIMACS for a Negation.");
 		//return "-" + build.getVarCode(this.getAtomName()).toString();
+	}
+	
+	public List<List<Integer>> toQDIMACSList(QDIMACSBuilder build) {
+		throw new UnsupportedOperationException("Cannot get QDimacs of a Negation.");
+		//return build.getVarCode(this.getName()).toString();
 	}
 }

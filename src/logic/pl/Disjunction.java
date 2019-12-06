@@ -53,6 +53,20 @@ public class Disjunction extends Formula {
 		return build.toString();
 	}
 	
+	public List<List<Integer>> toQDIMACSList(QDIMACSBuilder build) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+		build.addVar(this.getName(), true);
+		for(Formula f : subformulas) {
+			if(!(f instanceof Atom || f instanceof Negation)) {
+				result.addAll(f.toQDIMACSList(build));
+			}
+		}
+		result.addAll(this.orQDIMACSList(build));
+
+		return result;
+	}
+	
 	public String toQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		build.addVar(this.getName(), true);
@@ -107,4 +121,43 @@ public class Disjunction extends Formula {
 		return result.toString();
 	}
 	
+	public List<List<Integer>> orQDIMACSList(QDIMACSBuilder build) {
+		//StringBuilder result = new StringBuilder();
+		//StringBuilder individual = new StringBuilder();
+		//StringBuilder global = new StringBuilder();
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		List<Integer> individual = null;
+		List<Integer> global = new ArrayList<Integer>();
+		
+		Integer encode = build.getVarCode(this.getName());
+		//global.append("-" + encode.toString() + " ");
+		global.add(-1*encode);
+		for(Formula f: this.subformulas) {
+			Integer subEncode = null;
+			int subEncodeSign = 1;
+			int subEncodeNeg = 1;
+			if(f instanceof Negation) {
+				Negation neg = (Negation)f;
+				subEncode = build.getVarCode(neg.getAtomName());
+				subEncodeSign = -1;
+			} else {
+				subEncode = build.getVarCode(f.getName());
+				subEncodeNeg = -1;
+			}
+			build.incClause();
+			individual = new ArrayList<Integer>();
+			individual.add(encode);
+			individual.add(subEncodeNeg*subEncode);
+			result.add(individual);
+			global.add(subEncodeSign*subEncode);
+			//individual.append(encode.toString() + subEncodeNeg + subEncode.toString() + " 0\n");
+			//global.append(subEncodeSign + subEncode.toString() + " ");
+		}
+		build.incClause();
+		result.add(global);
+//		global.append(" 0\n");
+//		result.append(individual.toString());
+//		result.append(global.toString());
+		return result;
+	}
 }

@@ -28,7 +28,7 @@ public class benchmark_CAF_ContPower {
 	public static double error = 0.01;
 	public static String csv_sep = ";";
 
-	public static void claculate_mpce(String path, int type) {
+	public static void claculate_mpce(String path, int type, int solver_type) {
 		StringBuffer log = new StringBuffer();
 		StringBuffer stats_csv = new StringBuffer();
 		stats_csv.append(getHeader());
@@ -45,7 +45,7 @@ public class benchmark_CAF_ContPower {
 				ControlAF caf = CAFParser.parse(n.toString());
 				// direct transformation to pcaf to get the mpce if no cc available
 				PControlAF pcaf = new PControlAF(caf);
-				Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(pcaf);
+				Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(pcaf, solver_type);
 				
 				Set<StableControlConfiguration> mpces = null;
 				//STARTS THE TIMER JUST BEFORE CALCULATION
@@ -124,11 +124,11 @@ public class benchmark_CAF_ContPower {
 		return result.toString();
 	}
 	public static void main(String[] args) {
-		if(args.length < 2) {
-			System.out.println("parameters: directory type (0=CREDULOUS, 1=SKEPTICAL)");
+		if(args.length < 3) {
+			System.out.println("parameters: directory, type (0=CREDULOUS, 1=SKEPTICAL), solver (0=CSP, 1=SAT)");
 			System.exit(1);
 		}
-		claculate_mpce(args[0], Integer.parseInt(args[1]));
-		
+		claculate_mpce(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+
 	}
 }

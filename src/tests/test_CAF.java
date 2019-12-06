@@ -16,7 +16,7 @@ import model.ControlAF;
 import model.StableControlConfiguration;
 import model.SupportingPowerRecorder;
 import parser.CAFParser;
-import solvers.Monte_Carlo_CAF_Solver;
+import solvers.Monte_Carlo_CAF_CSP_Solver;
 import solvers.Monte_Carlo_CAF_Solver_Heuristic;
 import util.Util;
 
@@ -84,7 +84,7 @@ public class test_CAF {
 
 
 	public void solve_with_monte_carlo(int N, int type) {
-		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
+		Monte_Carlo_CAF_CSP_Solver solver = new Monte_Carlo_CAF_CSP_Solver(this.CAF);
 
 		Set<StableControlConfiguration> result = null;
 
@@ -107,7 +107,7 @@ public class test_CAF {
 	}
 
 	public void solve_with_monte_carlo(double error, int type) {
-		Monte_Carlo_CAF_Solver solver = new Monte_Carlo_CAF_Solver(this.CAF);
+		Monte_Carlo_CAF_CSP_Solver solver = new Monte_Carlo_CAF_CSP_Solver(this.CAF);
 
 		Set<StableControlConfiguration> result = null;
 

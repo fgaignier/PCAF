@@ -21,7 +21,7 @@ import util.Util;
  * @author Fabrice
  *
  */
-public class Most_Probable_Controlling_Entities_Solver {
+public class Most_Probable_Controlling_Entities_Solver implements I_Monte_Carlo_Solver {
 	private PControlAF PCAF;
 	private RandomPCAFRootCompletionGenerator generator; 
 	private double controllingPower;
@@ -29,8 +29,9 @@ public class Most_Probable_Controlling_Entities_Solver {
 	private Map<StableControlConfiguration, SupportingPowerRecorder> recorders;
 	private double min_interval;
 	private double max_interval;
+	private int solver_type;
 	
-	public Most_Probable_Controlling_Entities_Solver(PControlAF PCAF) {
+	public Most_Probable_Controlling_Entities_Solver(PControlAF PCAF, int solver_type) {
 		this.PCAF = PCAF;
 		this.generator = new RandomPCAFRootCompletionGenerator(this.PCAF);
 		this.controllingPower = -1;
@@ -38,6 +39,7 @@ public class Most_Probable_Controlling_Entities_Solver {
 		this.recorders = new HashMap<StableControlConfiguration, SupportingPowerRecorder>();
 		this.min_interval = 0;
 		this.max_interval = 0;
+		this.solver_type = solver_type;
 	}
 	
 	public int getNumberSimu() {
@@ -94,7 +96,12 @@ public class Most_Probable_Controlling_Entities_Solver {
 		for(int i = 0; i<N; i++) {
 			ArgumentFramework af = this.generator.getRandomRootCompletion();
 			
-			CSP_Completion_Solver solver = new CSP_Completion_Solver(this.PCAF, af);
+			I_Completion_Solver solver = null;
+			if(this.solver_type == I_Monte_Carlo_Solver.CSP_SOLVER) {
+				solver = new CSP_Completion_Solver(this.PCAF, af);
+			} else {
+				solver = new SAT_Completion_Solver(this.PCAF, af);
+			}
 			Map<StableControlConfiguration, Set<StableExtension>> solutions = null;
 			Set<StableControlConfiguration> cc_list = null;
 			Set<StableExtension> stables = null;

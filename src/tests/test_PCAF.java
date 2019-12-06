@@ -115,8 +115,8 @@ public class test_PCAF {
 		}
 	}
 
-	public void printMostProbableControllingEntities(int N, int type) {
-		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+	public void printMostProbableControllingEntities(int N, int type, int solver_type) {
+		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF, solver_type);
 
 		Set<StableControlConfiguration> result = null;
 
@@ -138,8 +138,8 @@ public class test_PCAF {
 		}
 	}
 	
-	public void printMostProbableControllingEntities(double error, int type) {
-		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+	public void printMostProbableControllingEntities(double error, int type, int solver_type) {
+		Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF, solver_type);
 
 		Set<StableControlConfiguration> result = null;
 
@@ -161,36 +161,14 @@ public class test_PCAF {
 			printSupportingPower(solver.getSupportingPowerRecorders());
 		}
 	}
-	
-	/*
-	public void printMostProbableControllingEntitiesHeuristic(double error, int type) {
-		Most_Probable_Controlling_Entities_Solver_Heuristic solver = new Most_Probable_Controlling_Entities_Solver_Heuristic(this.PCAF);
-
-		Set<StableControlConfiguration> result = null;
-
-		if(type == ControllabilityEncoder.CREDULOUS) {
-			result = solver.getCredulousControlConfigurations(error);
-			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
-			System.out.println("controlling power = " + solver.getControllingPower());
-			System.out.println("number simulations = " + solver.getNumberSimu());
-			printSolutions(result, solver);
-		} else {
-			result = solver.getSkepticalControlConfigurations(error);
-			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-			System.out.println("controlling power = " + solver.getControllingPower());
-			System.out.println("number simulations = " + solver.getNumberSimu());
-			printSolutions(result, solver);
-		}
-	}
-	*/
-	
-	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference, int type) {
+		
+	public void printPreferedCE(int nbSimu, List<Set<CArgument>> preference, int type, int solver_type) {
 
 		System.out.println("prefered controlling entities");
 		Prefered_Controlling_Entities_Solver solver = null;
 		Set<StableControlConfiguration> result = null;
 
-		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+		solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference, solver_type);
 		if(type == ControllabilityEncoder.CREDULOUS) {
 			result = solver.getPreferedCredulousCE(nbSimu);
 			System.out.println("---------------------- CREDULOUS SOLUTIONS----------------");
@@ -199,31 +177,13 @@ public class test_PCAF {
 			}
 		} else {		
 			System.out.println("---------------------- SKEPTICAL SOLUTIONS----------------");
-			solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference);
+			solver = new Prefered_Controlling_Entities_Solver(this.PCAF, preference, solver_type);
 			result = solver.getPreferedSkepticalCE(nbSimu);
 			for(StableControlConfiguration scc : result) {
 				System.out.println(scc.toString());
 			}
 		}
 	}
-	
-	
-/*
-	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver_Heuristic solver) {
-		int i = 1;
-		if(solutions == null) {
-			return;
-		}
-		Iterator<StableControlConfiguration> iter = solutions.iterator();
-		while(iter.hasNext()) {
-			System.out.println("--------- printing solution " + i + "-----------");
-			System.out.println(iter.next().toString());
-			System.out.println("controlling power = " + solver.getControllingPower()*100 + "%");
-			System.out.println("confidence interval 95%: [" + solver.getLowInterval() + " , " + solver.getHighInterval() + "]");
-			i++;
-		}
-	}
-*/
 	
 	private static void printSolutions(Set<StableControlConfiguration> solutions, Most_Probable_Controlling_Entities_Solver solver) {
 		int i = 1;

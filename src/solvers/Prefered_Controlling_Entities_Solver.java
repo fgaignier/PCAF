@@ -23,12 +23,14 @@ public class Prefered_Controlling_Entities_Solver {
 	protected List<Set<CArgument>> preference;
 	protected List<Set<CArgument>> originalPreference;
 	protected Set<CArgument> originalTarget;
+	protected int solver_type;
 	
-	public Prefered_Controlling_Entities_Solver(PControlAF PCAF, List<Set<CArgument>> preference) {
+	public Prefered_Controlling_Entities_Solver(PControlAF PCAF, List<Set<CArgument>> preference, int solver_type) {
 		this.PCAF = PCAF;
 		this.originalPreference = preference;
 		this.preference = this.clonePreference(preference);
 		this.originalTarget = this.PCAF.getTarget();
+		this.solver_type = solver_type;
 	}
 	
 	/**
@@ -74,7 +76,7 @@ public class Prefered_Controlling_Entities_Solver {
 		 // T0 is the first element of the preference list
 		 Set<CArgument> T0 = this.preference.remove(0);
 		 this.PCAF.setTarget(T0);
-		 Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF);
+		 Most_Probable_Controlling_Entities_Solver solver = new Most_Probable_Controlling_Entities_Solver(this.PCAF, this.solver_type);
 		 Set<StableControlConfiguration> CEi = null;
 		 if(type == ControllabilityEncoder.CREDULOUS) {
 			 CEi = solver.getCredulousControlConfigurations(N);

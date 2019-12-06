@@ -1,6 +1,7 @@
 package logic.pl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import generators.QDIMACSBuilder;
@@ -29,6 +30,11 @@ public class Atom extends Formula {
 	}
 
 	public String toQDIMACS(QDIMACSBuilder build) {
+		throw new UnsupportedOperationException("Cannot get QDimacs of an Atom.");
+		//return build.getVarCode(this.getName()).toString();
+	}
+	
+	public List<List<Integer>> toQDIMACSList(QDIMACSBuilder build) {
 		throw new UnsupportedOperationException("Cannot get QDimacs of an Atom.");
 		//return build.getVarCode(this.getName()).toString();
 	}

@@ -1,0 +1,1325 @@
+c_arg(a0).
+c_arg(a1).
+c_arg(a2).
+c_arg(a3).
+c_arg(a4).
+c_arg(a5).
+c_arg(a6).
+c_arg(a7).
+c_arg(a8).
+c_arg(a9).
+c_arg(a10).
+f_arg(a11).
+f_arg(a12).
+f_arg(a13).
+f_arg(a14).
+f_arg(a15).
+f_arg(a16).
+f_arg(a17).
+f_arg(a18).
+f_arg(a19).
+f_arg(a20).
+f_arg(a21).
+f_arg(a22).
+f_arg(a23).
+f_arg(a24).
+f_arg(a25).
+f_arg(a26).
+f_arg(a27).
+f_arg(a28).
+f_arg(a29).
+f_arg(a30).
+f_arg(a31).
+f_arg(a32).
+f_arg(a33).
+f_arg(a34).
+f_arg(a35).
+f_arg(a36).
+f_arg(a37).
+f_arg(a38).
+f_arg(a39).
+f_arg(a40).
+f_arg(a41).
+f_arg(a42).
+f_arg(a43).
+f_arg(a44).
+f_arg(a45).
+f_arg(a46).
+f_arg(a47).
+f_arg(a48).
+f_arg(a49).
+f_arg(a50).
+f_arg(a51).
+f_arg(a52).
+f_arg(a53).
+f_arg(a54).
+f_arg(a55).
+f_arg(a56).
+f_arg(a57).
+f_arg(a58).
+f_arg(a59).
+f_arg(a60).
+f_arg(a61).
+f_arg(a62).
+f_arg(a63).
+f_arg(a64).
+f_arg(a65).
+f_arg(a66).
+f_arg(a67).
+f_arg(a68).
+f_arg(a69).
+f_arg(a70).
+f_arg(a71).
+f_arg(a72).
+f_arg(a73).
+f_arg(a74).
+f_arg(a75).
+f_arg(a76).
+f_arg(a77).
+f_arg(a78).
+f_arg(a79).
+f_arg(a80).
+f_arg(a81).
+f_arg(a82).
+f_arg(a83).
+f_arg(a84).
+f_arg(a85).
+f_arg(a86).
+f_arg(a87).
+f_arg(a88).
+f_arg(a89).
+f_arg(a90).
+f_arg(a91).
+f_arg(a92).
+f_arg(a93).
+f_arg(a94).
+f_arg(a95).
+f_arg(a96).
+f_arg(a97).
+f_arg(a98).
+f_arg(a99).
+f_arg(a100).
+f_arg(a101).
+f_arg(a102).
+f_arg(a103).
+f_arg(a104).
+f_arg(a105).
+f_arg(a106).
+f_arg(a107).
+f_arg(a108).
+f_arg(a109).
+f_arg(a110).
+f_arg(a111).
+f_arg(a112).
+f_arg(a113).
+f_arg(a114).
+f_arg(a115).
+f_arg(a116).
+f_arg(a117).
+f_arg(a118).
+f_arg(a119).
+att(a0,a13).
+att(a0,a61).
+att(a0,a92).
+att(a0,a111).
+att(a0,a114).
+att(a1,a23).
+att(a1,a29).
+att(a1,a30).
+att(a1,a55).
+att(a1,a82).
+att(a1,a91).
+att(a1,a95).
+att(a1,a96).
+att(a1,a109).
+att(a2,a40).
+att(a2,a47).
+att(a2,a54).
+att(a2,a61).
+att(a2,a63).
+att(a2,a87).
+att(a2,a98).
+att(a2,a106).
+att(a2,a114).
+att(a2,a119).
+att(a3,a12).
+att(a3,a18).
+att(a3,a23).
+att(a3,a24).
+att(a3,a38).
+att(a3,a45).
+att(a3,a50).
+att(a3,a51).
+att(a3,a57).
+att(a3,a65).
+att(a3,a87).
+att(a3,a93).
+att(a3,a95).
+att(a3,a98).
+att(a3,a100).
+att(a4,a12).
+att(a4,a14).
+att(a4,a16).
+att(a4,a19).
+att(a4,a39).
+att(a4,a61).
+att(a4,a109).
+att(a4,a116).
+att(a4,a117).
+att(a5,a34).
+att(a5,a43).
+att(a5,a56).
+att(a5,a103).
+att(a6,a14).
+att(a6,a17).
+att(a6,a54).
+att(a6,a57).
+att(a6,a58).
+att(a6,a66).
+att(a6,a69).
+att(a6,a92).
+att(a6,a112).
+att(a7,a25).
+att(a7,a55).
+att(a7,a85).
+att(a7,a97).
+att(a7,a98).
+att(a7,a99).
+att(a7,a100).
+att(a7,a103).
+att(a7,a111).
+att(a8,a51).
+att(a8,a54).
+att(a8,a80).
+att(a8,a83).
+att(a8,a93).
+att(a8,a96).
+att(a8,a104).
+att(a8,a108).
+att(a8,a112).
+att(a8,a113).
+att(a8,a116).
+att(a8,a117).
+att(a8,a118).
+att(a9,a29).
+att(a9,a32).
+att(a9,a37).
+att(a9,a52).
+att(a9,a72).
+att(a9,a87).
+att(a9,a88).
+att(a10,a16).
+att(a10,a22).
+att(a10,a29).
+att(a10,a31).
+att(a10,a34).
+att(a10,a39).
+att(a10,a72).
+att(a10,a77).
+att(a10,a81).
+att(a10,a87).
+att(a10,a88).
+att(a10,a103).
+att(a10,a113).
+att(a10,a116).
+att(a11,a28).
+att(a11,a40).
+att(a11,a56).
+att(a11,a57).
+att(a11,a74).
+att(a11,a104).
+u_att(a12,a17) : 0.5
+u_att(a12,a32) : 0.5
+u_att(a12,a34) : 0.5
+u_att(a12,a35) : 0.5
+u_att(a12,a56) : 0.5
+u_att(a12,a71) : 0.5
+u_att(a12,a72) : 0.5
+u_att(a12,a80) : 0.5
+u_att(a12,a88) : 0.5
+u_att(a12,a89) : 0.5
+u_att(a12,a100) : 0.5
+u_att(a12,a104) : 0.5
+u_att(a12,a106) : 0.5
+u_att(a12,a113) : 0.5
+u_att(a13,a20) : 0.5
+u_att(a13,a25) : 0.5
+u_att(a13,a28) : 0.6
+u_att(a13,a30) : 0.6
+u_att(a13,a33) : 0.6
+u_att(a13,a35) : 0.6
+u_att(a13,a39) : 0.6
+u_att(a13,a49) : 0.6
+u_att(a13,a53) : 0.6
+u_att(a13,a68) : 0.6
+u_att(a13,a71) : 0.6
+u_att(a13,a78) : 0.6
+u_att(a13,a79) : 0.6
+u_att(a13,a85) : 0.6
+u_att(a13,a86) : 0.6
+u_att(a13,a88) : 0.6
+u_att(a13,a89) : 0.6
+u_att(a13,a95) : 0.6
+u_att(a13,a100) : 0.6
+u_att(a13,a112) : 0.6
+u_att(a14,a19) : 0.6
+u_att(a14,a21) : 0.6
+u_att(a14,a32) : 0.6
+u_att(a14,a40) : 0.6
+u_att(a14,a47) : 0.6
+u_att(a14,a83) : 0.6
+u_att(a14,a85) : 0.6
+u_att(a15,a13) : 0.6
+u_att(a15,a24) : 0.6
+u_att(a15,a29) : 0.6
+u_att(a15,a37) : 0.6
+u_att(a15,a55) : 0.6
+u_att(a15,a56) : 0.6
+u_att(a15,a73) : 0.6
+u_att(a15,a75) : 0.6
+u_att(a15,a77) : 0.6
+u_att(a15,a82) : 0.6
+u_att(a15,a95) : 0.6
+u_att(a15,a107) : 0.6
+u_att(a15,a118) : 0.6
+u_att(a16,a29) : 0.6
+u_att(a16,a33) : 0.6
+u_att(a16,a49) : 0.6
+u_att(a16,a50) : 0.6
+u_att(a16,a53) : 0.6
+u_att(a16,a57) : 0.6
+u_att(a16,a61) : 0.6
+u_att(a16,a68) : 0.6
+u_att(a16,a75) : 0.6
+u_att(a16,a76) : 0.6
+u_att(a16,a78) : 0.6
+u_att(a16,a87) : 0.6
+u_att(a16,a89) : 0.6
+u_att(a16,a105) : 0.5
+u_att(a17,a25) : 0.5
+u_att(a17,a27) : 0.5
+u_att(a17,a28) : 0.5
+u_att(a17,a40) : 0.5
+u_att(a17,a51) : 0.5
+u_att(a17,a54) : 0.5
+u_att(a17,a74) : 0.5
+u_att(a17,a97) : 0.5
+u_att(a17,a103) : 0.5
+u_att(a18,a12) : 0.5
+u_att(a18,a26) : 0.5
+u_att(a18,a29) : 0.5
+u_att(a18,a63) : 0.5
+u_att(a18,a84) : 0.5
+u_att(a18,a98) : 0.5
+u_att(a18,a104) : 0.5
+u_att(a18,a110) : 0.5
+u_att(a19,a20) : 0.5
+u_att(a19,a21) : 0.5
+u_att(a19,a22) : 0.5
+u_att(a19,a116) : 0.5
+u_att(a20,a59) : 0.5
+u_att(a20,a63) : 0.5
+u_att(a20,a88) : 0.5
+u_att(a20,a90) : 0.5
+u_att(a20,a105) : 0.5
+u_att(a21,a20) : 0.5
+u_att(a21,a27) : 0.5
+u_att(a21,a30) : 0.5
+u_att(a21,a39) : 0.5
+u_att(a21,a42) : 0.5
+u_att(a21,a49) : 0.5
+u_att(a21,a56) : 0.5
+u_att(a21,a68) : 0.5
+u_att(a21,a69) : 0.5
+u_att(a21,a71) : 0.5
+u_att(a21,a76) : 0.5
+u_att(a21,a106) : 0.5
+u_att(a21,a112) : 0.5
+u_att(a22,a52) : 0.5
+u_att(a22,a69) : 0.5
+u_att(a22,a72) : 0.5
+u_att(a22,a86) : 0.5
+u_att(a22,a95) : 0.5
+u_att(a22,a111) : 0.5
+u_att(a22,a119) : 0.5
+u_att(a23,a20) : 0.5
+u_att(a23,a35) : 0.5
+u_att(a23,a37) : 0.5
+u_att(a23,a68) : 0.5
+u_att(a23,a79) : 0.5
+u_att(a23,a93) : 0.5
+u_att(a23,a103) : 0.5
+u_att(a23,a112) : 0.5
+u_att(a23,a115) : 0.5
+u_att(a23,a117) : 0.5
+u_att(a24,a20) : 0.5
+u_att(a24,a22) : 0.5
+u_att(a24,a27) : 0.5
+u_att(a24,a48) : 0.5
+u_att(a24,a56) : 0.5
+u_att(a24,a62) : 0.5
+u_att(a24,a74) : 0.5
+u_att(a24,a81) : 0.5
+u_att(a24,a93) : 0.5
+u_att(a24,a97) : 0.5
+u_att(a24,a99) : 0.5
+u_att(a24,a115) : 0.5
+u_att(a24,a117) : 0.5
+u_att(a25,a12) : 0.5
+u_att(a25,a13) : 0.5
+u_att(a25,a29) : 0.5
+u_att(a25,a34) : 0.5
+u_att(a25,a40) : 0.5
+u_att(a25,a43) : 0.5
+u_att(a25,a50) : 0.5
+u_att(a25,a68) : 0.5
+u_att(a25,a70) : 0.5
+u_att(a25,a71) : 0.5
+u_att(a25,a95) : 0.5
+u_att(a25,a102) : 0.5
+u_att(a25,a103) : 0.5
+u_att(a25,a104) : 0.5
+u_att(a25,a113) : 0.5
+u_att(a25,a115) : 0.5
+u_att(a25,a118) : 0.5
+u_att(a25,a119) : 0.5
+u_att(a26,a13) : 0.5
+u_att(a26,a25) : 0.5
+u_att(a26,a30) : 0.5
+u_att(a26,a43) : 0.5
+u_att(a26,a48) : 0.5
+u_att(a26,a79) : 0.5
+u_att(a26,a93) : 0.5
+u_att(a26,a100) : 0.5
+u_att(a26,a102) : 0.5
+u_att(a26,a106) : 0.5
+u_att(a26,a108) : 0.5
+u_att(a26,a111) : 0.5
+u_att(a26,a117) : 0.5
+u_att(a27,a22) : 0.5
+u_att(a27,a34) : 0.5
+u_att(a27,a52) : 0.5
+u_att(a27,a58) : 0.5
+u_att(a27,a62) : 0.5
+u_att(a27,a65) : 0.5
+u_att(a27,a81) : 0.5
+u_att(a27,a110) : 0.5
+u_att(a27,a118) : 0.5
+u_att(a28,a25) : 0.5
+u_att(a28,a40) : 0.5
+u_att(a28,a42) : 0.5
+u_att(a28,a46) : 0.5
+u_att(a28,a53) : 0.5
+u_att(a28,a61) : 0.5
+u_att(a28,a88) : 0.5
+u_att(a28,a94) : 0.5
+u_att(a28,a96) : 0.5
+u_att(a28,a99) : 0.5
+u_att(a28,a107) : 0.5
+u_att(a28,a118) : 0.5
+u_att(a29,a12) : 0.5
+u_att(a29,a20) : 0.5
+u_att(a29,a23) : 0.5
+u_att(a29,a30) : 0.5
+u_att(a29,a32) : 0.5
+u_att(a29,a52) : 0.5
+u_att(a29,a55) : 0.5
+u_att(a29,a63) : 0.5
+u_att(a29,a80) : 0.5
+u_att(a29,a83) : 0.5
+u_att(a29,a95) : 0.5
+u_att(a30,a16) : 0.5
+u_att(a30,a17) : 0.5
+u_att(a30,a31) : 0.5
+u_att(a30,a39) : 0.5
+u_att(a30,a42) : 0.5
+u_att(a30,a43) : 0.5
+u_att(a30,a46) : 0.5
+u_att(a30,a69) : 0.5
+u_att(a30,a76) : 0.5
+u_att(a30,a79) : 0.5
+u_att(a30,a85) : 0.5
+u_att(a30,a94) : 0.5
+u_att(a30,a103) : 0.5
+u_att(a30,a107) : 0.5
+u_att(a30,a118) : 0.5
+u_att(a30,a119) : 0.5
+u_att(a31,a33) : 0.5
+u_att(a31,a41) : 0.5
+u_att(a31,a45) : 0.5
+u_att(a31,a69) : 0.5
+u_att(a31,a75) : 0.5
+u_att(a31,a79) : 0.5
+u_att(a31,a82) : 0.5
+u_att(a31,a91) : 0.5
+u_att(a31,a114) : 0.5
+u_att(a32,a20) : 0.5
+u_att(a32,a31) : 0.5
+u_att(a32,a42) : 0.5
+u_att(a32,a47) : 0.5
+u_att(a32,a50) : 0.5
+u_att(a32,a52) : 0.5
+u_att(a32,a54) : 0.5
+u_att(a32,a74) : 0.5
+u_att(a32,a78) : 0.5
+u_att(a32,a94) : 0.5
+u_att(a32,a110) : 0.5
+u_att(a33,a15) : 0.5
+u_att(a33,a28) : 0.5
+u_att(a33,a48) : 0.5
+u_att(a33,a57) : 0.5
+u_att(a33,a62) : 0.5
+u_att(a33,a73) : 0.5
+u_att(a33,a88) : 0.5
+u_att(a33,a89) : 0.5
+u_att(a33,a95) : 0.5
+u_att(a33,a98) : 0.5
+u_att(a33,a103) : 0.5
+u_att(a33,a112) : 0.5
+u_att(a34,a12) : 0.5
+u_att(a34,a21) : 0.5
+u_att(a34,a60) : 0.5
+u_att(a34,a65) : 0.5
+u_att(a34,a70) : 0.5
+u_att(a34,a76) : 0.5
+u_att(a34,a81) : 0.5
+u_att(a34,a103) : 0.5
+u_att(a34,a107) : 0.5
+u_att(a35,a18) : 0.5
+u_att(a35,a21) : 0.5
+u_att(a35,a37) : 0.5
+u_att(a35,a42) : 0.5
+u_att(a35,a57) : 0.5
+u_att(a35,a61) : 0.5
+u_att(a35,a92) : 0.5
+u_att(a35,a108) : 0.5
+u_att(a35,a114) : 0.5
+u_att(a36,a12) : 0.5
+u_att(a36,a20) : 0.5
+u_att(a36,a22) : 0.5
+u_att(a36,a25) : 0.5
+u_att(a36,a26) : 0.5
+u_att(a36,a27) : 0.5
+u_att(a36,a38) : 0.7
+u_att(a36,a52) : 0.7
+u_att(a36,a53) : 0.7
+u_att(a36,a60) : 0.7
+u_att(a36,a69) : 0.7
+u_att(a36,a73) : 0.7
+u_att(a36,a80) : 0.7
+u_att(a36,a83) : 0.7
+u_att(a36,a96) : 0.7
+u_att(a36,a106) : 0.7
+u_att(a37,a14) : 0.7
+u_att(a37,a18) : 0.7
+u_att(a37,a21) : 0.7
+u_att(a37,a29) : 0.7
+u_att(a37,a31) : 0.7
+u_att(a37,a75) : 0.7
+u_att(a37,a82) : 0.7
+u_att(a37,a100) : 0.7
+u_att(a37,a108) : 0.7
+u_att(a37,a109) : 0.7
+u_att(a37,a117) : 0.7
+u_att(a37,a119) : 0.7
+u_att(a38,a16) : 0.7
+u_att(a38,a41) : 0.7
+u_att(a38,a44) : 0.7
+u_att(a38,a59) : 0.7
+u_att(a38,a61) : 0.7
+u_att(a38,a101) : 0.7
+u_att(a38,a106) : 0.7
+u_att(a39,a23) : 0.7
+u_att(a39,a45) : 0.7
+u_att(a39,a54) : 0.7
+u_att(a39,a65) : 0.7
+u_att(a39,a66) : 0.7
+u_att(a39,a69) : 0.7
+u_att(a39,a88) : 0.7
+u_att(a39,a95) : 0.7
+u_att(a40,a15) : 0.7
+u_att(a40,a19) : 0.7
+u_att(a40,a21) : 0.7
+u_att(a40,a30) : 0.7
+u_att(a40,a69) : 0.7
+u_att(a40,a72) : 0.7
+u_att(a40,a85) : 0.7
+u_att(a40,a91) : 0.7
+u_att(a40,a110) : 0.7
+u_att(a40,a115) : 0.7
+u_att(a41,a13) : 0.7
+u_att(a41,a14) : 0.7
+u_att(a41,a28) : 0.7
+u_att(a41,a37) : 0.7
+u_att(a41,a47) : 0.5
+u_att(a41,a83) : 0.5
+u_att(a41,a93) : 0.5
+u_att(a41,a99) : 0.5
+u_att(a41,a113) : 0.5
+u_att(a41,a119) : 0.5
+u_att(a42,a28) : 0.5
+u_att(a42,a38) : 0.5
+u_att(a42,a46) : 0.5
+u_att(a42,a61) : 0.5
+u_att(a42,a62) : 0.5
+u_att(a42,a72) : 0.5
+u_att(a42,a91) : 0.5
+u_att(a42,a96) : 0.5
+u_att(a42,a112) : 0.5
+u_att(a43,a28) : 0.5
+u_att(a43,a39) : 0.5
+u_att(a43,a47) : 0.5
+u_att(a43,a51) : 0.5
+u_att(a43,a58) : 0.5
+u_att(a43,a62) : 0.5
+u_att(a43,a86) : 0.5
+u_att(a43,a90) : 0.5
+u_att(a43,a118) : 0.5
+u_att(a44,a25) : 0.5
+u_att(a44,a45) : 0.5
+u_att(a44,a46) : 0.5
+u_att(a44,a54) : 0.5
+u_att(a44,a69) : 0.5
+u_att(a44,a84) : 0.5
+u_att(a44,a85) : 0.5
+u_att(a44,a88) : 0.5
+u_att(a44,a105) : 0.5
+u_att(a44,a111) : 0.5
+u_att(a45,a14) : 0.5
+u_att(a45,a15) : 0.5
+u_att(a45,a30) : 0.5
+u_att(a45,a53) : 0.5
+u_att(a45,a60) : 0.5
+u_att(a45,a76) : 0.5
+u_att(a45,a77) : 0.5
+u_att(a45,a88) : 0.5
+u_att(a45,a107) : 0.5
+u_att(a45,a115) : 0.5
+u_att(a45,a116) : 0.5
+u_att(a45,a117) : 0.5
+u_att(a46,a16) : 0.5
+u_att(a46,a36) : 0.5
+u_att(a46,a61) : 0.5
+u_att(a46,a86) : 0.5
+u_att(a46,a87) : 0.5
+u_att(a46,a92) : 0.5
+u_att(a46,a110) : 0.5
+u_att(a46,a115) : 0.5
+u_att(a47,a14) : 0.5
+u_att(a47,a17) : 0.5
+u_att(a47,a38) : 0.5
+u_att(a47,a45) : 0.5
+u_att(a47,a59) : 0.5
+u_att(a47,a63) : 0.5
+u_att(a47,a70) : 0.5
+u_att(a47,a89) : 0.5
+u_att(a47,a109) : 0.5
+u_att(a48,a13) : 0.5
+u_att(a48,a20) : 0.5
+u_att(a48,a51) : 0.5
+u_att(a48,a53) : 0.5
+u_att(a48,a61) : 0.5
+u_att(a48,a69) : 0.5
+u_att(a48,a77) : 0.5
+u_att(a48,a88) : 0.5
+u_att(a48,a89) : 0.5
+u_att(a48,a103) : 0.5
+u_att(a48,a110) : 0.5
+u_att(a48,a113) : 0.5
+u_att(a48,a119) : 0.5
+u_att(a49,a12) : 0.5
+u_att(a49,a15) : 0.5
+u_att(a49,a16) : 0.5
+u_att(a49,a18) : 0.5
+u_att(a49,a22) : 0.5
+u_att(a49,a30) : 0.5
+u_att(a49,a35) : 0.5
+u_att(a49,a50) : 0.5
+u_att(a49,a52) : 0.5
+u_att(a49,a57) : 0.5
+u_att(a49,a58) : 0.5
+u_att(a49,a63) : 0.5
+u_att(a49,a76) : 0.5
+u_att(a49,a78) : 0.5
+u_att(a49,a79) : 0.5
+u_att(a49,a84) : 0.5
+u_att(a49,a85) : 0.5
+u_att(a49,a106) : 0.5
+u_att(a49,a116) : 0.5
+u_att(a50,a17) : 0.5
+u_att(a50,a76) : 0.5
+u_att(a50,a83) : 0.5
+u_att(a50,a87) : 0.5
+u_att(a50,a89) : 0.5
+u_att(a50,a105) : 0.5
+u_att(a51,a18) : 0.5
+u_att(a51,a40) : 0.5
+u_att(a51,a47) : 0.5
+u_att(a51,a49) : 0.5
+u_att(a51,a85) : 0.5
+u_att(a51,a97) : 0.5
+u_att(a51,a100) : 0.5
+u_att(a52,a16) : 0.5
+u_att(a52,a36) : 0.5
+u_att(a52,a53) : 0.5
+u_att(a52,a62) : 0.5
+u_att(a52,a67) : 0.5
+u_att(a52,a69) : 0.5
+u_att(a52,a90) : 0.5
+u_att(a52,a98) : 0.5
+u_att(a52,a100) : 0.5
+u_att(a53,a21) : 0.5
+u_att(a53,a23) : 0.5
+u_att(a53,a44) : 0.5
+u_att(a53,a51) : 0.5
+u_att(a53,a55) : 0.5
+u_att(a53,a59) : 0.5
+u_att(a53,a65) : 0.5
+u_att(a53,a79) : 0.5
+u_att(a53,a80) : 0.5
+u_att(a53,a83) : 0.5
+u_att(a53,a87) : 0.5
+u_att(a53,a95) : 0.5
+u_att(a54,a13) : 0.5
+u_att(a54,a15) : 0.5
+u_att(a54,a21) : 0.5
+u_att(a54,a30) : 0.5
+u_att(a54,a40) : 0.5
+u_att(a54,a57) : 0.5
+u_att(a54,a73) : 0.5
+u_att(a54,a86) : 0.5
+u_att(a55,a26) : 0.5
+u_att(a55,a30) : 0.5
+u_att(a55,a66) : 0.5
+u_att(a55,a73) : 0.5
+u_att(a55,a82) : 0.5
+u_att(a55,a85) : 0.5
+u_att(a55,a89) : 0.5
+u_att(a55,a93) : 0.5
+u_att(a55,a95) : 0.5
+u_att(a55,a96) : 0.5
+u_att(a55,a100) : 0.5
+u_att(a55,a101) : 0.5
+u_att(a55,a103) : 0.5
+u_att(a56,a15) : 0.5
+u_att(a56,a24) : 0.5
+u_att(a56,a25) : 0.5
+u_att(a56,a30) : 0.5
+u_att(a56,a70) : 0.5
+u_att(a56,a86) : 0.5
+u_att(a56,a92) : 0.5
+u_att(a56,a103) : 0.5
+u_att(a56,a110) : 0.5
+u_att(a56,a117) : 0.5
+u_att(a57,a15) : 0.5
+u_att(a57,a24) : 0.5
+u_att(a57,a31) : 0.5
+u_att(a57,a32) : 0.5
+u_att(a57,a49) : 0.5
+u_att(a57,a51) : 0.5
+u_att(a57,a56) : 0.5
+u_att(a57,a59) : 0.5
+u_att(a57,a84) : 0.5
+u_att(a57,a85) : 0.5
+u_att(a57,a101) : 0.5
+u_att(a57,a108) : 0.5
+u_att(a58,a70) : 0.5
+u_att(a58,a80) : 0.5
+u_att(a58,a87) : 0.5
+u_att(a59,a18) : 0.5
+u_att(a59,a27) : 0.5
+u_att(a59,a37) : 0.5
+u_att(a59,a47) : 0.5
+u_att(a59,a51) : 0.5
+u_att(a59,a61) : 0.5
+u_att(a59,a98) : 0.5
+u_att(a59,a100) : 0.5
+u_att(a59,a105) : 0.5
+u_att(a59,a106) : 0.5
+u_att(a59,a112) : 0.5
+u_att(a60,a36) : 0.5
+u_att(a60,a56) : 0.5
+u_att(a60,a93) : 0.5
+u_att(a60,a100) : 0.5
+u_att(a60,a108) : 0.5
+u_att(a60,a115) : 0.5
+u_att(a60,a118) : 0.5
+u_att(a61,a33) : 0.5
+u_att(a61,a73) : 0.5
+u_att(a61,a99) : 0.5
+u_att(a62,a23) : 0.5
+u_att(a62,a30) : 0.5
+u_att(a62,a32) : 0.5
+u_att(a62,a33) : 0.5
+u_att(a62,a47) : 0.5
+u_att(a62,a56) : 0.5
+u_att(a62,a66) : 0.5
+u_att(a62,a78) : 0.5
+u_att(a62,a83) : 0.5
+u_att(a62,a112) : 0.5
+u_att(a62,a114) : 0.5
+u_att(a62,a115) : 0.5
+u_att(a62,a118) : 0.5
+u_att(a63,a29) : 0.5
+u_att(a63,a45) : 0.5
+u_att(a63,a51) : 0.5
+u_att(a63,a54) : 0.5
+u_att(a63,a61) : 0.5
+u_att(a63,a71) : 0.5
+u_att(a63,a74) : 0.5
+u_att(a63,a83) : 0.5
+u_att(a63,a93) : 0.5
+u_att(a63,a106) : 0.5
+u_att(a64,a27) : 0.5
+u_att(a64,a34) : 0.5
+u_att(a64,a44) : 0.5
+u_att(a64,a45) : 0.5
+u_att(a64,a47) : 0.5
+u_att(a64,a107) : 0.5
+u_att(a64,a119) : 0.5
+u_att(a65,a31) : 0.5
+u_att(a65,a35) : 0.5
+u_att(a65,a59) : 0.5
+u_att(a65,a67) : 0.5
+u_att(a65,a90) : 0.5
+u_att(a65,a103) : 0.5
+u_att(a65,a117) : 0.5
+u_att(a66,a24) : 0.5
+u_att(a66,a27) : 0.5
+u_att(a66,a40) : 0.5
+u_att(a66,a43) : 0.5
+u_att(a66,a53) : 0.5
+u_att(a66,a54) : 0.5
+u_att(a66,a55) : 0.5
+u_att(a66,a73) : 0.5
+u_att(a66,a74) : 0.5
+u_att(a66,a75) : 0.5
+u_att(a66,a76) : 0.5
+u_att(a66,a99) : 0.5
+u_att(a66,a119) : 0.5
+u_att(a67,a25) : 0.5
+u_att(a67,a37) : 0.5
+u_att(a67,a40) : 0.5
+u_att(a67,a65) : 0.5
+u_att(a67,a72) : 0.5
+u_att(a67,a77) : 0.5
+u_att(a67,a104) : 0.5
+u_att(a67,a109) : 0.5
+u_att(a68,a20) : 0.5
+u_att(a68,a26) : 0.5
+u_att(a68,a32) : 0.5
+u_att(a68,a44) : 0.5
+u_att(a68,a74) : 0.5
+u_att(a68,a94) : 0.5
+u_att(a68,a95) : 0.5
+u_att(a68,a96) : 0.5
+u_att(a68,a105) : 0.5
+u_att(a68,a113) : 0.5
+u_att(a69,a33) : 0.5
+u_att(a69,a50) : 0.5
+u_att(a69,a62) : 0.5
+u_att(a69,a66) : 0.5
+u_att(a69,a75) : 0.5
+u_att(a69,a81) : 0.5
+u_att(a70,a13) : 0.5
+u_att(a70,a24) : 0.5
+u_att(a70,a28) : 0.5
+u_att(a70,a30) : 0.5
+u_att(a70,a32) : 0.5
+u_att(a70,a39) : 0.5
+u_att(a70,a51) : 0.5
+u_att(a70,a74) : 0.5
+u_att(a70,a83) : 0.5
+u_att(a70,a85) : 0.5
+u_att(a70,a87) : 0.5
+u_att(a70,a110) : 0.5
+u_att(a71,a17) : 0.5
+u_att(a71,a18) : 0.5
+u_att(a71,a22) : 0.5
+u_att(a71,a32) : 0.5
+u_att(a71,a51) : 0.5
+u_att(a71,a60) : 0.5
+u_att(a71,a66) : 0.5
+u_att(a71,a72) : 0.5
+u_att(a71,a79) : 0.5
+u_att(a71,a98) : 0.5
+u_att(a71,a102) : 0.5
+u_att(a71,a110) : 0.5
+u_att(a72,a12) : 0.5
+u_att(a72,a26) : 0.5
+u_att(a72,a47) : 0.5
+u_att(a72,a51) : 0.5
+u_att(a72,a57) : 0.5
+u_att(a72,a58) : 0.5
+u_att(a72,a64) : 0.5
+u_att(a72,a67) : 0.5
+u_att(a72,a74) : 0.5
+u_att(a72,a86) : 0.5
+u_att(a73,a14) : 0.5
+u_att(a73,a25) : 0.5
+u_att(a73,a43) : 0.5
+u_att(a73,a51) : 0.5
+u_att(a73,a58) : 0.5
+u_att(a73,a64) : 0.5
+u_att(a73,a66) : 0.5
+u_att(a73,a87) : 0.5
+u_att(a73,a89) : 0.5
+u_att(a74,a21) : 0.5
+u_att(a74,a25) : 0.5
+u_att(a74,a27) : 0.5
+u_att(a74,a29) : 0.5
+u_att(a74,a36) : 0.5
+u_att(a74,a57) : 0.5
+u_att(a74,a69) : 0.5
+u_att(a74,a85) : 0.5
+u_att(a74,a92) : 0.5
+u_att(a74,a99) : 0.5
+u_att(a75,a15) : 0.5
+u_att(a75,a17) : 0.5
+u_att(a75,a29) : 0.5
+u_att(a75,a35) : 0.5
+u_att(a75,a41) : 0.5
+u_att(a75,a43) : 0.5
+u_att(a75,a53) : 0.5
+u_att(a75,a64) : 0.5
+u_att(a75,a67) : 0.5
+u_att(a75,a74) : 0.5
+u_att(a75,a80) : 0.5
+u_att(a75,a92) : 0.5
+u_att(a75,a103) : 0.5
+u_att(a75,a106) : 0.5
+u_att(a75,a117) : 0.5
+u_att(a76,a15) : 0.5
+u_att(a76,a27) : 0.5
+u_att(a76,a38) : 0.5
+u_att(a76,a41) : 0.5
+u_att(a76,a69) : 0.5
+u_att(a76,a100) : 0.5
+u_att(a76,a101) : 0.5
+u_att(a76,a110) : 0.5
+u_att(a77,a14) : 0.5
+u_att(a77,a21) : 0.5
+u_att(a77,a22) : 0.5
+u_att(a77,a66) : 0.5
+u_att(a77,a69) : 0.5
+u_att(a77,a81) : 0.5
+u_att(a77,a96) : 0.5
+u_att(a77,a99) : 0.5
+u_att(a78,a16) : 0.5
+u_att(a78,a44) : 0.5
+u_att(a78,a49) : 0.5
+u_att(a78,a64) : 0.5
+u_att(a78,a85) : 0.5
+u_att(a78,a93) : 0.5
+u_att(a78,a97) : 0.5
+u_att(a78,a114) : 0.5
+u_att(a79,a12) : 0.5
+u_att(a79,a29) : 0.5
+u_att(a79,a54) : 0.5
+u_att(a79,a61) : 0.5
+u_att(a79,a66) : 0.5
+u_att(a79,a69) : 0.5
+u_att(a79,a76) : 0.5
+u_att(a79,a78) : 0.5
+u_att(a79,a81) : 0.5
+u_att(a79,a87) : 0.5
+u_att(a80,a14) : 0.5
+u_att(a80,a15) : 0.5
+u_att(a80,a17) : 0.5
+u_att(a80,a25) : 0.5
+u_att(a80,a30) : 0.5
+u_att(a80,a34) : 0.5
+u_att(a80,a60) : 0.5
+u_att(a80,a67) : 0.5
+u_att(a80,a72) : 0.5
+u_att(a80,a83) : 0.5
+u_att(a80,a95) : 0.5
+u_att(a80,a114) : 0.5
+u_att(a81,a22) : 0.5
+u_att(a81,a31) : 0.5
+u_att(a81,a35) : 0.5
+u_att(a81,a37) : 0.5
+u_att(a81,a52) : 0.5
+u_att(a81,a54) : 0.5
+u_att(a81,a58) : 0.5
+u_att(a81,a62) : 0.5
+u_att(a81,a106) : 0.5
+u_att(a82,a16) : 0.5
+u_att(a82,a20) : 0.5
+u_att(a82,a37) : 0.5
+u_att(a82,a41) : 0.5
+u_att(a82,a73) : 0.5
+u_att(a82,a77) : 0.5
+u_att(a82,a107) : 0.5
+u_att(a83,a37) : 0.5
+u_att(a83,a71) : 0.5
+u_att(a83,a74) : 0.5
+u_att(a83,a91) : 0.5
+u_att(a83,a114) : 0.5
+u_att(a83,a115) : 0.5
+u_att(a83,a119) : 0.5
+u_att(a84,a26) : 0.5
+u_att(a84,a32) : 0.5
+u_att(a84,a43) : 0.5
+u_att(a84,a52) : 0.5
+u_att(a84,a61) : 0.5
+u_att(a84,a93) : 0.5
+u_att(a84,a109) : 0.5
+u_att(a84,a112) : 0.5
+u_att(a84,a113) : 0.5
+u_att(a85,a16) : 0.5
+u_att(a85,a19) : 0.5
+u_att(a85,a68) : 0.5
+u_att(a85,a73) : 0.5
+u_att(a85,a82) : 0.5
+u_att(a85,a95) : 0.5
+u_att(a85,a97) : 0.5
+u_att(a85,a108) : 0.5
+u_att(a85,a110) : 0.5
+u_att(a85,a111) : 0.5
+u_att(a86,a29) : 0.5
+u_att(a86,a30) : 0.5
+u_att(a86,a54) : 0.5
+u_att(a86,a56) : 0.5
+u_att(a86,a60) : 0.5
+u_att(a86,a65) : 0.5
+u_att(a86,a67) : 0.5
+u_att(a86,a73) : 0.5
+u_att(a86,a77) : 0.5
+u_att(a86,a78) : 0.5
+u_att(a86,a113) : 0.5
+u_att(a87,a15) : 0.5
+u_att(a87,a16) : 0.5
+u_att(a87,a18) : 0.5
+u_att(a87,a20) : 0.5
+u_att(a87,a22) : 0.5
+u_att(a87,a27) : 0.5
+u_att(a87,a28) : 0.5
+u_att(a87,a29) : 0.5
+u_att(a87,a49) : 0.5
+u_att(a87,a59) : 0.5
+u_att(a87,a66) : 0.5
+u_att(a87,a108) : 0.5
+u_att(a87,a119) : 0.5
+u_att(a88,a22) : 0.5
+u_att(a88,a28) : 0.5
+u_att(a88,a43) : 0.5
+u_att(a88,a45) : 0.5
+u_att(a88,a48) : 0.5
+u_att(a88,a72) : 0.5
+u_att(a88,a100) : 0.5
+u_att(a88,a102) : 0.5
+u_att(a88,a106) : 0.5
+u_att(a88,a115) : 0.5
+u_att(a88,a118) : 0.5
+u_att(a89,a16) : 0.5
+u_att(a89,a28) : 0.5
+u_att(a89,a35) : 0.5
+u_att(a89,a43) : 0.5
+u_att(a89,a48) : 0.5
+u_att(a89,a49) : 0.5
+u_att(a89,a72) : 0.5
+u_att(a89,a74) : 0.5
+u_att(a89,a76) : 0.5
+u_att(a89,a80) : 0.5
+u_att(a89,a98) : 0.5
+u_att(a89,a102) : 0.5
+u_att(a89,a103) : 0.5
+u_att(a89,a108) : 0.5
+u_att(a89,a109) : 0.5
+u_att(a89,a116) : 0.5
+u_att(a90,a26) : 0.5
+u_att(a90,a31) : 0.5
+u_att(a90,a45) : 0.5
+u_att(a90,a69) : 0.5
+u_att(a90,a74) : 0.5
+u_att(a90,a111) : 0.5
+u_att(a91,a13) : 0.5
+u_att(a91,a22) : 0.5
+u_att(a91,a38) : 0.5
+u_att(a91,a61) : 0.5
+u_att(a91,a62) : 0.5
+u_att(a91,a63) : 0.5
+u_att(a91,a70) : 0.5
+u_att(a91,a105) : 0.5
+u_att(a92,a17) : 0.5
+u_att(a92,a33) : 0.5
+u_att(a92,a54) : 0.5
+u_att(a92,a59) : 0.5
+u_att(a92,a62) : 0.5
+u_att(a92,a91) : 0.5
+u_att(a92,a98) : 0.5
+u_att(a92,a99) : 0.5
+u_att(a93,a21) : 0.5
+u_att(a93,a32) : 0.5
+u_att(a93,a56) : 0.5
+u_att(a93,a66) : 0.5
+u_att(a93,a69) : 0.5
+u_att(a93,a72) : 0.5
+u_att(a93,a94) : 0.5
+u_att(a93,a99) : 0.5
+u_att(a93,a104) : 0.5
+u_att(a93,a114) : 0.5
+u_att(a94,a20) : 0.5
+u_att(a94,a22) : 0.5
+u_att(a94,a32) : 0.5
+u_att(a94,a45) : 0.5
+u_att(a94,a50) : 0.5
+u_att(a94,a55) : 0.5
+u_att(a94,a70) : 0.5
+u_att(a94,a78) : 0.5
+u_att(a94,a85) : 0.5
+u_att(a94,a109) : 0.5
+u_att(a94,a119) : 0.5
+u_att(a95,a25) : 0.5
+u_att(a95,a29) : 0.5
+u_att(a95,a30) : 0.5
+u_att(a95,a49) : 0.5
+u_att(a95,a69) : 0.5
+u_att(a95,a73) : 0.5
+u_att(a95,a77) : 0.5
+u_att(a95,a79) : 0.5
+u_att(a95,a96) : 0.5
+u_att(a95,a100) : 0.5
+u_att(a95,a110) : 0.5
+u_att(a95,a114) : 0.5
+u_att(a96,a16) : 0.5
+u_att(a96,a17) : 0.5
+u_att(a96,a38) : 0.5
+u_att(a96,a55) : 0.5
+u_att(a96,a82) : 0.5
+u_att(a96,a90) : 0.5
+u_att(a96,a98) : 0.5
+u_att(a96,a107) : 0.5
+u_att(a96,a114) : 0.5
+u_att(a97,a16) : 0.5
+u_att(a97,a59) : 0.5
+u_att(a97,a84) : 0.5
+u_att(a97,a86) : 0.5
+u_att(a97,a87) : 0.5
+u_att(a97,a111) : 0.5
+u_att(a97,a113) : 0.5
+u_att(a98,a35) : 0.5
+u_att(a98,a38) : 0.5
+u_att(a98,a58) : 0.5
+u_att(a98,a86) : 0.5
+u_att(a98,a89) : 0.5
+u_att(a98,a91) : 0.5
+u_att(a98,a115) : 0.5
+u_att(a99,a32) : 0.5
+u_att(a99,a46) : 0.5
+u_att(a99,a70) : 0.5
+u_att(a99,a104) : 0.5
+u_att(a99,a112) : 0.5
+u_att(a100,a32) : 0.5
+u_att(a100,a37) : 0.5
+u_att(a100,a53) : 0.5
+u_att(a100,a55) : 0.5
+u_att(a100,a58) : 0.5
+u_att(a100,a74) : 0.5
+u_att(a100,a81) : 0.5
+u_att(a100,a83) : 0.5
+u_att(a100,a94) : 0.5
+u_att(a100,a98) : 0.5
+u_att(a100,a109) : 0.5
+u_att(a100,a117) : 0.5
+u_att(a101,a13) : 0.5
+u_att(a101,a19) : 0.5
+u_att(a101,a34) : 0.5
+u_att(a101,a37) : 0.5
+u_att(a101,a40) : 0.5
+u_att(a101,a41) : 0.5
+u_att(a101,a43) : 0.5
+u_att(a101,a45) : 0.5
+u_att(a101,a58) : 0.5
+u_att(a101,a81) : 0.5
+u_att(a101,a115) : 0.5
+u_att(a102,a18) : 0.5
+u_att(a102,a19) : 0.5
+u_att(a102,a38) : 0.5
+u_att(a102,a51) : 0.5
+u_att(a102,a54) : 0.5
+u_att(a102,a79) : 0.5
+u_att(a103,a18) : 0.5
+u_att(a103,a21) : 0.5
+u_att(a103,a26) : 0.5
+u_att(a103,a42) : 0.5
+u_att(a103,a66) : 0.5
+u_att(a103,a69) : 0.5
+u_att(a103,a89) : 0.5
+u_att(a103,a90) : 0.5
+u_att(a103,a94) : 0.5
+u_att(a103,a96) : 0.5
+u_att(a104,a13) : 0.5
+u_att(a104,a17) : 0.5
+u_att(a104,a18) : 0.5
+u_att(a104,a27) : 0.5
+u_att(a104,a32) : 0.5
+u_att(a104,a33) : 0.5
+u_att(a104,a36) : 0.5
+u_att(a104,a42) : 0.5
+u_att(a104,a44) : 0.5
+u_att(a104,a55) : 0.5
+u_att(a104,a57) : 0.5
+u_att(a104,a64) : 0.5
+u_att(a104,a67) : 0.5
+u_att(a104,a68) : 0.5
+u_att(a104,a69) : 0.5
+u_att(a104,a98) : 0.5
+u_att(a104,a106) : 0.5
+u_att(a104,a112) : 0.5
+u_att(a105,a19) : 0.5
+u_att(a105,a26) : 0.5
+u_att(a105,a30) : 0.5
+u_att(a105,a56) : 0.5
+u_att(a105,a92) : 0.5
+u_att(a105,a94) : 0.5
+u_att(a105,a100) : 0.5
+u_att(a105,a103) : 0.5
+u_att(a105,a110) : 0.5
+u_att(a105,a116) : 0.5
+u_att(a106,a14) : 0.5
+u_att(a106,a22) : 0.5
+u_att(a106,a60) : 0.5
+u_att(a106,a63) : 0.5
+u_att(a106,a64) : 0.5
+u_att(a106,a68) : 0.5
+u_att(a106,a70) : 0.5
+u_att(a106,a83) : 0.5
+u_att(a106,a85) : 0.5
+u_att(a106,a87) : 0.5
+u_att(a106,a91) : 0.5
+u_att(a106,a94) : 0.5
+u_att(a106,a99) : 0.5
+u_att(a106,a119) : 0.5
+u_att(a107,a23) : 0.5
+u_att(a107,a31) : 0.5
+u_att(a107,a39) : 0.5
+u_att(a107,a61) : 0.5
+u_att(a107,a63) : 0.5
+u_att(a107,a65) : 0.5
+u_att(a107,a67) : 0.5
+u_att(a107,a90) : 0.5
+u_att(a107,a96) : 0.5
+u_att(a107,a103) : 0.5
+u_att(a108,a24) : 0.5
+u_att(a108,a28) : 0.5
+u_att(a108,a37) : 0.5
+u_att(a108,a41) : 0.5
+u_att(a108,a48) : 0.5
+u_att(a108,a55) : 0.5
+u_att(a108,a65) : 0.5
+u_att(a108,a74) : 0.5
+u_att(a108,a75) : 0.5
+u_att(a108,a82) : 0.5
+u_att(a108,a84) : 0.5
+u_att(a108,a85) : 0.5
+u_att(a108,a113) : 0.5
+u_att(a109,a14) : 0.5
+u_att(a109,a38) : 0.5
+u_att(a109,a47) : 0.5
+u_att(a109,a60) : 0.5
+u_att(a109,a62) : 0.5
+u_att(a109,a78) : 0.5
+u_att(a109,a89) : 0.5
+u_att(a109,a90) : 0.5
+u_att(a109,a103) : 0.5
+u_att(a110,a23) : 0.5
+u_att(a110,a41) : 0.5
+u_att(a110,a42) : 0.5
+u_att(a110,a51) : 0.5
+u_att(a110,a58) : 0.5
+u_att(a110,a67) : 0.5
+u_att(a110,a78) : 0.5
+u_att(a110,a79) : 0.5
+u_att(a110,a82) : 0.5
+u_att(a110,a87) : 0.5
+u_att(a110,a97) : 0.5
+u_att(a110,a117) : 0.5
+u_att(a111,a21) : 0.5
+u_att(a111,a23) : 0.5
+u_att(a111,a32) : 0.5
+u_att(a111,a48) : 0.5
+u_att(a111,a53) : 0.5
+u_att(a111,a60) : 0.5
+u_att(a111,a64) : 0.5
+u_att(a111,a70) : 0.5
+u_att(a111,a75) : 0.5
+u_att(a111,a84) : 0.5
+u_att(a112,a43) : 0.5
+u_att(a112,a61) : 0.5
+u_att(a112,a81) : 0.5
+u_att(a112,a83) : 0.5
+u_att(a112,a96) : 0.5
+u_att(a112,a100) : 0.5
+u_att(a113,a17) : 0.5
+u_att(a113,a30) : 0.5
+u_att(a113,a53) : 0.5
+u_att(a113,a60) : 0.5
+u_att(a113,a61) : 0.5
+u_att(a113,a67) : 0.5
+u_att(a113,a69) : 0.5
+u_att(a113,a86) : 0.5
+u_att(a113,a93) : 0.5
+u_att(a113,a101) : 0.5
+u_att(a113,a109) : 0.5
+u_att(a114,a25) : 0.5
+u_att(a114,a69) : 0.5
+u_att(a114,a75) : 0.5
+u_att(a114,a89) : 0.5
+u_att(a114,a117) : 0.5
+u_att(a115,a34) : 0.5
+u_att(a115,a37) : 0.5
+u_att(a115,a41) : 0.5
+u_att(a115,a49) : 0.5
+u_att(a115,a69) : 0.5
+u_att(a115,a116) : 0.5
+u_att(a116,a21) : 0.5
+u_att(a116,a23) : 0.5
+u_att(a116,a31) : 0.5
+u_att(a116,a38) : 0.5
+u_att(a116,a54) : 0.5
+u_att(a116,a60) : 0.5
+u_att(a116,a66) : 0.5
+u_att(a116,a82) : 0.5
+u_att(a116,a95) : 0.5
+u_att(a116,a104) : 0.5
+u_att(a117,a15) : 0.5
+u_att(a117,a39) : 0.5
+u_att(a117,a44) : 0.5
+u_att(a117,a66) : 0.5
+u_att(a117,a68) : 0.5
+u_att(a117,a76) : 0.5
+u_att(a117,a81) : 0.5
+u_att(a117,a84) : 0.5
+u_att(a117,a102) : 0.5
+u_att(a117,a104) : 0.5
+u_att(a117,a111) : 0.5
+u_att(a117,a113) : 0.5
+u_att(a117,a114) : 0.5
+u_att(a118,a24) : 0.5
+u_att(a118,a25) : 0.5
+u_att(a118,a38) : 0.5
+u_att(a118,a51) : 0.5
+u_att(a118,a62) : 0.5
+u_att(a118,a67) : 0.5
+u_att(a118,a70) : 0.5
+u_att(a118,a91) : 0.5
+u_att(a118,a93) : 0.5
+u_att(a118,a96) : 0.5
+u_att(a118,a100) : 0.5
+u_att(a118,a103) : 0.5
+u_att(a118,a109) : 0.5
+u_att(a118,a113) : 0.5
+u_att(a118,a117) : 0.5
+u_att(a119,a24) : 0.5
+u_att(a119,a35) : 0.5
+u_att(a119,a37) : 0.5
+u_att(a119,a45) : 0.5
+u_att(a119,a59) : 0.5
+u_att(a119,a78) : 0.5
+u_att(a119,a84) : 0.5
+u_att(a119,a88) : 0.5
+u_att(a119,a89) : 0.5
+u_att(a119,a102) : 0.5
+target(a33).

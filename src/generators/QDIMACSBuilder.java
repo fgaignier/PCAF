@@ -14,12 +14,24 @@ public class QDIMACSBuilder {
 	protected Map<String, Integer> varI;
 	// additional variables created
 	protected Map<String, Integer> varA;
+	
+	//reverse Maps to get the name from its int value (to decode the solution)
+	protected Map<Integer, String> varIrev;
+	protected Map<Integer, String> varArev;
+	
 	protected int nbClause;
 	protected int nbVar;
 	
+	/**
+	 * need to be able to associate a var name to its int value and vice versa
+	 */
 	public QDIMACSBuilder() {
 		varI = new LinkedHashMap<String, Integer>();
 		varA = new LinkedHashMap<String, Integer>();
+		// reverse structures
+		varIrev = new LinkedHashMap<Integer, String>();
+		varArev = new LinkedHashMap<Integer, String>();
+		
 		this.nbVar = 0;
 		this.nbClause = 0;
 	}
@@ -33,10 +45,14 @@ public class QDIMACSBuilder {
 	 */
 	public void addVar(String name, boolean additional) {
 		this.nbVar ++;
+		Integer value = new Integer(this.nbVar);
 		if(additional) {
-			varA.put(name,  new Integer(this.nbVar));
+			varA.put(name,  value);
+			varArev.put(value, name);
+			
 		} else {
-			varI.put(name,  new Integer(this.nbVar));
+			varI.put(name,  value);
+			varIrev.put(value, name);
 		}
 	}
 	
@@ -76,5 +92,33 @@ public class QDIMACSBuilder {
 	
 	public int getNbClause() {
 		return this.nbClause;
+	}
+	
+	/**
+	 * returns the name of the variable
+	 * could be an original variable or an additional one
+	 * if not found throws an exception
+	 * @param var
+	 * @return
+	 */
+	public String getVarName(Integer var) {
+		String name = varIrev.get(var);
+		if(name == null) {
+			name = varArev.get(var);
+		}
+		if(name == null) {
+			throw new UnsupportedOperationException("Atom of Id " + var.toString() + " is not in the var list");
+		}
+		return name;
+	}
+	
+	/**
+	 * returns the name of the corresponding variable.
+	 * if it is not an original variable, returns null
+	 * @param var
+	 * @return
+	 */
+	public String getOriginalVarName(Integer var) {
+		return varIrev.get(var);
 	}
 }

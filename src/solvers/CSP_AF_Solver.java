@@ -44,7 +44,7 @@ public class CSP_AF_Solver {
 	 * Constraints:
 	 * all attackers of an argument x have accepted=0 and accepted(x) = 1
 	 * or
-	 *  at least on atacker of x has accepted = 1 and accepted(x) = 0
+	 *  at least on attacker of x has accepted = 1 and accepted(x) = 0
 	 */
 	public Set<StableExtension> getStableSets() {
 

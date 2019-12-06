@@ -12,6 +12,9 @@ import model.ControlAF;
 
 public class StrongSATEncoder {
 
+	protected static String main = "main";
+	protected static String body = "body";
+	
 	protected ArgumentFramework instance;
 	protected ControlAF CAF;
 
@@ -23,12 +26,18 @@ public class StrongSATEncoder {
 	public SatFormula encode(int type) {
 		List<String> variables = getVariables();
 
-		Conjunction formula = new Conjunction("main");
 		Formula target = encodeTarget();
 		Formula control = encodeControl();
 		Formula conflictFree = encodeConflictFree();
 		Formula controlConflictFree = encodeControlConflictFree();
 
+		Conjunction formula = null;
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			formula = new Conjunction(StrongSATEncoder.main);
+		} else {
+			formula = new Conjunction(StrongSATEncoder.body);
+		}
+		
 		// target cannot be empty
 		formula.addSubformula(target);
 		
@@ -45,7 +54,13 @@ public class StrongSATEncoder {
 			formula.addSubformula(controlConflictFree);
 		}
 		
-		return new SatFormula(variables, formula);
+		if(type == ControllabilityEncoder.CREDULOUS) {
+			return new SatFormula(variables, formula);
+		} else {
+			Implication skeptical = new Implication(StrongSATEncoder.main, formula, target); 
+			return new SatFormula(variables, skeptical);
+		}
+		
 	}
 
 	public List<String> getVariables() {

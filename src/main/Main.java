@@ -10,10 +10,11 @@ import tests.test_PCAF;
 
 public class Main {
 
-
+	public static double ERROR = 0.05;
+	
 	public static void main(String[] args) {
-		if (args.length < 4) {
-			System.out.println("usage: path, file name, type (CAF=0,PCAF=1), acceptance(SKE=0,CRE=1)");
+		if (args.length < 5) {
+			System.out.println("usage: path, file name, type (CAF=0,PCAF=1), acceptance(SKE=0,CRE=1), solver (CSP=0, SAT=1)");
 			System.exit(1);
 		}
 
@@ -22,6 +23,7 @@ public class Main {
 		String file_name = args[1];
 		int type = Integer.parseInt(args[2]);
 		int acceptance = Integer.parseInt(args[3]);
+		int solver_type = Integer.parseInt(args[4]);
 		
 		//creates timer
 		util.Timer timer = new util.Timer();
@@ -42,11 +44,11 @@ public class Main {
 		
 		if(acceptance == 0) {
 			timer.start();
-			pcaftest.printMostProbableControllingEntities(0.05, ControllabilityEncoder.SKEPTICAL);
+			pcaftest.printMostProbableControllingEntities(Main.ERROR, ControllabilityEncoder.SKEPTICAL, solver_type);
 			System.out.println("total time: " + timer.stop() + " milliseconds");
 		} else {
 			timer.start();
-			pcaftest.printMostProbableControllingEntities(0.05, ControllabilityEncoder.CREDULOUS);
+			pcaftest.printMostProbableControllingEntities(Main.ERROR, ControllabilityEncoder.CREDULOUS, solver_type);
 			System.out.println("total time: " + timer.stop() + " milliseconds");
 		}
 

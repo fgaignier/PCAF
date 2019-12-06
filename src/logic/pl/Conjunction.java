@@ -56,6 +56,20 @@ public class Conjunction extends Formula {
 		return build.toString();
 	}
 	
+	public List<List<Integer>> toQDIMACSList(QDIMACSBuilder build) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+		build.addVar(this.getName(), true);
+		for(Formula f : subformulas) {
+			if(!(f instanceof Atom || f instanceof Negation)) {
+				result.addAll(f.toQDIMACSList(build));
+			}
+		}
+		result.addAll(this.andQDIMACSList(build));
+
+		return result;
+	}
+	
 	public String toQDIMACS(QDIMACSBuilder build) {
 		StringBuilder result = new StringBuilder();
 		
@@ -106,5 +120,47 @@ public class Conjunction extends Formula {
 		result.append(individual.toString());
 		result.append(global.toString());
 		return result.toString();
+	}
+	
+	/**
+	 * (f <==> (x1 & x2 & x3)) expands to
+     * (~x1 | ~x2 | ~x3 | f)  &  (~f | x1)  &  (~f | x2)  &  (~f | x3)
+	 * @param build
+	 * @return
+	 */
+	public List<List<Integer>> andQDIMACSList(QDIMACSBuilder build) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		List<Integer> individual = null;
+		List<Integer> global = new ArrayList<Integer>();
+		
+		Integer encode = build.getVarCode(this.getName());
+		global.add(encode);
+		for(Formula f: this.subformulas) {
+			Integer subEncode = null;
+			int subEncodeSign = 1;
+			int subEncodeNeg = 1;
+			if(f instanceof Negation) {
+				Negation neg = (Negation)f;
+				subEncode = build.getVarCode(neg.getAtomName());
+				subEncodeSign = -1;
+			} else {
+				subEncode = build.getVarCode(f.getName());
+				subEncodeNeg = -1;
+			}
+			build.incClause();
+			individual = new ArrayList<Integer>();
+			individual.add(-1*encode);
+			individual.add(subEncodeSign*subEncode);
+			result.add(individual);
+			global.add(subEncodeNeg*subEncode);
+//			individual.append("-" + encode.toString() + subEncodeSign + subEncode.toString() + " 0\n");
+//			global.append(subEncodeNeg + subEncode.toString());
+		}
+		build.incClause();
+//		global.append(" 0\n");
+//		result.append(individual.toString());
+//		result.append(global.toString());
+		result.add(global);
+		return result;
 	}
 }

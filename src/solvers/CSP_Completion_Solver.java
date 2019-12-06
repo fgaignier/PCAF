@@ -24,7 +24,7 @@ import org.chocosolver.solver.constraints.*;
  * Class to find all control configurations for a given completion of a CAF
  * Both credulous and skeptical acceptance
  */
-public class CSP_Completion_Solver {
+public class CSP_Completion_Solver implements I_Completion_Solver {
 
 	protected ControlAF CAF;
 	protected ArgumentFramework completion;
@@ -39,8 +39,8 @@ public class CSP_Completion_Solver {
 	}
 
 
-	public void setCAF(ControlAF cAF) {
-		CAF = cAF;
+	public void setCAF(ControlAF CAF) {
+		this.CAF = CAF;
 	}
 
 
