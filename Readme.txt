@@ -4,6 +4,7 @@ Full Framework to work on:
 2) Control Argument Frameworks
 3) Probabilistic Control Argument Frameworks
 4) Weighted Argument Frameworks (h_cathegorizer implemented as unique semantic)
+5) TEST FAB
 
 ##################################################
 QBF Formulas generation for controllability solving
